@@ -13,6 +13,9 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Signika:wght@600&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </head>
 
 @*background-image: url('/Photos/background1.png');*@
@@ -32,40 +35,50 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-                            </li>*@
-                        <li class="nav-item nav-link text-dark" type="button" data-toggle="modal" data-target="#exampleModal">
-                            Log in
-                        </li>
-                        <li class="nav-item nav-link text-dark" type="button" data-toggle="modal" data-target="#exampleModal">
-                            Sign up
-                        </li>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+            </li>*@
+                        <!-- Login Modal -->
+                        <div class="modal fade" id="LoginModal" aria-hidden="true" aria-labelledby="LoginModalLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title text-center col-md-12" id="exampleModalLabel">Sign up</h5>
-                                        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <h5 class="modal-title" id="LoginModalLabel">Login Popup</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        @*@Html.Partial("~/Views/Users/Create.cshtml")*@
+                                        Hide this modal and show the first with the button below.
                                     </div>
-                                    @*<div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>*@
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Back to first</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Signup Modal -->
+                        <div class="modal fade" id="SignupModal" aria-hidden="true" aria-labelledby="SignupModalLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="SignupModalLabel">Signup Popup</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @*@Html.Partial("~/Views/Users/Create.cshtml", User) *@
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Already registered? Please Login</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </ul>
+                    <li class="nav-item nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                        Hello, Guest
+                    </li>
                 </div>
             </div>
         </nav>
