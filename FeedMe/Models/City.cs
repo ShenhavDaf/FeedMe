@@ -13,7 +13,7 @@ namespace ourProject.Models
 
         [Required(ErrorMessage = "Please insert name")]
         [Display(Name = "City Name")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z '-]*$")]
         public string Name{ get; set; }
 
 

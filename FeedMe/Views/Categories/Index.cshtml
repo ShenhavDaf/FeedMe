@@ -5,7 +5,7 @@
 }
 
 <style>
-    #myCard {
+    #categoryBtn {
         margin: auto;
         background-color: rgba(128, 128, 128, 0);
         border: gray;
@@ -18,41 +18,33 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+
+<div class="container">
+    <div class="row">
+
+        @foreach (var category in Model)
+        {
+
+            <button id="categoryBtn">
+                <div class="card" style="width: 18rem; background-color: rgba(128, 128, 128, 0);">
+                    <img src="@category.CategoryImage" class="itemCard" width="100%" height="100%">
+                    @if (category.CategoryImage == null)
+                    {
+                        <img src="~/Photos/notFind.png" class="itemCard" width="100%" height="100%">
+                    }
+                    <div class="card-body">
+                        <h5 class="text-center">@category.Name</h5>
+                        <tr>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@category.ID">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@category.ID">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@category.ID">Delete</a>
+                            </td>
+                        </tr>
+
+                    </div>
+                </div>
+            </button>
+        }
     </div>
 </div>
-
-
-@*@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryImage)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}*@
-
