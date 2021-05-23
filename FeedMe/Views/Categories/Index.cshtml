@@ -17,7 +17,7 @@
 </style>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Category</a>
 </p>
 
 
@@ -32,7 +32,7 @@
                     <img src="@category.CategoryImage" class="itemCard" width="100%" height="100%" style="border-radius:10px;">
                     @if (category.CategoryImage == null)
                     {
-                        <img src="~/Photos/notFind.png" class="itemCard" width="100%" height="100%">
+                        <img src="~/Photos/notFind.png" class="itemCard" width="80%" height="80%" style="margin-left:auto; margin-right:auto;">
                     }
                     <div class="card-body">
                         <h5 class="text-center">@category.Name</h5>
