@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace ourProject.Models
 {
+    public enum UserType
+    {
+        Guest,
+        Client,
+        rManager,
+        Admin
+    }
+
     public class User
     {
         public int Id { get; set; }
@@ -32,5 +40,7 @@ namespace ourProject.Models
 
         //one to one
         public CreditCard CreditCard { get; set; }
+
+        public UserType Type { get; set; } = UserType.Guest;
     }
 }
