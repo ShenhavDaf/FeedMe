@@ -50,7 +50,7 @@ namespace FeedMe.Controllers
 
                     //_context.Add(user);
                     //await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index), "Home");
+                    return RedirectToAction(nameof(Index), "Categories");
                 }
                 else
                 {

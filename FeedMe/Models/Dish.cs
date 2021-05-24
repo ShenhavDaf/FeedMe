@@ -12,8 +12,8 @@ namespace ourProject.Models
         /*------------------------------------------------------*/
 
         [Required(ErrorMessage = "Please insert name")]
-        [Display(Name = "Dose Name")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
+        [Display(Name = "Dish Name")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z '-]*$")]
         public string Name { get; set; }
 
         /*------------------------------------------------------*/

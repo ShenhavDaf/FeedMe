@@ -56,15 +56,17 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,DeliveryCities, Categories")] Restaurant restaurant, int[] deliveryCities, int[] categorits)
+        public async Task<IActionResult> Create([Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,DeliveryCities, Categories")] Restaurant restaurant, int[] categorits, int[] deliveryCities)
         {
             if (ModelState.IsValid)
             {
+                restaurant.Categories = new List<Category>();
+                restaurant.Categories.AddRange(_context.Category.Where(x => categorits.Contains(x.ID)));
+
                 restaurant.DeliveryCities = new List<City>();
                 restaurant.DeliveryCities.AddRange(_context.City.Where(x => deliveryCities.Contains(x.ID)));
 
-                restaurant.Categories = new List<Category>();
-                restaurant.Categories.AddRange(_context.Category.Where(x => categorits.Contains(x.ID)));
+
 
                 _context.Add(restaurant);
                 await _context.SaveChangesAsync();
