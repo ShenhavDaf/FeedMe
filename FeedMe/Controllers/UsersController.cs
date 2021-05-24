@@ -30,19 +30,22 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id,Email,Password")] User user)
+        public async Task<IActionResult> Login([Bind("Id,Email,Password,Name,PhoneNumber")] User user)
         {
             //var qName = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
-            //user.Name = qName.Name;
-            //user.PhoneNumber = qName.PhoneNumber;
+            /*user.Name = "a";
+            user.PhoneNumber = "d";*/
+            
+
             if (ModelState.IsValid)
             {
                 var q = from u in _context.User
                         where u.Email == user.Email && u.Password == user.Password
                         select u;
                 //var q = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
+                int count = await q.CountAsync();
 
-                if (q.Count() > 0)
+                if (count > 0)
                 {
 
                     //_context.Add(user);
