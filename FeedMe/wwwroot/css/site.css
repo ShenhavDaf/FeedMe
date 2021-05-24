@@ -27,7 +27,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 16px; /*Default: 14px*/
 }
 @media (min-width: 768px) {
   html {
@@ -59,8 +59,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #CCE5FF;
 }
 .footer {
   position: absolute;
@@ -68,4 +69,39 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+#homeStyle {
+    background-image: url(../Photos/Background.png);
+    background-size: cover;
+}
+
+#categoryBtn {
+    margin: auto;
+    background-color: rgba(128, 128, 128, 0);
+    border: gray;
+    border-style: double;
+    align-items: center;
+    border-radius: 25px;
+}
+
+#restaurantBody {
+    background-color: lightpink;
 }

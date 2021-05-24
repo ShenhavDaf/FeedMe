@@ -4,16 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<style>
-    #categoryBtn {
-        margin: auto;
-        background-color: rgba(128, 128, 128, 0);
-        border: gray;
-        border-style: double;
-        align-items: center;
-        border-radius: 25px;
-    }
-</style>
 
 
 <h1>Index</h1>
@@ -23,8 +13,8 @@
 </p>
 
 
-    
-<div class="container">
+<body id="restaurantBody">
+    <div class="container">
         <div class="row">
 
             @foreach (var restaurant in Model)
@@ -62,3 +52,4 @@
             }
         </div>
     </div>
+</body>
