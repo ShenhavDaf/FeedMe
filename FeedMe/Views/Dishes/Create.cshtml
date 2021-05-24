@@ -38,8 +38,8 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RestaurantID" class="control-label"></label>@*ה@ שלמטה מוסיף את כל המסעדות שהמנה מוגשת בהן*@
-                <select asp-for="RestaurantID" class="form-control" asp-items="ViewBag.RestaurantID"></select>
+                <label asp-for="Restaurant" class="control-label"></label>@*ה@ שלמטה מוסיף את כל המסעדות שהמנה מוגשת בהן*@
+                <select asp-for="Restaurant" class="form-control" asp-items="@ViewBag.Restaurant"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
