@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using ourProject.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FeedMe.Controllers
 {
@@ -26,6 +28,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewBag.Categories = new SelectList(_context.Category, nameof(Category.ID), nameof(Category.Name));
@@ -58,6 +62,10 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,DeliveryCities, Categories")] Restaurant restaurant, int[] categories, int[] deliveryCities)
         {
+            //if(HttpContext.Session.GetString("email") == null)
+            //{
+            //    return RedirectToAction("Login", "Users");
+            //}
             if (ModelState.IsValid)
             {
                 restaurant.Categories = new List<Category>();
