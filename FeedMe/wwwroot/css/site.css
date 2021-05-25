@@ -100,8 +100,39 @@ body {
     border-style: double;
     align-items: center;
     border-radius: 25px;
+    width: 18rem;
+    height: 18rem
+}
+
+#restaurantBtn {
+    margin: auto;
+    background-color: rgba(128, 128, 128, 0);
+    border: gray;
+    border-style: double;
+    align-items: center;
+    border-radius: 25px;
+    width: 20rem;
+    height: 40rem;
+}
+
+/*restaurant and category*/
+.card {
+    /*background-color: #efefef;*/
+    background-color: rgba(128, 128, 128, 0);
+    border: hidden;
 }
 
 #restaurantBody {
     background-color: lightpink;
 }
+
+/*Home index*/
+/*.text-center {
+    color: white;
+    font-size: 100px;
+    font-family: 'Lobster', cursive;
+}
+
+.form-group {
+    margin-top: 125px;
+}*/
