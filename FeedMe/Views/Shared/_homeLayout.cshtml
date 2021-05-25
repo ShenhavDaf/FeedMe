@@ -47,14 +47,15 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="LoginModalLabel">Login Popup</h5>
+                                        <h5 class="modal-title" id="LoginModalLabel">Login to your FeedMe account</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         @Html.Partial("~/Views/Users/Login.cshtml", new ourProject.Models.User())
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Back to first</button>
+                                        @*<button class="btn btn-link" data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Back to first</button>*@
+                                        <p class="me-auto">Not registered? <a class="text-right text-primary text-decoration-underline" data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Click here</a> to register</p>
                                     </div>
                                 </div>
                             </div>
@@ -65,14 +66,15 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="SignupModalLabel">Signup Popup</h5>
+                                        <h5 class="modal-title" id="SignupModalLabel">Create a new FeedMe account</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         @Html.Partial("~/Views/Users/Register.cshtml", new ourProject.Models.User())
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Already registered? Please Login</button>
+                                        @*<button class="btn btn-link" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Already registered? Please Login</button>*@
+                                        <p class="me-auto">Already registered? <a class="text-right text-primary text-decoration-underline" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Click here</a> to login</p>
                                     </div>
                                 </div>
                             </div>

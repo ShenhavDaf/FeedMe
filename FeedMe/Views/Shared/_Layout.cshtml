@@ -51,7 +51,8 @@
                                         @Html.Partial("~/Views/Users/Login.cshtml", new ourProject.Models.User())
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Back to first</button>
+                                        @*<button class="btn btn-link" data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Back to first</button>*@
+                                        Not registered? <a class="text-primary text-decoration-underline" data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Click here</a> to register
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +70,8 @@
                                         @Html.Partial("~/Views/Users/Register.cshtml", new ourProject.Models.User())
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Already registered? Please Login</button>
+                                        @*<button class="btn btn-link" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Already registered? Please Login</button>*@
+                                        Already registered? <a class="text-primary text-decoration-underline" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Click here</a> to login
                                     </div>
                                 </div>
                             </div>
