@@ -16,12 +16,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
-<body>
+<body >
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -36,11 +34,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-                            </li>*@
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+            </li>*@
                         <!-- Login Modal -->
                         <div class="modal fade" id="LoginModal" aria-hidden="true" aria-labelledby="LoginModalLabel" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
@@ -92,66 +90,12 @@
         </main>
     </div>
 
-    <footer>
-        <div class="container-fluid bg-grey py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="logo-part">
-                                <img src="../Photos/logo.png" height="50px" />
-                                <b>&nbsp;FeedMe&nbsp;</b>
-
-                                <p><br> <b>Address:</b> Eli Wiesel 2, Rishon Lezion<br> <b>Phone Number:</b> 03-963-4001</p>
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6 px-4">
-                                <h6> Top 5 Restaurants</h6>
-                                <div class="row ">
-                                    <div class="col-md-7">
-                                        <ul>
-                                            <li> <a href="https://localhost:44376/Cities"> restaurant 1</a> </li>
-                                            <li> <a href="#"> restaurant 2</a> </li>
-                                            <li> <a href="#"> restaurant 3</a> </li>
-                                            <li> <a href="#"> restaurant 4</a> </li>
-                                            <li> <a href="#"> restaurant 5</a> </li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-md-6 ">
-                                <h6> Follow Us</h6>
-                                <div class="social">
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                </div>
-                                <form class="form-footer my-3">
-                                    <h6> You look for something?</h6>
-                                    <input type="text" placeholder="Dishes or Restaurants" name="search">
-                                    <input type="button" value="Go">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <footer class="border-top footer text-muted">
         <div class="container">
-            <p class="text-center">Copyright @DateTime.Now.Year | Designed With by <a href="https://localhost:44376/">FeedMe</a></p>
+            &copy; 2021 - FeedMe - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="popper/popper.min.js" type="text/javascript"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
