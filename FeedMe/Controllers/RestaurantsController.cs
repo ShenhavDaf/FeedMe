@@ -84,6 +84,9 @@ namespace FeedMe.Controllers
             }
 
             var restaurant = await _context.Restaurant.FindAsync(id);
+            //restaurant.Categories = _context.Category.Where()
+
+
             if (restaurant == null)
             {
                 return NotFound();
@@ -96,12 +99,14 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate, Categories")] Restaurant restaurant)
         {
             if (id != restaurant.ID)
             {
                 return NotFound();
             }
+
+          
 
             if (ModelState.IsValid)
             {
