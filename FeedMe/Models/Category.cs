@@ -14,7 +14,7 @@ namespace ourProject.Models
         
         [Required(ErrorMessage = "Please input category name")]
         [Display(Name ="Category Name")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z -']*$")]
         public string Name{ get; set; }
         
         /*---------------------------------------------------------------------*/
