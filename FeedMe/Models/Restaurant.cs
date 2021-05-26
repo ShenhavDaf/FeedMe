@@ -45,9 +45,9 @@ namespace ourProject.Models
         /*------------------------------------------------------*/
 
         //MANY restaurants TO MANY cities
-        [Required(ErrorMessage = "Select which cities you provide deliveries")]
         [Display(Name = "Where do you make deliveries?")]
         public List<City> DeliveryCities { get; set; }
+
 
         /*------------------------------------------------------*/
 
