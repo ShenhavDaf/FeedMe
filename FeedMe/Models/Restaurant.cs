@@ -27,6 +27,7 @@ namespace ourProject.Models
         [Display(Name = "Tell us about your restaurant")]
         public string Description{ get; set; }
         /*------------------------------------------------------*/
+
         [Required(ErrorMessage = "Please insert restaurant address")]
         public string Address{ get; set; }
 
