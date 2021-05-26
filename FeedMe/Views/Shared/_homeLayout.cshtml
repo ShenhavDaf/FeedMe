@@ -50,11 +50,20 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-                            </li>
+            <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="login">log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="signup">sign up</a>
+        </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Create">Restaurants</a>
+                        </li>
+                        @if (Context.User != null & Context.User.Claims != null && Context.User.Claims.Count() < 0)
+                        {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-                            </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
+                            </li>
+                        }
 
                         <!-- Login Modal -->
                         <div class="modal fade" id="LoginModal" aria-hidden="true" aria-labelledby="LoginModalLabel" tabindex="-1">

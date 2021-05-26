@@ -61,6 +61,9 @@ html {
 }
 
 body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+
     Margin bottom by footer height margin-bottom: 300px;
     background-color: #CCE5FF;
     font-family: 'Signika', sans-serif;

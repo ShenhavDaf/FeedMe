@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FeedMe
 {
@@ -29,6 +30,18 @@ namespace FeedMe
 
             services.AddDbContext<FeedMeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("FeedMeContext")));
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                options =>
+                {
+                    options.LoginPath = "/Users/Login";
+                    options.AccessDeniedPath = "/Home/Index";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +61,9 @@ namespace FeedMe
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthorization();
+            app.UseSession();
 
             app.UseAuthorization();
 

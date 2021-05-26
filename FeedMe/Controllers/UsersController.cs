@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using ourProject.Models;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace FeedMe.Controllers
 {
@@ -17,6 +21,15 @@ namespace FeedMe.Controllers
         public UsersController(FeedMeContext context)
         {
             _context = context;
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            //LOGOUT VIA SESSION: HttpContext.Session.Clear();
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Users/Login
@@ -35,7 +48,7 @@ namespace FeedMe.Controllers
             //var qName = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
             /*user.Name = "a";
             user.PhoneNumber = "d";*/
-            
+
 
             if (ModelState.IsValid)
             {
@@ -47,7 +60,9 @@ namespace FeedMe.Controllers
 
                 if (count > 0)
                 {
-
+                    //HttpContext.Session.SetString("email", q.First().Email);
+                    //HttpContext.Session.SetString("type", q.First().Type.ToString());
+                    Signin(q.First());
                     //_context.Add(user);
                     //await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index), "Categories");
@@ -58,6 +73,28 @@ namespace FeedMe.Controllers
                 }
             }
             return View(user);
+        }
+
+        private async void Signin(User account)
+        {
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, account.Email),
+                    new Claim(ClaimTypes.Role, account.Type.ToString()),
+                };
+
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
         }
 
         // GET: Users/Register
@@ -81,6 +118,10 @@ namespace FeedMe.Controllers
                 {
                     _context.Add(user);
                     await _context.SaveChangesAsync();
+
+                    var u = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
+                    Signin(u);
+
                     return RedirectToAction(nameof(Index), "Categories");
                 }
                 else
