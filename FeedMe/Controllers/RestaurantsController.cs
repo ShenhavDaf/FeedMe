@@ -36,8 +36,11 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var restaurant = await _context.Restaurant.FirstOrDefaultAsync(m => m.ID == id);
+
+            //restaurant.Categories = new List<Category>();
+            //restaurant.Categories.AddRange(_context.Category);
+
             if (restaurant == null)
             {
                 return NotFound();
@@ -74,8 +77,6 @@ namespace FeedMe.Controllers
 
                 restaurant.DeliveryCities = new List<City>();
                 restaurant.DeliveryCities.AddRange(_context.City.Where(x => deliveryCities.Contains(x.ID)));
-
-
 
                 _context.Add(restaurant);
                 await _context.SaveChangesAsync();

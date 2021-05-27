@@ -27,6 +27,7 @@ namespace ourProject.Models
         [Display(Name = "Tell us about your restaurant")]
         public string Description{ get; set; }
         /*------------------------------------------------------*/
+
         [Required(ErrorMessage = "Please insert restaurant address")]
         public string Address{ get; set; }
 
@@ -45,9 +46,9 @@ namespace ourProject.Models
         /*------------------------------------------------------*/
 
         //MANY restaurants TO MANY cities
-        [Required(ErrorMessage = "Select which cities you provide deliveries")]
         [Display(Name = "Where do you make deliveries?")]
         public List<City> DeliveryCities { get; set; }
+
 
         /*------------------------------------------------------*/
 
