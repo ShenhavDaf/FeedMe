@@ -40,7 +40,7 @@ namespace FeedMe
                 options =>
                 {
                     options.LoginPath = "/Users/Login";
-                    options.AccessDeniedPath = "/Home/Index";
+                    options.AccessDeniedPath = "/Home/AccessDenied";
                 });
         }
 
@@ -62,8 +62,9 @@ namespace FeedMe
 
             app.UseRouting();
 
-            app.UseAuthorization();
-            app.UseSession();
+            //app.UseSession();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

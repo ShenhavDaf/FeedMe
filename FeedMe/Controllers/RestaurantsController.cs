@@ -28,7 +28,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Details/5
-        [Authorize]
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +47,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Create
-        [Authorize]
+        [Authorize(Roles = "Admin,rManager")]
         public IActionResult Create()
         {
             ViewBag.Categories = new SelectList(_context.Category, nameof(Category.ID), nameof(Category.Name));
@@ -60,6 +60,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Admin,rManager")]
         public async Task<IActionResult> Create([Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,DeliveryCities, Categories")] Restaurant restaurant, int[] categories, int[] deliveryCities)
         {
             //if(HttpContext.Session.GetString("email") == null)
@@ -84,6 +85,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Edit/5
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,6 +109,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate, Categories")] Restaurant restaurant)
         {
             if (id != restaurant.ID)
@@ -140,6 +143,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

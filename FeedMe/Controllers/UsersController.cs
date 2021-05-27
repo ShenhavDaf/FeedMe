@@ -65,7 +65,7 @@ namespace FeedMe.Controllers
                     Signin(q.First());
                     //_context.Add(user);
                     //await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index), "Categories");
+                    return RedirectToAction(nameof(Index), "Home");
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace FeedMe.Controllers
                     var u = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                     Signin(u);
 
-                    return RedirectToAction(nameof(Index), "Categories");
+                    return RedirectToAction(nameof(Index), "Home");
                 }
                 else
                 {

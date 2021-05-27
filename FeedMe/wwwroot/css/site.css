@@ -1,6 +1,5 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿﻿ /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -63,162 +62,16 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-
-    Margin bottom by footer height margin-bottom: 300px;
     background-color: #CCE5FF;
-    font-family: 'Signika', sans-serif;
-}
-/*.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;*/ /* Vertically center the text there */
-/*}*/
-/*
-body {
-    Margin bottom by footer height;
-    margin-bottom: 300px;
-    background-color: #CCE5FF;
-    font-family: 'Signika', sans-serif;
-}*/
-
-.bg-grey {
-    background: #292929;
 }
 
-.logo-footer {
-    margin-bottom: 40px;
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
-
-footer {
-    color: grey;
-}
-
-    footer p, a {
-        font-size: 12px;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    footer h6 {
-        font-family: 'Playfair Display', serif;
-        margin-bottom: 40px;
-        position: relative;
-    }
-
-        footer h6:after {
-            position: absolute;
-            content: "";
-            background: grey;
-            width: 12%;
-            height: 1px;
-            left: 0;
-            bottom: -20px;
-        }
-
-.btn-footer {
-    color: grey;
-    text-decoration: none;
-    border: 1px solid;
-    border-radius: 43px;
-    font-size: 13px;
-    padding: 7px 30px;
-    line-height: 47px;
-}
-
-    .btn-footer:hover {
-        text-decoration: none;
-    }
-
-.form-footer input[type="text"] {
-    border: none;
-    border-radius: 16px 0 0 16px;
-    outline: none;
-    padding-left: 10px;
-}
-
-:placeholder {
-    font-size: 10px;
-    padding-left: 10px;
-    font-style: italic;
-}
-
-.form-footer input[type="button"] {
-    border: none;
-    background: #232323;
-    margin-left: -5px;
-    color: #fff;
-    outline: none;
-    border-radius: 0 16px 16px 0;
-    padding: 2px 12px;
-}
-
-.social .fa {
-    color: grey;
-    font-size: 22px;
-    padding: 10px 15px;
-    background: #3c3c3c;
-    color: #CCC;
-    border: 1px solid #CCC;
-    padding: 8px;
-    border-radius: 50%;
-}
-
-footer ul li {
-    list-style: none;
-    display: block;
-}
-
-footer ul {
-    padding-left: 0;
-}
-
-    footer ul li a {
-        text-decoration: none;
-        color: grey;
-        text-decoration: none;
-    }
-
-a:hover {
-    text-decoration: none;
-    color: #f5f5f5 !important;
-}
-
-.logo-part {
-    border-right: 1px solid grey;
-    height: 100%;
-}
-
-
-
-
-/* Sticky footer style and color
--------------------------------------------------- */
-footer {
-    padding-top: 30px;
-    background-color: #292c2f;
-    color: #bbb;
-}
-
-    footer a {
-        color: #999;
-        text-decoration: none;
-    }
-
-        footer a:hover, footer a:focus {
-            color: #aaa;
-            text-decoration: none;
-            border-bottom: 1px dotted #999;
-        }
-
-    footer .form-control {
-        background-color: #1f2022;
-        box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
-        border: none;
-        resize: none;
-        color: #d1d2d2;
-        padding: 0.7em 1em;
-    }
 
 
 .has-search .form-control {
@@ -281,11 +134,12 @@ footer {
     font-size: 100px;
     font-family: 'Lobster', cursive;
 }
-
 .form-group {
     margin-top: 125px;
 }*/
 
+/* Slider styles
+-------------------------------------------------- */
 .d-block {
     width: 10%;
     height: 50px;
@@ -298,17 +152,15 @@ footer {
 }
 
 .slide {
-
     width: 1000px;
     margin-left: auto;
     margin-right: 150px;
-    margin-top:auto;
+    margin-top: auto;
     padding: initial;
-}   
+}
 
 #sliderBtn {
     background-color: transparent;
     color: white;
     border: none;
-
-}
+} 

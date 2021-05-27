@@ -1,0 +1,16 @@
+﻿@model ourProject.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        Access Denied
+        <a asp-controller="Home" asp-action="Index">Click here to Homepage</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
