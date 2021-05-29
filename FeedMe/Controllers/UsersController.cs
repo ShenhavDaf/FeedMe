@@ -81,6 +81,7 @@ namespace FeedMe.Controllers
                 {
                     new Claim(ClaimTypes.Email, account.Email),
                     new Claim(ClaimTypes.Role, account.Type.ToString()),
+                    new Claim(ClaimTypes.Name, account.Name),
                 };
 
             var claimsIdentity = new ClaimsIdentity(
@@ -95,6 +96,12 @@ namespace FeedMe.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
+        }
+
+        // GET: Users/AccessDenied
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
         // GET: Users/Register

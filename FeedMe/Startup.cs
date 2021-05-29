@@ -40,7 +40,7 @@ namespace FeedMe
                 options =>
                 {
                     options.LoginPath = "/Users/Login";
-                    options.AccessDeniedPath = "/Home/AccessDenied";
+                    options.AccessDeniedPath = "/Users/AccessDenied";
                 });
         }
 

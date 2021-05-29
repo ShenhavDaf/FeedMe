@@ -34,29 +34,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-        </li>*@
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+            </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Create">Restaurants</a>
                         </li>
-                        @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
-                        {
-                            <li class="nav-item nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">
-                                Hello, @User.Identity.Name !
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">
-                                Hello, Guest!
-                            </li>
-                        }
 
                         <!-- Login Modal -->
                         <div class="modal fade" id="LoginModal" aria-hidden="true" aria-labelledby="LoginModalLabel" tabindex="-1">
@@ -96,7 +81,25 @@
                             </div>
                         </div>
                     </ul>
-                    
+                    @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
+                    {
+                        <div class="dropdown">
+                            <li class="text-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Hello, @User.Identity.Name!
+                            </li>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">My Cart</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <li class="nav-item nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                            Hello, Guest!
+                        </li>
+                    }
                 </div>
             </div>
         </nav>
