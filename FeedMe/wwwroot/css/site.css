@@ -26,7 +26,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-    font-size: 16px; /*Default: 14px*/
+    font-size: 16px; Default: 14px
 }
 
 @media (min-width: 768px) {
@@ -60,18 +60,134 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
+    /* Margin bottom by footer height*/ 
     margin-bottom: 60px;
     background-color: #CCE5FF;
 }
 
-.footer {
+/*.footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 60px;*/ /* Vertically center the text there */
+/*}*/
+
+footer {
+    padding-top: 30px;
+    padding-bottom: 1px;
+    background-color: #292c2f;
 }
+
+    footer p, .info b {
+        font-size: 12px;
+        font-family: 'Roboto', sans-serif;
+        color: black;
+    }
+
+    footer b {
+        color: cornflowerblue;
+        font-size: 25px;
+        font-family: "Times New Roman", Times, serif;
+    }
+
+.bg-white {
+    text-align: center;
+}
+
+.logo-part {
+    border-right: 1px solid grey;
+    height: 100%;
+}
+
+
+.resturantslinks {
+    border-right: 1px solid grey;
+}
+
+    .resturantslinks h6 {
+        color: cornflowerblue;
+        /*font-size: 50px;*/
+        padding-right: 5em;
+    }
+
+
+    .resturantslinks ul li {
+        list-style: none;
+    }
+
+
+        .resturantslinks ul li a {
+            text-decoration: none;
+            color: black;
+            text-decoration: none;
+        }
+
+            .resturantslinks ul li a:hover {
+                text-decoration: none;
+                color: #68706d !important;
+            }
+
+.form-footer h6 {
+    color: cornflowerblue;
+    font-size: 25px;
+}
+
+.form-footer input[type="text"] {
+    border: none;
+    border-radius: 16px 0 0 16px;
+    outline: none;
+    padding-left: 10px;
+    background: #232323;
+    color: #fff;
+}
+
+/*:placeholder {
+    font-size: 10px;
+    padding-left: 12px;
+    font-style: italic;
+}*/
+
+.form-footer input[type="button"] {
+    border: none;
+    background: #232323;
+    margin-left: -5px;
+    color: #fff;
+    outline: none;
+    border-radius: 0 16px 16px 0;
+    padding: 2px 12px;
+}
+
+
+.copyright {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 13px;
+    /*color: #fff;*/
+    margin-bottom: 0;
+}
+
+    .copyright .social .fa {
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        margin: 0 8px;
+        color: #fff;
+        opacity: 0.75;
+    }
+
+    .copyright p {
+        color: #fff;
+    }
+
+
+/*footer end*/
+/*-------------------------------------------------- */
 
 
 .has-search .form-control {
