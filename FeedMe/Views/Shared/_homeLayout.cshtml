@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ourProject</title>
+    <title>FeedMe - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
 
@@ -36,14 +36,41 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+        </li>*@
+                        @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-                            </li>*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Create">Restaurants</a>
-                        </li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Restaurants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Cities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Users</a>
+                            </li>
+                        }
 
                         <!-- Login Modal -->
                         <div class="modal fade" id="LoginModal" aria-hidden="true" aria-labelledby="LoginModalLabel" tabindex="-1">
@@ -86,10 +113,11 @@
                     @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                     {
                         <div class="dropdown">
-                            <li class="text-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <li class="text-dark dropdown-toggle" href="#" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown">
                                 Hello, @User.Identity.Name!
                             </li>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><span class="dropdown-item-text">User Status: [TYPE]</span></li>
                                 <li><a class="dropdown-item" href="#">My Cart</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Logout</a></li>

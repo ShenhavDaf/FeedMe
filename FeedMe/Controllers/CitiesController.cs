@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using ourProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FeedMe.Controllers
 {
@@ -20,12 +21,14 @@ namespace FeedMe.Controllers
         }
 
         // GET: Cities
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.City.ToListAsync());
         }
 
         // GET: Cities/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
 
@@ -45,6 +48,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Cities/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
 
@@ -56,6 +60,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,Name")] City city)
         {
             if (ModelState.IsValid)
@@ -68,6 +73,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Cities/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,6 +94,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] City city)
         {
             if (id != city.ID)
@@ -119,6 +126,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Cities/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +145,7 @@ namespace FeedMe.Controllers
         }
 
         // POST: Cities/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -147,6 +156,7 @@ namespace FeedMe.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         private bool CityExists(int id)
         {
             return _context.City.Any(e => e.ID == id);
