@@ -26,7 +26,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-    font-size: 16px; Default: 14px
+    font-size: 16px; /*Default: 14px*/
 }
 
 @media (min-width: 768px) {
@@ -60,17 +60,17 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height*/ 
-    margin-bottom: 60px;
+    /* Margin bottom by footer height*/
+    /*margin-bottom: 60px;*/
     background-color: #CCE5FF;
 }
 
-/*.footer {
+/* 1111.footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px;*/ /* Vertically center the text there */
+    line-height: 60px;*/ /* Vertically center the text there 1111 */
 /*}*/
 
 footer {
@@ -270,8 +270,8 @@ footer {
 .slide {
     width: 1000px;
     margin-left: auto;
-    margin-right: 150px;
-    margin-top: auto;
+    margin-right: auto;
+    margin-top: 150px;
     padding: initial;
 }
 
@@ -279,4 +279,4 @@ footer {
     background-color: transparent;
     color: white;
     border: none;
-} 
+}
