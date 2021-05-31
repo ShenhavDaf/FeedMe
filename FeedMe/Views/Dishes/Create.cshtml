@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="FoodType" class="control-label"></label>@*ה@ שלמטה מוסיף את 3 סוגי המנות-בשרי/חלבי/טבעוני לרשימה*@
-                <select asp-for="FoodType" class="form-control" asp-items="@ViewBag.FoodType"></select>
+                <select asp-for="@Model.FoodType" asp-items="ViewBag.FoodType" class="form-control"></select>
                 <span asp-validation-for="FoodType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Restaurant" class="control-label"></label>@*ה@ שלמטה מוסיף את כל המסעדות שהמנה מוגשת בהן*@
-                <select asp-for="Restaurant" class="form-control" asp-items="@ViewBag.Restaurant"></select>
+                <select asp-for="Restaurant" class="form-control" asp-items="@ViewBag.RestaurantID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

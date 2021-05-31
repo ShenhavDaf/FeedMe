@@ -124,6 +124,7 @@ namespace FeedMe.Controllers
 
                 if (q == null)
                 {
+                    user.Type = UserType.Client;
                     _context.Add(user);
                     await _context.SaveChangesAsync();
 

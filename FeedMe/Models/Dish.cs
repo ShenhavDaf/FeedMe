@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace ourProject.Models
 {
+    public enum FoodType
+    {
+        Meat,
+        Diary,
+        Vegetarian,
+        Vegan
+    }
     public class Dish
     {
-        public int ID{ get; set; }
+        public int ID { get; set; }
         /*------------------------------------------------------*/
 
         [Required(ErrorMessage = "Please insert name")]
@@ -18,7 +25,6 @@ namespace ourProject.Models
 
         /*------------------------------------------------------*/
 
-        [Required(ErrorMessage = "Please insert image")]
         [Display(Name = "Dish Image")]
         public string DishImage { get; set; }
 
@@ -32,7 +38,7 @@ namespace ourProject.Models
 
         //טבעוני, חלבי, בשרי
         [Required(ErrorMessage = "Please insert food type")]
-        public int FoodType{ get; set; }
+        public FoodType FoodType { get; set; }
 
         /*------------------------------------------------------*/
 
@@ -42,10 +48,10 @@ namespace ourProject.Models
 
         /*------------------------------------------------------*/
 
-        public int RestaurantID{ get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
+        public int RestaurantID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
 
         //MAMY dishes TO ONE restaurant 
 
-        public Restaurant Restaurant{ get; set; }
+        public Restaurant Restaurant { get; set; }
     }
 }
