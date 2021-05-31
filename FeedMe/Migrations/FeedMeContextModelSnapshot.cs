@@ -128,6 +128,7 @@ namespace FeedMe.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DishImage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FoodType")
