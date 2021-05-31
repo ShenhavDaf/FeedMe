@@ -24,6 +24,7 @@ namespace FeedMe.Controllers
         // GET: Restaurants
         public async Task<IActionResult> Index()
         {
+            //return View(await _context.Restaurant.Include(c => c.Categories).Include(d => d.DeliveryCities).ToListAsync());
             return View(await _context.Restaurant.ToListAsync());
         }
 
