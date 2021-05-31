@@ -223,14 +223,17 @@ footer {
 }
 
 #restaurantBtn {
-    margin: auto;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
     background-color: rgba(128, 128, 128, 0);
     border: gray;
     border-style: double;
     align-items: center;
     border-radius: 25px;
     width: 20rem;
-    height: 40rem;
+    height: 30rem;
 }
 
 /*restaurant and category*/

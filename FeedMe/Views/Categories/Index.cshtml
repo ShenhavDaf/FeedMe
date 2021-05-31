@@ -15,28 +15,29 @@
 
         @foreach (var category in Model)
         {
-            <a asp-controller="Restaurants" asp-action="Index">
-                <button id="categoryBtn">
-                    <div class="card text-center">
+            <button id="categoryBtn">
+                <div class="card text-center">
+                    <a asp-controller="Restaurants" asp-action="Index">
                         <img src="@category.CategoryImage" class="itemCard" width="100%" height="100%" style="border-radius:10px;">
                         @if (category.CategoryImage == null)
                         {
                             <img src="~/Photos/notFind.png" class="itemCard" width="80%" height="80%" style="margin-left:auto; margin-right:auto;">
                         }
-                        <div class="card-body">
-                            <h5 class="text-center">@category.Name</h5>
-                            <tr>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@category.ID">Edit</a> |
-                                    <a asp-action="Details" asp-route-id="@category.ID">Details</a> |
-                                    <a asp-action="Delete" asp-route-id="@category.ID">Delete</a>
-                                </td>
-                            </tr>
+                    </a>
+                    <div class="card-body">
+                        <h5 class="text-center">@category.Name</h5>
+                        <tr>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@category.ID">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@category.ID">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@category.ID">Delete</a>
+                            </td>
+                        </tr>
 
-                        </div>
                     </div>
-                </button>
-            </a>
+                </div>
+
+            </button>
         }
     </div>
 </div>

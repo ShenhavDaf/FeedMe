@@ -52,19 +52,19 @@
                         @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
                             </li>
                         }
                         else
