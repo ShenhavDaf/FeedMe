@@ -175,6 +175,7 @@ namespace FeedMe.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.UserType = new SelectList(Enum.GetNames(typeof(UserType)));
             if (id == null)
             {
                 return NotFound();

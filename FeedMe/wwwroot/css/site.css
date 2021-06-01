@@ -283,3 +283,10 @@ footer {
     color: white;
     border: none;
 }
+
+
+.topBg {
+    background:red;
+    height:400px;
+    width:100%
+}
