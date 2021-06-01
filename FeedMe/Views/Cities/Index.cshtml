@@ -14,6 +14,16 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Cities" asp-action="Index" method="get">
+    <div class="searchBar">
+        <p>
+            City Name: <input type="text" placeholder="City" name="SearchString" />
+            <input type="submit" value="Ok" />
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>

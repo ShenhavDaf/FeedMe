@@ -129,7 +129,7 @@ footer {
 
 .form-footer h6 {
     color: cornflowerblue;
-    font-size: 25px;
+    font-size: 22px;
 }
 
 .form-footer input[type="text"] {
@@ -147,7 +147,7 @@ footer {
     font-style: italic;
 }*/
 
-.form-footer input[type="button"] {
+.form-footer input[type="submit"] {
     border: none;
     background: #232323;
     margin-left: -5px;
@@ -289,3 +289,30 @@ footer {
     height:400px;
     width:100%
 }
+
+
+/* Search bar styles
+-------------------------------------------------- */
+
+.searchBar p {
+    color: #5950bf;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    border-radius: 0.9rem;
+}
+
+.searchBar input[type="submit"] {
+    border: none;
+    background: #fff;
+    margin-left: -2px;
+    color: #232323;
+    outline: none;
+    border-radius: 0.4rem;
+    padding: 2px 12px;
+}
+
+.searchBar input[type="text"] {
+    border-radius: 0.1rem;
+    border-color: #fff;
+}
+

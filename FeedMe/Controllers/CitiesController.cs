@@ -22,10 +22,42 @@ namespace FeedMe.Controllers
 
         // GET: Cities
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+
+
+
+
+
+        /* public async Task<IActionResult> Index()
+         {
+             return View(await _context.City.ToListAsync());
+         }*/
+
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.City.ToListAsync());
+            var cities = from m in _context.City
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                cities = cities.Where(s => s.Name.Contains(searchString));
+            }
+
+            return View(await cities.ToListAsync());
         }
+
+        [HttpPost]
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
+        }
+
+
+
+
+
+
+
+
 
         // GET: Cities/Details/5
         [Authorize(Roles = "Admin")]

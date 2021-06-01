@@ -188,10 +188,10 @@
                                 </div>
                             </div>
                             <div class="col-md-6 ">
-                                <form class="form-footer my-3">
-                                    <h6> Are you looking for something?</h6>
-                                    <input type="text" placeholder="Dishes or Restaurants" name="search">
-                                    <input type="button" value="Go">
+                                <form class="form-footer my-3" asp-controller="Restaurants" asp-action="Index" method="get">
+                                    <h6> Are you looking for your favorite restaurant?</h6>
+                                    <input type="text" placeholder="Restaurants" name="SearchString">
+                                    <input type="submit" value="Go">
                                 </form>
                             </div>
                         </div>

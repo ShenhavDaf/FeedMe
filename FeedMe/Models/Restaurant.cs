@@ -64,5 +64,8 @@ namespace ourProject.Models
         //  MANY restaurants TO MAMY Categories
 
         public List<Category> Categories{ get; set; }
+
+        /*------------------------------------------------------*/
+     
     }
 }

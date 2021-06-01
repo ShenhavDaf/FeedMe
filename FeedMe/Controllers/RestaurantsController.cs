@@ -22,11 +22,34 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants
-        public async Task<IActionResult> Index()
+        /*  public async Task<IActionResult> Index()
+          {
+              //return View(await _context.Restaurant.Include(c => c.Categories).Include(d => d.DeliveryCities).ToListAsync());
+              return View(await _context.Restaurant.ToListAsync());
+          }*/
+
+
+
+        public async Task<IActionResult> Index(string movieGenre, string searchString)
         {
-            //return View(await _context.Restaurant.Include(c => c.Categories).Include(d => d.DeliveryCities).ToListAsync());
-            return View(await _context.Restaurant.ToListAsync());
+            var restaurants = from m in _context.Restaurant
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                restaurants = restaurants.Where(s => s.Name.Contains(searchString));
+            }
+
+            return View(await restaurants.ToListAsync());
         }
+
+        [HttpPost]
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
+        }
+
+
 
         // GET: Restaurants/Details/5
         [Authorize(Roles = "Admin,rManager")]
