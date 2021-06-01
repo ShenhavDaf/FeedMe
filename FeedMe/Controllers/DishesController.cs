@@ -58,7 +58,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,DishImage,Description,FoodType,Price,Restaurant")] Dish dish, int restaurant)
+        public async Task<IActionResult> Create([Bind("ID,Name,DishImage,Description,FoodType,Price,RestaurantID")] Dish dish, int restaurant)
         {
             if (ModelState.IsValid)
             {
