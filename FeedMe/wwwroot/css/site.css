@@ -76,6 +76,9 @@ footer {
     padding-top: 30px;
     padding-bottom: 1px;
     background-color: #292c2f;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
 }
 
     footer p, .info b {
