@@ -78,7 +78,8 @@ namespace FeedMe.Controllers
         public IActionResult Create()
         {
             ViewBag.Categories = new SelectList(_context.Category, nameof(Category.ID), nameof(Category.Name));
-            ViewBag.Cities = new SelectList(_context.City, nameof(City.ID), nameof(City.Name));
+            ViewBag.Cities = new SelectList(_context.City.OrderBy(x => x.Name).ToList(), nameof(City.ID), nameof(City.Name));
+            //var newList = _context.City.OrderBy(x => x.Name).ToList(); // ToList optional
             return View();
         }
 

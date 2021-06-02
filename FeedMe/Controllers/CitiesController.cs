@@ -34,14 +34,13 @@ namespace FeedMe.Controllers
 
         public async Task<IActionResult> Index(string searchString)
         {
-            var cities = from m in _context.City
+            var cities = from m in _context.City.OrderBy(x => x.Name)
                          select m;
-
+      
             if (!String.IsNullOrEmpty(searchString))
             {
                 cities = cities.Where(s => s.Name.Contains(searchString));
             }
-
             return View(await cities.ToListAsync());
         }
 
@@ -83,7 +82,6 @@ namespace FeedMe.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-
             return View();
         }
 
