@@ -60,7 +60,7 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurant.FirstOrDefaultAsync(m => m.ID == id);
+            var restaurant = await _context.Restaurant.Include(r => r.Dishes).FirstOrDefaultAsync(m => m.ID == id);
 
             //restaurant.Categories = new List<Category>();
             //restaurant.Categories.AddRange(_context.Category);
