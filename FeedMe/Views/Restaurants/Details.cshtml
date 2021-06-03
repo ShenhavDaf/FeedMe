@@ -12,29 +12,33 @@
 
         @foreach (var dish in Model.Dishes)
         {
-            <button id="categoryBtn">
-                <div class="card text-center">
-                    <a asp-controller="Dishes" asp-action="Index" asp-route-id="@dish.ID">
-                        <img src="@dish.DishImage" class="itemCard" width="100%" height="100%" style="border-radius:10px;">
-                        @if (dish.DishImage == null)
-                        {
-                            <img src="~/Photos/notFind.png" class="itemCard" width="80%" height="80%" style="margin-left:auto; margin-right:auto;">
-                        }
-                    </a>
-                    <div class="card-body">
-                        <h5 class="text-center">@dish.Name</h5>
+            <div class="container">
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        <img src="@dish.DishImage" width="80%" height="80%" style="border-radius:10px; margin-left:auto; margin-right:auto;">
+                    </div>
+                    <div class="col-6" tabindex="0">
+
+                        <h4 class="text-center">@dish.Name</h4>
+                        <p class="text-center" style="margin-top:auto"> @dish.Description</p>
+                        <p class="text-center" style="margin-top:auto"> @dish.Price₪</p>
+                    </div>
+                    <div class="col ">
+                        <p>
+                            <button type="button" id="dishesBtn" class="btn btn-outline-info"> Add to order </button>
+                        </p>
                         <tr>
                             <td>
-                                <a asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
-                                <a asp-controller="Dishes" asp-action="Details" asp-route-id="@dish.ID">Details</a> |
-                                <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@dish.ID">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
                             </td>
                         </tr>
-
                     </div>
                 </div>
+            </div>
 
-            </button>
         }
     </div>
 </div>
