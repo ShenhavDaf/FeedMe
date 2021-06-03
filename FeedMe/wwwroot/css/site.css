@@ -83,7 +83,7 @@ footer {
     footer p, .info b {
         font-size: 12px;
         font-family: 'Roboto', sans-serif;
-        color: black;
+        color: #0000cc;
     }
 
     footer b {
@@ -120,7 +120,7 @@ footer {
 
         .resturantslinks ul li a {
             text-decoration: none;
-            color: black;
+            color: #0000cc;
             text-decoration: none;
         }
 
@@ -176,7 +176,7 @@ footer {
         display: inline-block;
         text-align: center;
         border-radius: 50%;
-        border: 1px solid #ccc;
+        border: 1px solid #595959;
         margin: 0 8px;
         color: #fff;
         opacity: 0.75;
