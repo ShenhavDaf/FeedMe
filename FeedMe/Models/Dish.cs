@@ -20,7 +20,8 @@ namespace ourProject.Models
 
         [Required(ErrorMessage = "Please insert name")]
         [Display(Name = "Dish Name")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z '-]*$")]
+        [RegularExpression(@"^[a-zA-Z0-9_ '.-]*$")]
+       // [A-Z]+[a-zA-Z '-]
         public string Name { get; set; }
 
         /*------------------------------------------------------*/
