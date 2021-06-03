@@ -33,8 +33,8 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var category = await _context.Category.Include(r => r.Restaurants).FirstOrDefaultAsync(m => m.ID == id);
+
             if (category == null)
             {
                 return NotFound();

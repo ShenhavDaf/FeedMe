@@ -17,7 +17,7 @@
         {
             <button id="categoryBtn">
                 <div class="card text-center">
-                    <a asp-controller="Restaurants" asp-action="Index">
+                    <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.ID" >
                         <img src="@category.CategoryImage" class="itemCard" width="100%" height="100%" style="border-radius:10px;">
                         @if (category.CategoryImage == null)
                         {

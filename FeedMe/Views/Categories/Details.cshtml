@@ -5,8 +5,40 @@
 }
 
 <h1>Details</h1>
+<div class="container">
+    <div class="row">
 
-<div>
+        @foreach (var res in Model.Restaurants)
+        {
+            <button id="categoryBtn">
+                <div class="card text-center">
+                    <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@res.ID">
+                        <img src="@res.RestaurantImage" class="itemCard" width="100%" height="100%" style="border-radius:10px;">
+                        @if (res.RestaurantImage == null)
+                        {
+                            <img src="~/Photos/notFind.png" class="itemCard" width="80%" height="80%" style="margin-left:auto; margin-right:auto;">
+                        }
+                    </a>
+                    <div class="card-body">
+                        <h5 class="text-center">@res.Name</h5>
+                        <tr>
+                            <td>
+                                <a asp-controller="Restaurants" asp-action="Edit" asp-route-id="@res.ID">Edit</a> |
+                                <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@res.ID">Details</a> |
+                                <a asp-controller="Restaurants" asp-action="Delete" asp-route-id="@res.ID">Delete</a>
+                            </td>
+                        </tr>
+
+                    </div>
+                </div>
+
+            </button>
+        }
+    </div>
+</div>
+
+
+@*<div>
     <h4>Category</h4>
     <hr />
     <dl class="row">
@@ -27,4 +59,4 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
