@@ -44,11 +44,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-                            </li>*@
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+        </li>*@
                         @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                         {
                             <li class="nav-item">
@@ -70,19 +70,19 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Restaurants</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Categories</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Cities</a>
+                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Restaurants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Dishes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Dishes</a>
+                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Cities</a>
                             </li>
                         }
 
