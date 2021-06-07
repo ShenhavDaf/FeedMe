@@ -44,12 +44,11 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id,Email,Password,Name,PhoneNumber")] User user)
+        public async Task<IActionResult> Login([Bind("Id,Email,Password,Name,PhoneNumber")] User user, string ReturnUrl)
         {
             //var qName = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
             /*user.Name = "a";
             user.PhoneNumber = "d";*/
-
 
             if (ModelState.IsValid)
             {
@@ -66,7 +65,16 @@ namespace FeedMe.Controllers
                     Signin(q.First());
                     //_context.Add(user);
                     //await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index), "Home");
+
+                    if (!String.IsNullOrEmpty(ReturnUrl))
+                    {
+                        return Redirect(ReturnUrl);
+                        //return RedirectToAction(WebUtility.UrlEncode(ReturnUrl));
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(Index), "Home");
+                    }
                 }
                 else
                 {
