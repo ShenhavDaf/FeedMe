@@ -207,9 +207,8 @@ footer {
     color: #aaa;
 }
 
-#homeStyle {
-    background-image: url(../Photos/Background.png);
-    background-size: cover;
+.form-group, has-search {
+    margin-top: 75px;
 }
 
 #categoryBtn {
@@ -244,9 +243,8 @@ footer {
     border: hidden;
 }
 
-#restaurantBody {
-    background-color: lightpink;
-}
+
+
 
 /*Home index*/
 /*.text-center {
@@ -272,10 +270,10 @@ footer {
 }
 
 .slide {
-    width: 1000px;
+    width: auto;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 150px;
+    margin-top: 100px;
     padding: initial;
 }
 
@@ -283,13 +281,16 @@ footer {
     background-color: transparent;
     color: white;
     border: none;
+    position:absolute;
+    top:-600%;
+    transform:translate(-50%,-50%);
 }
 
 
 .topBg {
-    background:red;
-    height:400px;
-    width:100%;
+    background: red;
+    height: 400px;
+    width: 100%;
 }
 
 
@@ -321,11 +322,75 @@ footer {
 
 
 /*Dishes style*/
-#dishesBtn{
-    margin-left:10px;
-    margin-top:100px;
+#dishesBtn {
+    margin-left: 10px;
+    margin-top: 100px;
+    padding-bottom: 10px;
+}
 
-    padding-bottom:10px;
+#dishBody {
+    background-color: lightpink;
+}
+
+    #dishBody img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+    #dishBody p {
+        margin-top: auto;
+    }
+
+.dishImage {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Categories style*/
+.categoryImage {
+    width:100%;
+    height:100%;
+    border-radius:10px;
+}
+
+.categoryImageNotFound {
+    width:80%;
+    height:80%;
+    margin-left:auto;
+    margin-right:auto;
+}
 
 
+/*Home style*/
+#homeLayoutStyle {
+    background-image: url(../Photos/Background.png);
+    background-size: cover;
+}
+
+.homeTitle {
+    color: white;
+    font-size: 100px;
+    font-family: 'Lobster', cursive;
+}
+
+.navbar-brand {
+    font-family:'Lobster';
+    font-size:35px;
+}
+
+/*Restaurants style*/
+#restaurantBody img {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#restaurantBody p {
+    margin-top: auto;
 }

@@ -13,10 +13,10 @@
             <button id="categoryBtn">
                 <div class="card text-center">
                     <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@res.ID">
-                        <img src="@res.RestaurantImage" class="itemCard" width="100%" height="100%" style="border-radius:10px;">
+                        <img src="@res.RestaurantImage" class="itemCard categoryImage">
                         @if (res.RestaurantImage == null)
                         {
-                            <img src="~/Photos/notFind.png" class="itemCard" width="80%" height="80%" style="margin-left:auto; margin-right:auto;">
+                            <img src="~/Photos/notFind.png" class="itemCard categoryImageNotFound">
                         }
                     </a>
                     <div class="card-body">
