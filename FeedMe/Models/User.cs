@@ -38,7 +38,7 @@ namespace ourProject.Models
         [Display(Name = "Birthday Date")]
         public DateTime BirthdayDate { get; set; }
 
-        //one to one
+        //ONE TO ONE
         public CreditCard CreditCard { get; set; }
 
         public UserType Type { get; set; } = UserType.Guest;
