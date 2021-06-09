@@ -401,3 +401,15 @@ footer {
 #restaurantBody p {
     margin-top: auto;
 }
+
+li {
+    float: left;
+    margin:5px;
+}
+
+.maps {
+    background-color: #e0e0eb;
+    height: 480;
+    width: 150%;
+    margin-top: 100px;
+}
