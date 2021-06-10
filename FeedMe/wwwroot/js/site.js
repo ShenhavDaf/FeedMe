@@ -16,11 +16,120 @@ const options = {
     label: '🌓', // default: ''
 }
 
-const darkmode = new Darkmode(options);
-darkmode.showWidget();
+/*const darkmode = new Darkmode(options);
+darkmode.showWidget();*/
 
 
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
 })
+
+/* -- quantity box in dish-- */
+
+/*$(document).ready(function () {
+    $('.count').prop('disabled', true);
+    $(document).on('click', '.plus', function () {
+        $('.count').val(parseInt($('.count').val()) + 1);
+    });
+    $(document).on('click', '.minus', function () {
+        $('.count').val(parseInt($('.count').val()) - 1);
+        if ($('.count').val() == 0) {
+            $('.count').val(1);
+        }
+    });
+});
+*/
+/*$(function () {
+    $('.plus').click(function () {
+        $('.count').val(parseInt($('.count').val()) + 1);
+    });
+});
+
+$(function () {
+    $('.minus').click(function () {
+        $('.count').val(parseInt($('.count').val()) - 1);
+        if ($('.count').val() == 0) {
+            $('.count').val(1);
+        };
+    });
+});*/
+
+
+/*$(document).ready(function () {
+    $('#qty_input').prop('disabled', true);
+    $('#plus-btn').click(function () {
+        $('#qty_input').val(parseInt($('#qty_input').val()) + 1);
+    });
+    $('#minus-btn').click(function () {
+        $('#qty_input').val(parseInt($('#qty_input').val()) - 1);
+        if ($('#qty_input').val() == 0) {
+            $('#qty_input').val(1);
+        }
+
+    });
+});*/
+
+/*$(document).ready(function () {
+    $('button').click(function (e) {
+        var button_classes, value = +$('.counter').val();
+        button_classes = $(e.currentTarget).prop('class');
+        if (button_classes.indexOf('up_count') !== -1) {
+            value = (value) + 1;
+        } else {
+            value = (value) - 1;
+        }
+        value = value < 0 ? 0 : value;
+        $('.counter').val(value);
+    });
+    $('.counter').click(function () {
+        $(this).focus().select();
+    });
+});*/
+/*
+$("input[type='number']").inputSpinner()
+
+var $changedInput = $("#changedInput")
+var $valueOnInput = $("#valueOnInput")
+var $valueOnChange = $("#valueOnChange")
+$changedInput.on("input", function (event) {
+    $valueOnInput.html($(event.target).val())
+    // or $valueOnInput.html(event.target.value) // in vanilla js
+    // or $valueOnInput.html($changedInput.val())
+})
+$changedInput.on("change", function (event) {
+    $valueOnChange.html($(event.target).val())
+})
+*/
+
+
+
+
+
+
+/* -- save dish id value-- */
+
+/*$(function () {
+    $('.addQuantity').click(function () {
+        addToCart($(this).attr('quantity'));
+    });
+});*/
+
+$(function () {
+    $('.addDish').click(function () {
+        addToCart($(this).attr('dish-id'), 1);
+    });
+});
+
+function addToCart(id, quantity) {    
+    $.ajax({
+        method: 'post',
+        url: '/CartItems/Create',
+        data: { 'DishId': id, 'Quantity': quantity }
+    }).done(function (data) {
+        console.log(data);
+    });
+}
+
+
+

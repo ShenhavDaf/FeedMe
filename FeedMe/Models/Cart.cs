@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeedMe.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,15 +14,10 @@ namespace ourProject.Models
         //Serial number (generic)
         public int ID{ get; set; }
 
-        //ONE cart TO MAMY dishes
-        public List<Dish> Dishes{ get; set; }
+        //ONE cart TO MAMY cart items
+        public List<CartItem> CartItems { get; set; }
 
         public int TotalAmount{ get; set; }
-
-        [DataType(DataType.Currency)]
-        public int Price{ get; set; }
-
-        public TimeSpan ArrivalTime { get; set; }
 
     }
 }

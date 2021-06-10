@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ourProject.Models;
+using FeedMe.Models;
 
 namespace FeedMe.Data
 {
@@ -23,5 +24,9 @@ namespace FeedMe.Data
         public DbSet<ourProject.Models.City> City { get; set; }
 
         public DbSet<ourProject.Models.User> User { get; set; }
+
+        public DbSet<ourProject.Models.Cart> Cart { get; set; }
+
+        public DbSet<FeedMe.Models.CartItem> CartItem { get; set; }
     }
 }

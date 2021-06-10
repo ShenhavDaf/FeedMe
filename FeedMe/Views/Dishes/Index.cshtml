@@ -17,32 +17,50 @@
 
             @foreach (var dish in Model)
             {
-            <div class="container">
-                <hr />
-                <div class="row" >
-                    <div class="col">
-                        <img src="@dish.DishImage">
-                    </div>
-                    <div class="col-6" tabindex="0">
+                <div class="container">
+                    <hr />
+                    <div class="row">
+                        <div class="col">
+                            <img src="@dish.DishImage">
+                        </div>
+                        <div class="col-6" tabindex="0">
 
-                        <h4 class="text-center">@dish.Name</h4>
-                        <p class="text-center"> @dish.Description</p>
-                        <p class="text-center"> @dish.Price₪</p>
-                    </div>
-                    <div class="col ">
-                        <p>
-                            <button type="button" id="dishesBtn" class="btn btn-outline-info"> Add to order </button>
-                        </p>
-                        <tr>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@dish.ID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
-                            </td>
-                        </tr>
+                            <h4 class="text-center">@dish.Name</h4>
+                            <p class="text-center"> @dish.Description</p>
+                            <p class="text-center"> @dish.Price₪</p>
+                        </div>
+                        <div class="col ">
+                            @*   <span class="input-group-prepend">
+            <button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                <span class="fa fa-minus"></span>
+            </button>
+        </span>
+        <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+        <span class="input-group-append">
+            <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]">
+                <span class="fa fa-plus"></span>
+            </button>
+        </span>*@
+                            <!-- Change the `data-field` of buttons and `name` of input field's for multiple plus minus buttons-->
+                          
+                           @* <input type="text" name="quantity" asp-route-id="quantity" style="width: 50px">*@
+                            
+
+                            <p>
+                               @* <a class="btn btn-outline-info" data-bs-toggle="exampleModal" asp-action="Create" asp-route-id="@dish.ID" asp-controller="CartItems">Add to orde</a>*@
+                                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a class="addDish" dish-id="@dish.ID"> Add to order</a> </button>
+                            </p>
+
+                            <tr>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@dish.ID">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
+                                </td>
+                            </tr>
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
             }
@@ -54,58 +72,58 @@
 
 
 
-            @*<table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Name)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DishImage)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Description)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FoodType)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Price)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Restaurant)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                @foreach (var item in Model) {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DishImage)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FoodType)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Price)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Restaurant.Address)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                            </td>
-                        </tr>
-                }
-                    </tbody>
-                </table>
-            *@
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DishImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FoodType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Restaurant)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DishImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Restaurant.Address)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+*@
