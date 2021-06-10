@@ -207,10 +207,6 @@ footer {
     color: #aaa;
 }
 
-.form-group, has-search {
-    margin-top: 75px;
-}
-
 #categoryBtn {
     margin: auto;
     background-color: rgba(128, 128, 128, 0);
@@ -281,9 +277,18 @@ footer {
     background-color: transparent;
     color: white;
     border: none;
-    position:absolute;
-    top:-600%;
-    transform:translate(-50%,-50%);
+}
+
+.sliderUpperMiddle {
+    position: absolute;
+    top: -500%;
+    transform: translate(-50%,-50%);
+}
+
+.sliderUpperRight {
+    position: absolute;
+    top: -500%;
+    transform: translate(125%,-50%);
 }
 
 
@@ -319,7 +324,9 @@ footer {
     border-color: #fff;
 }
 
-
+.searchbarStyle {
+    margin-top: 75px;
+}
 
 /*Dishes style*/
 #dishesBtn {
@@ -433,16 +440,16 @@ input {
 
 /*Categories style*/
 .categoryImage {
-    width:100%;
-    height:100%;
-    border-radius:10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
 }
 
 .categoryImageNotFound {
-    width:80%;
-    height:80%;
-    margin-left:auto;
-    margin-right:auto;
+    width: 80%;
+    height: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -459,8 +466,8 @@ input {
 }
 
 .navbar-brand {
-    font-family:'Lobster';
-    font-size:35px;
+    font-family: 'Lobster';
+    font-size: 35px;
 }
 
 /*Restaurants style*/
@@ -474,4 +481,16 @@ input {
 
 #restaurantBody p {
     margin-top: auto;
+}
+
+li {
+    float: left;
+    margin:5px;
+}
+
+.maps {
+    background-color: #e0e0eb;
+    height: 480;
+    width: 150%;
+    margin-top: 100px;
 }

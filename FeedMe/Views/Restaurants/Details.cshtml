@@ -30,9 +30,9 @@
                             </p>
                             <tr>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
-                                    <a asp-action="Details" asp-route-id="@dish.ID">Details</a> |
-                                    <a asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
+                                    <a  asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
+                                    <a asp-controller="Dishes" asp-action="Details" asp-route-id="@dish.ID">Details</a> |
+                                    <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
                                 </td>
                             </tr>
                         </div>

@@ -30,25 +30,22 @@ namespace FeedMe.Controllers
 
 
 
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(string searchString, string searchCity)
         {
+          
             var restaurants = from m in _context.Restaurant
                          select m;
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                restaurants = restaurants.Where(s => s.Name.Contains(searchString));
-            }
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
+            
+            //}
+            restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
+
 
             return View(await restaurants.ToListAsync());
         }
-
-        [HttpPost]
-        public string Index(string searchString, bool notUsed)
-        {
-            return "From [HttpPost]Index: filter on " + searchString;
-        }
-
 
 
         // GET: Restaurants/Details/5

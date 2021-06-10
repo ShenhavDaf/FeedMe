@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 
 namespace FeedMe
 {
@@ -31,17 +32,35 @@ namespace FeedMe
             services.AddDbContext<FeedMeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("FeedMeContext")));
 
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(10);
-            });
+            //services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromMinutes(10);
+            //});
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
-                options =>
+            services.AddDbContext<FeedMeContext>(options =>
+        options.UseSqlServer(
+            Configuration.GetConnectionString("FeedMeContext")));
+            services.AddDefaultIdentity<IdentityUser>(options =>
+                options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<FeedMeContext>();
+            services.AddRazorPages();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
                 {
                     options.LoginPath = "/Users/Login";
                     options.AccessDeniedPath = "/Users/AccessDenied";
-                });
+                })
+
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = Configuration["Authentication:Google:ClientId"];
+                    options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                })
+                ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

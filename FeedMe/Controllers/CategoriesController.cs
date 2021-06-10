@@ -20,9 +20,17 @@ namespace FeedMe.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Category.ToListAsync());
+            var categories = from m in _context.Category
+                             select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                categories = categories.Where(s => s.Name.Contains(searchString));
+            }
+            //return View(await _context.Category.ToListAsync());
+            return View( await categories.ToListAsync());
         }
 
         // GET: Categories/Details/5

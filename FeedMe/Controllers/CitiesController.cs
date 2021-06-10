@@ -22,11 +22,6 @@ namespace FeedMe.Controllers
 
         // GET: Cities
         [Authorize(Roles = "Admin")]
-
-
-
-
-
         /* public async Task<IActionResult> Index()
          {
              return View(await _context.City.ToListAsync());
@@ -43,19 +38,6 @@ namespace FeedMe.Controllers
             }
             return View(await cities.ToListAsync());
         }
-
-        [HttpPost]
-        public string Index(string searchString, bool notUsed)
-        {
-            return "From [HttpPost]Index: filter on " + searchString;
-        }
-
-
-
-
-
-
-
 
 
         // GET: Cities/Details/5
