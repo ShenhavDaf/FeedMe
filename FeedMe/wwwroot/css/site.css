@@ -422,10 +422,10 @@ span {
     -ms-user-select: none;
 }
 
-input {
+/*input {
     border: 0;
     width: 2%;
-}
+}*/
 
     nput::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
