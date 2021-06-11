@@ -1,15 +1,10 @@
 ﻿@model IEnumerable<ourProject.Models.City>
 
 @{
-    ViewData["Title"] = "Index";
-    @*<link rel="stylesheet" href="~/css/XXXX.css" />*@
+    ViewData["Title"] = "City Homepage";
 }
 
-@*<head>
-    <link rel="stylesheet" href="~/css/XXXX.css" />
-</head>*@
-
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
