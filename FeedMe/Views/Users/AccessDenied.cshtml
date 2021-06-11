@@ -6,10 +6,13 @@
 
 <div class="row">
     <div class="col-md-12">
-        Access Denied
-        <a asp-controller="Home" asp-action="Index">Click here to redirect to Homepage</a>
+        <p>Access Denied.</p><p>You'll be redirect to Homepage in 5 seconds...</p>
+        <a asp-controller="Users" asp-action="Login">Click here to Login</a>
     </div>
 </div>
+
+
+<script src="~/js/accessdenied.js"></script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
