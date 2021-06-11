@@ -32,14 +32,14 @@ namespace FeedMe.Controllers
 
         public async Task<IActionResult> Index(string searchString, string searchCity)
         {
-          
+
             var restaurants = from m in _context.Restaurant
-                         select m;
+                              select m;
 
             //if (!String.IsNullOrEmpty(searchString))
             //{
             //    restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
-            
+
             //}
             restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
 
@@ -85,7 +85,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles="Admin,rManager")]
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Create([Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,DeliveryCities, Categories")] Restaurant restaurant, int[] categories, int[] deliveryCities)
         {
             //if(HttpContext.Session.GetString("email") == null)
@@ -111,6 +111,8 @@ namespace FeedMe.Controllers
         [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.Cities = new SelectList(_context.City.OrderBy(x => x.Name).ToList(), nameof(City.ID), nameof(City.Name));
+
             if (id == null)
             {
                 return NotFound();
@@ -133,17 +135,20 @@ namespace FeedMe.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,rManager")]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate, Categories")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate, Categories")] Restaurant restaurant, int[] deliveryCities)
         {
             if (id != restaurant.ID)
             {
                 return NotFound();
             }
 
-          
+
 
             if (ModelState.IsValid)
             {
+                restaurant.DeliveryCities = new List<City>();
+                restaurant.DeliveryCities.AddRange(_context.City.Where(x => deliveryCities.Contains(x.ID)));
+
                 try
                 {
                     _context.Update(restaurant);
