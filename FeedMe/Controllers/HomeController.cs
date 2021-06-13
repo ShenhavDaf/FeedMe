@@ -23,6 +23,11 @@ namespace FeedMe.Controllers
             return View();
         }
 
+        public IActionResult Graph()
+        {
+            return View();
+        }
+
         public IActionResult Login()
         {
             return View();

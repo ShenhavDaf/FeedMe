@@ -118,9 +118,9 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurant.FindAsync(id);
+           var restaurant = await _context.Restaurant.FindAsync(id);
             //restaurant.Categories = _context.Category.Where()
-
+           
 
             if (restaurant == null)
             {
@@ -148,7 +148,7 @@ namespace FeedMe.Controllers
             {
                 restaurant.DeliveryCities = new List<City>();
                 restaurant.DeliveryCities.AddRange(_context.City.Where(x => deliveryCities.Contains(x.ID)));
-
+              
                 try
                 {
                     _context.Update(restaurant);

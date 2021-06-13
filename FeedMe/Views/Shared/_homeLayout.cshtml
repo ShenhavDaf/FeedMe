@@ -38,11 +38,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-                            </li>*@
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+        </li>*@
                         @if ((User.Identity.IsAuthenticated) || (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0))
                         {
                             <li class="nav-item">
@@ -59,6 +59,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Graph">About Us</a>
                             </li>
                         }
                         else
@@ -77,6 +80,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Cities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">About Us</a>
                             </li>
                         }
 

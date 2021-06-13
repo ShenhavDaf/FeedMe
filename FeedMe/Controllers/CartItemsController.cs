@@ -9,7 +9,7 @@ using FeedMe.Data;
 using FeedMe.Models;
 using ourProject.Models;
 
-namespace FeedMe.Controllers
+namespace ourProject.Controllers
 {
     public class CartItemsController : Controller
     {
@@ -28,74 +28,64 @@ namespace FeedMe.Controllers
         }
 
         // GET: CartItems/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
+            //We created a CartItem object in case the packet does not exist in our database
+            CartItem c = new CartItem();
+            c.DishID = id;
+            c.Quantity = 1;
+            foreach(var item in _context.Dish)
             {
-                return NotFound();
+                if(item.ID == id)
+                {
+                    c.Price = item.Price;
+                    break;
+                }
             }
 
-            var cartItem = await _context.CartItem
-                .Include(c => c.Dish)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            _context.Add(c);
+            await _context.SaveChangesAsync();
+
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+
+            var cartItem = await _context.CartItem.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
+
             if (cartItem == null)
             {
                 return NotFound();
             }
-
+           
             return View(cartItem);
         }
 
         // GET: CartItems/Create
-/*        public IActionResult Create(int id)
+        public IActionResult Create()
         {
-            ViewData["DishID"] = id;
-            ViewData["Dish"] = _context.Dish.Include(m => m.ID == id);
-            foreach (var item in _context.Dish)
-            {
-                if (item.ID == id)
-                {
-                    ViewData["dish"] = item;
-                }
-                *//* ViewData["Quantity"] = new SelectList(_context.CartItem, "ID", "Quantity");
-                 ViewData["Price"] = new SelectList(_context.Dish, "ID", "Price");*//*
-
-
-            }
+            //????ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name");
             return View();
-        }*/
-            // GET: CartItems/Create
-/*            public IActionResult Create()
-            {
-                ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name");
-                return View();
-            }*/
+        }
 
-            // POST: CartItems/Create
-            // To protect from overposting attacks, enable the specific properties you want to bind to.
-            // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-            [HttpPost]
-            /*[ValidateAntiForgeryToken]*/
-            public async Task<IActionResult> Create([Bind("ID,DishID,Quantity,Price")] CartItem cartItem)
+        // POST: CartItems/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ID,DishID,Quantity,Price")] CartItem cartItem)
         {
             if (ModelState.IsValid)
             {
-                //dish.Restaurant = new Restaurant();
-                /*cartItem.Dish = new Dish();
-                cartItem.Dish = _context.Dish.Any(m => m.ID == dish);
-                cartItem.Dish = _context.Dish.FirstOrDefault(m => m.ID == dish);*/
-                //dish.Restaurant = _context.Restaurant.Any(e => e.ID == restaurant);
-                //dish.Restaurant = _context.Restaurant.FirstOrDefaultAsync(m => m.ID == restaurant);
-                //dish.Restaurant = new Restaurant();
-                //dish.Restaurant.Name = _context.Restaurant.Where(x => dish.Contains(x.RestaurantID));
-                //restaurant.Categories = new List<Category>();
-                //restaurant.Categories.AddRange(_context.Category.Where(x => categories.Contains(x.ID)));
                 _context.Add(cartItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+               
             }
-            ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name", cartItem.DishID);
-            return Json(cartItem);
+            //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name", cartItem.DishID);
+            //return Json(cartItem);
+            return View(cartItem);
         }
 
         // GET: CartItems/Edit/5
@@ -162,6 +152,7 @@ namespace FeedMe.Controllers
             var cartItem = await _context.CartItem
                 .Include(c => c.Dish)
                 .FirstOrDefaultAsync(m => m.ID == id);
+            
             if (cartItem == null)
             {
                 return NotFound();

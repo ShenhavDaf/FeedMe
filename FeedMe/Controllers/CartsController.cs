@@ -33,8 +33,11 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-            var cart = await _context.Cart
-                .FirstOrDefaultAsync(m => m.ID == id);
+            //var cart = await _context.Cart
+            //    .FirstOrDefaultAsync(m => m.ID == id);
+            //liel
+            var cart = await _context.CartItem.Include(r => r.DishID).FirstOrDefaultAsync(m => m.ID == id);
+
             if (cart == null)
             {
                 return NotFound();

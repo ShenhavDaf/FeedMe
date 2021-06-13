@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Graph";
+}
+@*<h1>@ViewData["Title"]</h1>*@
+
+<head>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "light1", // "light2", "dark1", "dark2"
+                //move
+                animationEnabled: true, // change to true
+                title: {
+                    text: "Orders chart by category",
+                    fontColor: "black"
+                },
+                data: [
+                    {
+                        type: "column",
+                        dataPoints: [
+                            { label: "Hummus", y: 5 },
+                            { label: "Mexican", y: 10 },
+                            { label: "Coffee Shops", y: 18 },
+                            { label: "Noodles", y: 20 },
+                            { label: "Asian", y: 25 },
+                            { label: "Pasta", y: 27 },
+                            { label: "Pizza", y: 40 },
+                            { label: "Burger", y: 45 },
+                            { label: "IceCream", y: 60 },
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+
+        }
+    </script>
+    <body>
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    </body>
+
+    @*Graph 2*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <body>
+
+        <canvas id="myChart" style="height: 370px; width: 100%; padding-top:80px;"></canvas>
+        <script>
+            var xValues = ["Golda", "Ruben", "Pizza Prego", "Oshi Oshi", "Roladin"];
+            var yValues = [55, 49, 44, 24, 15];
+            var barColors = [
+                "#b91d47",
+                "#00aba9",
+                "#2b5797",
+                "#e8c3b9",
+                "#1e7145"
+            ];
+
+            new Chart("myChart", {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "The five most popular restaurants",
+                        fontSize: 40,
+                        fontColor: "black"
+                    }
+                }
+            });
+        </script>
+
+    </body>
+</head>
+
+
