@@ -4,14 +4,16 @@ using FeedMe.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FeedMe.Migrations
 {
     [DbContext(typeof(FeedMeContext))]
-    partial class FeedMeContextModelSnapshot : ModelSnapshot
+    [Migration("20210614141156_FixCart")]
+    partial class FixCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +49,56 @@ namespace FeedMe.Migrations
                     b.HasIndex("RestaurantsID");
 
                     b.ToTable("CityRestaurant");
+                });
+
+            modelBuilder.Entity("FeedMe.Models.Cart1", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Cart1");
+                });
+
+            modelBuilder.Entity("FeedMe.Models.CartItem1", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CartID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DishID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("cart1ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DishID");
+
+                    b.HasIndex("cart1ID");
+
+                    b.ToTable("CartItem1");
                 });
 
             modelBuilder.Entity("ourProject.Models.Cart", b =>
@@ -295,6 +347,23 @@ namespace FeedMe.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FeedMe.Models.CartItem1", b =>
+                {
+                    b.HasOne("ourProject.Models.Dish", "Dish")
+                        .WithMany()
+                        .HasForeignKey("DishID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FeedMe.Models.Cart1", "cart1")
+                        .WithMany("CartItems")
+                        .HasForeignKey("cart1ID");
+
+                    b.Navigation("cart1");
+
+                    b.Navigation("Dish");
+                });
+
             modelBuilder.Entity("ourProject.Models.CartItem", b =>
                 {
                     b.HasOne("ourProject.Models.Cart", "cart")
@@ -334,6 +403,11 @@ namespace FeedMe.Migrations
                         .IsRequired();
 
                     b.Navigation("Restaurant");
+                });
+
+            modelBuilder.Entity("FeedMe.Models.Cart1", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("ourProject.Models.Cart", b =>

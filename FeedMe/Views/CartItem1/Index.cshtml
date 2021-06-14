@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ourProject.Models.CartItem>
+﻿@model IEnumerable<FeedMe.Models.CartItem1>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cart)
+                @Html.DisplayNameFor(model => model.CartID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.cart.ID)
+                @Html.DisplayFor(modelItem => item.CartID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

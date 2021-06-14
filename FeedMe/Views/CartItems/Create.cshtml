@@ -1,7 +1,7 @@
 ﻿@model ourProject.Models.CartItem
 
 @{
-    ViewData["Title"] = "Create new cart item";
+    ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
@@ -14,12 +14,26 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DishID" class="control-label"></label>
-                <select asp-for="DishID" class="form-control" asp-items="ViewBag.DishID"></select>
+                <select asp-for="DishID" class ="form-control" asp-items="ViewBag.DishID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CartID" class="control-label"></label>
+                <select asp-for="CartID" class ="form-control" asp-items="ViewBag.CartID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ourProject.Models
+namespace FeedMe.Models
 {
-    public class CartItem
+    public class CartItem1
     {
         public int ID { get; set; }
 
@@ -23,7 +23,7 @@ namespace ourProject.Models
 
         //MAMY cartItems TO ONE cart 
 
-        public Cart cart { get; set; }
+        public Cart1 cart1 { get; set; }
 
         [Required(ErrorMessage = "Please tell about the order")]
         public string Description { get; set; }

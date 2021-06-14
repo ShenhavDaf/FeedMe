@@ -28,15 +28,30 @@ namespace FeedMe.Controllers
         // GET: Carts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            //Cart c = new Cart();
+            //c.ID = id;
+
+            //foreach (var item in _context.CartItem)
+            //{
+            //    if (item.ID == id)
+            //    {
+            //        c.TotalAmount = item.Quantity;
+            //        break;
+            //    }
+            //}
+
+            //_context.Add(c);
+            // await _context.SaveChangesAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            //var cart = await _context.Cart
-            //    .FirstOrDefaultAsync(m => m.ID == id);
+            var cart = await _context.Cart
+                .FirstOrDefaultAsync(m => m.ID == id);
             //liel
-            var cart = await _context.CartItem.Include(r => r.DishID).FirstOrDefaultAsync(m => m.ID == id);
+            //var cart = await _context.Cart.Include(r => r.CartItems).FirstOrDefaultAsync(m => m.ID == id);
 
             if (cart == null)
             {
