@@ -36,9 +36,9 @@
                                         +
                                     </button>
                                 </div>
-
+                                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a href="javascript:history.back()">Go Back To Order</a> </button>
                                 <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="Cart1" asp-action="Details" asp-route-id="@Model.ID">Check</a> </button>
-
+                                <br />
                                 <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
                                 <a asp-action="Details" asp-route-id="@Model.ID">Details</a> |
                                 <a asp-action="Delete" asp-route-id="@Model.ID">Delete</a>

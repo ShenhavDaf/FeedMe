@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using FeedMe.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace FeedMe.Controllers
 {
@@ -33,7 +34,7 @@ namespace FeedMe.Controllers
             CartItem1 c = new CartItem1();
             c.Dish = new ourProject.Models.Dish();
             c.DishID = id;
-        //    c.Dish.ID = id;
+        //  c.Dish.ID = id;
             c.Quantity = 1;
             foreach (var item in _context.Dish)
             {
@@ -50,14 +51,41 @@ namespace FeedMe.Controllers
                     break;
                 }
             }
+            string s = HttpContext.Session.GetString("cart");
+            if (s != null)
+            {        
+                c.CartID = Int32.Parse(s);
+                foreach (var item in _context.Cart1)
+                {
+                    if(item.ID == c.CartID)
+                    {
+                        c.cart1 = item;
+                        c.cart1.TotalAmount += c.Price;
+                        c.cart1.CartItems.Add(c);
+                        break;
+                    }
+                }
+            }
+            else {
+                Cart1 cart = new Cart1();
+                cart.CartItems = new List<CartItem1>();
+                cart.TotalAmount = c.Price;
+                c.CartID = cart.ID;
+                c.cart1 = cart;
+              //  c.cart1.CartItems.Add(c);
+                cart.CartItems.Add(c);
+                string l = cart.ID.ToString();
+                HttpContext.Session.SetString("cart", l);
+            }
 
+            
             _context.Add(c);
             await _context.SaveChangesAsync();
 
-            if (id == null)
+        /*    if (id == null)
             {
                 return NotFound();
-            }
+            }*/
 
             var cartItem1 = await _context.CartItem1.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
 
