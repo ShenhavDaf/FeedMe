@@ -48,19 +48,19 @@ namespace FeedMe.Controllers
                         }
                     }
 
-                    if(item.cart1 != null)
+                    if(item.Cart1 != null)
                     {
-                        c = item.cart1;
-                        item.cart1.TotalAmount += item.Price;
-                        item.cart1.CartItems.Add(item);
-                        _context.Add(item.cart1);
+                        c = item.Cart1;
+                        item.Cart1.TotalAmount += item.Price;
+                        item.Cart1.CartItems.Add(item);
+                        _context.Add(item.Cart1);
                         await _context.SaveChangesAsync();
                     }
                     else
                     {
                         c = new Cart1();
                         c.CartItems = new List<CartItem1>();
-                        item.CartID = c.ID;
+                        item.Cart1ID = c.ID;
                         c.TotalAmount = item.Price;
                         c.CartItems.Add(item);                  
                     }

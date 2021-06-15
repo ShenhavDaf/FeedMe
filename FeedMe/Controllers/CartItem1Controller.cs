@@ -54,14 +54,14 @@ namespace FeedMe.Controllers
             string s = HttpContext.Session.GetString("cart");
             if (s != null)
             {        
-                c.CartID = Int32.Parse(s);
+                c.Cart1ID = Int32.Parse(s);
                 foreach (var item in _context.Cart1)
                 {
-                    if(item.ID == c.CartID)
+                    if(item.ID == c.Cart1ID)
                     {
-                        c.cart1 = item;
-                        c.cart1.TotalAmount += c.Price;
-                        c.cart1.CartItems.Add(c);
+                        c.Cart1 = item;
+                        c.Cart1.TotalAmount += c.Price;
+                        c.Cart1.CartItems.Add(c);
                         break;
                     }
                 }
@@ -70,8 +70,8 @@ namespace FeedMe.Controllers
                 Cart1 cart = new Cart1();
                 cart.CartItems = new List<CartItem1>();
                 cart.TotalAmount = c.Price;
-                c.CartID = cart.ID;
-                c.cart1 = cart;
+                c.Cart1ID = cart.ID;
+                c.Cart1 = cart;
               //  c.cart1.CartItems.Add(c);
                 cart.CartItems.Add(c);
                 string l = cart.ID.ToString();
@@ -88,7 +88,7 @@ namespace FeedMe.Controllers
             }*/
 
             var cartItem1 = await _context.CartItem1.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
-
+      
             if (cartItem1 == null)
             {
                 return NotFound();
@@ -109,7 +109,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,DishID,Quantity,Price,CartID,Description")] CartItem1 cartItem1)
+        public async Task<IActionResult> Create([Bind("ID,DishID,Quantity,Price,Cart1ID,Description")] CartItem1 cartItem1)
         {
             if (ModelState.IsValid)
             {
@@ -143,7 +143,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,DishID,Quantity,Price,CartID,Description")] CartItem1 cartItem1)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,DishID,Quantity,Price,Cart1ID,Description")] CartItem1 cartItem1)
         {
             if (id != cartItem1.ID)
             {

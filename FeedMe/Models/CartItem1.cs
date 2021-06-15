@@ -19,11 +19,11 @@ namespace FeedMe.Models
 
         public int Price { get; set; }
 
-        public int CartID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
+        public int Cart1ID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
 
         //MAMY cartItems TO ONE cart 
 
-        public Cart1 cart1 { get; set; }
+        public Cart1 Cart1 { get; set; }
 
         [Required(ErrorMessage = "Please tell about the order")]
         public string Description { get; set; }
