@@ -1,12 +1,12 @@
-﻿@*@model FeedMe.Models.CartItem1
+﻿@model FeedMe.Models.MyCartItem
 
 @{
     ViewData["Title"] = "Create";
-}*@
+}
 
-<!--<h1>Create</h1>
+<h1>Create</h1>
 
-<h4>CartItem1</h4>
+<h4>MyCartItem</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DishID" class="control-label"></label>
-                <select asp-for="DishID" class="form-control" asp-items="ViewBag.DishID"></select>
+                <select asp-for="DishID" class ="form-control" asp-items="ViewBag.DishID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
@@ -27,17 +27,10 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Cart1ID" class="control-label"></label>
-                <input asp-for="Cart1ID" class="form-control" />
-                <span asp-validation-for="Cart1ID" class="text-danger"></span>
+                <label asp-for="MyCartID" class="control-label"></label>
+                <select asp-for="MyCartID" class ="form-control" asp-items="ViewBag.MyCartID"></select>
             </div>
-            <input type="hidden" value="a" name="Description" />-->
-            @*<div class="form-group">
-            <label asp-for="Description" class="control-label"></label>
-            <input asp-for="Description" class="form-control" />
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>*@
-            <!--<div class="form-group">
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -50,4 +43,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}-->
+}

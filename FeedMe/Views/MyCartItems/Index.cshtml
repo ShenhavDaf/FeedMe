@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<FeedMe.Models.CartItem1>
+﻿@model IEnumerable<FeedMe.Models.MyCartItem>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,10 +22,7 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cart1ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.MyCart)
             </th>
             <th></th>
         </tr>
@@ -43,10 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cart1ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.MyCart.ID)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
@@ -57,4 +51,3 @@
 }
     </tbody>
 </table>
-*@

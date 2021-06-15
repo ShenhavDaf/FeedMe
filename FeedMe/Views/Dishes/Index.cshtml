@@ -33,7 +33,7 @@
 
                             <p>
                                 @*<button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="Carts" asp-action="Index" asp-route-id="@dish.ID" class="addDish" dish-id="@dish.ID"> Add to order</a> </button>*@
-                                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="CartItems" asp-action="Index" asp-route-id="@dish.ID" dish-id="@dish.ID"> Add to order</a> </button>
+                                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCartItems" asp-action="Index" asp-route-id="@dish.ID" dish-id="@dish.ID"> Add to order</a> </button>
                                 <tr>
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |

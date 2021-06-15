@@ -25,8 +25,12 @@ namespace FeedMe.Data
 
         public DbSet<ourProject.Models.User> User { get; set; }
 
-        public DbSet<FeedMe.Models.Cart1> Cart1 { get; set; }
+/*        public DbSet<FeedMe.Models.Cart1> Cart1 { get; set; }
 
-        public DbSet<FeedMe.Models.CartItem1> CartItem1 { get; set; }
+        public DbSet<FeedMe.Models.CartItem1> CartItem1 { get; set; }*/
+
+        public DbSet<FeedMe.Models.MyCartItem> MyCartItem { get; set; }
+
+        public DbSet<FeedMe.Models.MyCart> MyCart { get; set; }
     }
 }

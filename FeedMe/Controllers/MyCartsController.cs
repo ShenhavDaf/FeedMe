@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,29 +10,29 @@ using FeedMe.Models;
 
 namespace FeedMe.Controllers
 {
-    public class Cart1Controller : Controller
+    public class MyCartsController : Controller
     {
         private readonly FeedMeContext _context;
 
-        public Cart1Controller(FeedMeContext context)
+        public MyCartsController(FeedMeContext context)
         {
             _context = context;
         }
 
-        // GET: Cart1
+        // GET: MyCarts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cart1.ToListAsync());
+            return View(await _context.MyCart.ToListAsync());
         }
 
-        // GET: Cart1/Details/5
+        // GET: MyCarts/Details/5
         public async Task<IActionResult> Details(int id)
-        { 
-            Cart1 c = null;
+        {
+            MyCart c = null;
             //  Cart1 cart1 = new Cart1(); 
-            foreach (var item in _context.CartItem1)
+            foreach (var item in _context.MyCartItem)
             {
-                if(item.ID == id)
+                if (item.ID == id)
                 {
                     foreach (var dish in _context.Dish)
                     {
@@ -48,21 +48,21 @@ namespace FeedMe.Controllers
                         }
                     }
 
-                    if(item.Cart1 != null)
+                    if (item.MyCart != null)
                     {
-                        c = item.Cart1;
-                        item.Cart1.TotalAmount += item.Price;
-                        item.Cart1.CartItems.Add(item);
-                        _context.Add(item.Cart1);
+                        c = item.MyCart;
+                        item.MyCart.TotalAmount += item.Price;
+                        item.MyCart.MyCartItems.Add(item);
+                        _context.Add(item.MyCart);
                         await _context.SaveChangesAsync();
                     }
                     else
                     {
-                        c = new Cart1();
-                        c.CartItems = new List<CartItem1>();
-                        item.Cart1ID = c.ID;
+                        c = new MyCart();
+                        c.MyCartItems = new List<MyCartItem>();
+                        item.MyCartID = c.ID;
                         c.TotalAmount = item.Price;
-                        c.CartItems.Add(item);                  
+                        c.MyCartItems.Add(item);
                     }
                     break;
                 }
@@ -72,47 +72,61 @@ namespace FeedMe.Controllers
             _context.Add(c);
             await _context.SaveChangesAsync();
 
-         *//*   if (id == null)
-            {
-                return NotFound();
-            }*//*
+            /*   if (id == null)
+               {
+                   return NotFound();
+               }*/
 
-            var cart1 = await _context.Cart1.Include(r => r.CartItems).FirstOrDefaultAsync(m => m.ID == c.ID);
+            var myCart = await _context.MyCart.Include(r => r.MyCartItems).FirstOrDefaultAsync(m => m.ID == c.ID);
             //var cart1 = await _context.Cart1
             //    .FirstOrDefaultAsync(m => m.ID == id);
             //cart1 = await _context.Cart1.Include(r => r.CartItems).FirstOrDefaultAsync(m => m.ID == i);
 
-            if (cart1 == null)
+            if (myCart == null)
             {
                 return NotFound();
             }
 
-            return View(cart1);
+            return View(myCart);
         }
+           /* if (id == null)
+            {
+                return NotFound();
+            }
 
-        // GET: Cart1/Create
+            var myCart = await _context.MyCart
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (myCart == null)
+            {
+                return NotFound();
+            }
+
+            return View(myCart);
+        }*/
+
+        // GET: MyCarts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Cart1/Create
+        // POST: MyCarts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,TotalAmount")] Cart1 cart1)
+        public async Task<IActionResult> Create([Bind("ID,TotalAmount")] MyCart myCart)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cart1);
+                _context.Add(myCart);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cart1);
+            return View(myCart);
         }
 
-        // GET: Cart1/Edit/5
+        // GET: MyCarts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,22 +134,22 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-            var cart1 = await _context.Cart1.FindAsync(id);
-            if (cart1 == null)
+            var myCart = await _context.MyCart.FindAsync(id);
+            if (myCart == null)
             {
                 return NotFound();
             }
-            return View(cart1);
+            return View(myCart);
         }
 
-        // POST: Cart1/Edit/5
+        // POST: MyCarts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TotalAmount")] Cart1 cart1)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,TotalAmount")] MyCart myCart)
         {
-            if (id != cart1.ID)
+            if (id != myCart.ID)
             {
                 return NotFound();
             }
@@ -144,12 +158,12 @@ namespace FeedMe.Controllers
             {
                 try
                 {
-                    _context.Update(cart1);
+                    _context.Update(myCart);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!Cart1Exists(cart1.ID))
+                    if (!MyCartExists(myCart.ID))
                     {
                         return NotFound();
                     }
@@ -160,10 +174,10 @@ namespace FeedMe.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cart1);
+            return View(myCart);
         }
 
-        // GET: Cart1/Delete/5
+        // GET: MyCarts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -171,31 +185,30 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-            var cart1 = await _context.Cart1
+            var myCart = await _context.MyCart
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (cart1 == null)
+            if (myCart == null)
             {
                 return NotFound();
             }
 
-            return View(cart1);
+            return View(myCart);
         }
 
-        // POST: Cart1/Delete/5
+        // POST: MyCarts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cart1 = await _context.Cart1.FindAsync(id);
-            _context.Cart1.Remove(cart1);
+            var myCart = await _context.MyCart.FindAsync(id);
+            _context.MyCart.Remove(myCart);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool Cart1Exists(int id)
+        private bool MyCartExists(int id)
         {
-            return _context.Cart1.Any(e => e.ID == id);
+            return _context.MyCart.Any(e => e.ID == id);
         }
     }
 }
-*/
