@@ -30,14 +30,33 @@ namespace FeedMe.Controllers
         {
 
             Cart1 c = new Cart1();
-            c.CartItems = new List<CartItem1>();
+
+            if(c.CartItems == null)
+            { //נצטרך להכניס לפה גם את C שנבין איך לשמור
+                c.CartItems = new List<CartItem1>();
+                c.TotalAmount = 0;
+            }
+               
+
             foreach (var item in _context.CartItem1)
             {
+                foreach(var dish in _context.Dish)
+                {
+                    if(item.DishID == dish.ID)
+                    {
+                        item.Dish.Name = dish.Name;
+                        item.Dish.Price = dish.Price;
+                        item.Dish.RestaurantID = dish.RestaurantID;
+                        item.Dish.FoodType = dish.FoodType;
+                        item.Dish.DishImage = dish.DishImage;
+                        item.Dish.Description = dish.Description;
+                    }
+                }
                 if (item.ID == id)
                 {
                     item.CartID = c.ID;
                     c.CartItems.Add(item);
-                    c.TotalAmount = item.Price;
+                    c.TotalAmount += item.Price;
                     break;
                 }
             }

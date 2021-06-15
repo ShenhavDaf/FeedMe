@@ -31,12 +31,20 @@ namespace FeedMe.Controllers
         {
             //We created a CartItem object in case the packet does not exist in our database
             CartItem1 c = new CartItem1();
+            c.Dish = new ourProject.Models.Dish();
             c.DishID = id;
+        //    c.Dish.ID = id;
             c.Quantity = 1;
             foreach (var item in _context.Dish)
             {
                 if (item.ID == id)
                 {
+                    c.Dish.Name = item.Name;
+                    c.Dish.RestaurantID = item.RestaurantID;
+                    c.Dish.DishImage = item.DishImage;
+                    c.Dish.Description = item.Description;
+                    c.Dish.FoodType = item.FoodType;
+                    c.Dish.Price= item.Price;
                     c.Description = item.Description;
                     c.Price = item.Price;
                     break;
