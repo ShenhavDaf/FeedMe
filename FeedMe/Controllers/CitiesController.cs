@@ -21,12 +21,11 @@ namespace FeedMe.Controllers
         }
 
         // GET: Cities
-        [Authorize(Roles = "Admin")]
         /* public async Task<IActionResult> Index()
          {
              return View(await _context.City.ToListAsync());
          }*/
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(string searchString)
         {
             var cities = from m in _context.City.OrderBy(x => x.Name)
