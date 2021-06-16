@@ -49,7 +49,6 @@ namespace FeedMe.Controllers
 
 
         // GET: Restaurants/Details/5
-        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -71,7 +70,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Create
-        [Authorize(Roles = "Admin,rManager")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewBag.Categories = new SelectList(_context.Category.OrderBy(x => x.Name).ToList(), nameof(Category.ID), nameof(Category.Name));
@@ -85,7 +84,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,rManager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,DeliveryCities, Categories")] Restaurant restaurant, int[] categories, int[] deliveryCities)
         {
             //if(HttpContext.Session.GetString("email") == null)
@@ -108,7 +107,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Edit/5
-        [Authorize(Roles = "Admin,rManager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.Cities = new SelectList(_context.City.OrderBy(x => x.Name).ToList(), nameof(City.ID), nameof(City.Name));
@@ -134,7 +133,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,rManager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate, Categories")] Restaurant restaurant, int[] deliveryCities)
         {
             if (id != restaurant.ID)
@@ -192,6 +191,7 @@ namespace FeedMe.Controllers
         // POST: Restaurants/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var restaurant = await _context.Restaurant.FindAsync(id);

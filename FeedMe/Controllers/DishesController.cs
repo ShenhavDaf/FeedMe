@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using ourProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FeedMe.Controllers
 {
@@ -46,6 +47,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes/Create
+        [Authorize(Roles = "Admin,rManager")]
         public IActionResult Create()
         {
             ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", "Name");
@@ -58,6 +60,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Create([Bind("ID,Name,DishImage,Description,FoodType,Price,RestaurantID")] Dish dish, int restaurant)
         {
             if (ModelState.IsValid)
@@ -72,6 +75,7 @@ namespace FeedMe.Controllers
 
                 _context.Add(dish);
                 await _context.SaveChangesAsync();
+                PostMessageToFacebook().Wait();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", "Address", dish.RestaurantID);
@@ -79,6 +83,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,6 +105,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,DishImage,Description,FoodType,Price,RestaurantID")] Dish dish)
         {
             if (id != dish.ID)
@@ -132,6 +138,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -161,9 +168,31 @@ namespace FeedMe.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         private bool DishExists(int id)
         {
             return _context.Dish.Any(e => e.ID == id);
+        }
+
+
+
+        public static async Task<string> PostMessageToFacebook()
+        {
+            // Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+            // for details on configuring this project to bundle and minify static web assets.
+
+            // Post to Facebook after new dish is validated and created in the database
+            string pageId = "105380358425572";
+            string accessToken = "EAAMUCFVTWL0BAMhxIJkFQRBOZCmyOffnTkAlonCOj8U8ILB2O943aBqpOOMIou6MEduKppMUM9TcO67yPcQaqEchD2pTvC4FPsJwkQ6SIZAzgbhFhIgrFN50w5QofVWQayq4sIf5AVqWg7fCxtxPEHDDZCtyLmBFczn1kqmMIyWZBQQHOTrf";
+
+            string message = "Fuck FeedMe! We wants pork";
+
+            FacebookApi api = new FacebookApi(pageId, accessToken);
+            string result = await api.PostMessage(message);
+
+            Console.WriteLine(result);
+
+            return result;
         }
     }
 }
