@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeedMe.Migrations
 {
     [DbContext(typeof(FeedMeContext))]
-    [Migration("20210615162901_init")]
-    partial class init
+    [Migration("20210616164402_InIt")]
+    partial class InIt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace FeedMe.Migrations
                     b.ToTable("CityRestaurant");
                 });
 
-            modelBuilder.Entity("FeedMe.Models.Cart1", b =>
+            modelBuilder.Entity("FeedMe.Models.MyCart", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -61,26 +61,28 @@ namespace FeedMe.Migrations
                     b.Property<int>("TotalAmount")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.ToTable("Cart1");
+                    b.HasIndex("UserID")
+                        .IsUnique();
+
+                    b.ToTable("MyCart");
                 });
 
-            modelBuilder.Entity("FeedMe.Models.CartItem1", b =>
+            modelBuilder.Entity("FeedMe.Models.MyCartItem", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Cart1ID")
+                    b.Property<int>("DishID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DishID")
+                    b.Property<int>("MyCartID")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -91,11 +93,11 @@ namespace FeedMe.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Cart1ID");
-
                     b.HasIndex("DishID");
 
-                    b.ToTable("CartItem1");
+                    b.HasIndex("MyCartID");
+
+                    b.ToTable("MyCartItem");
                 });
 
             modelBuilder.Entity("ourProject.Models.Category", b =>
@@ -240,6 +242,10 @@ namespace FeedMe.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("BirthdayDate")
                         .HasColumnType("datetime2");
 
@@ -297,23 +303,34 @@ namespace FeedMe.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FeedMe.Models.CartItem1", b =>
+            modelBuilder.Entity("FeedMe.Models.MyCart", b =>
                 {
-                    b.HasOne("FeedMe.Models.Cart1", "Cart1")
-                        .WithMany("CartItems")
-                        .HasForeignKey("Cart1ID")
+                    b.HasOne("ourProject.Models.User", "User")
+                        .WithOne("MyCart")
+                        .HasForeignKey("FeedMe.Models.MyCart", "UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FeedMe.Models.MyCartItem", b =>
+                {
                     b.HasOne("ourProject.Models.Dish", "Dish")
                         .WithMany()
                         .HasForeignKey("DishID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Cart1");
+                    b.HasOne("FeedMe.Models.MyCart", "MyCart")
+                        .WithMany("MyCartItems")
+                        .HasForeignKey("MyCartID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Dish");
+
+                    b.Navigation("MyCart");
                 });
 
             modelBuilder.Entity("ourProject.Models.CreditCard", b =>
@@ -338,9 +355,9 @@ namespace FeedMe.Migrations
                     b.Navigation("Restaurant");
                 });
 
-            modelBuilder.Entity("FeedMe.Models.Cart1", b =>
+            modelBuilder.Entity("FeedMe.Models.MyCart", b =>
                 {
-                    b.Navigation("CartItems");
+                    b.Navigation("MyCartItems");
                 });
 
             modelBuilder.Entity("ourProject.Models.Restaurant", b =>
@@ -351,6 +368,8 @@ namespace FeedMe.Migrations
             modelBuilder.Entity("ourProject.Models.User", b =>
                 {
                     b.Navigation("CreditCard");
+
+                    b.Navigation("MyCart");
                 });
 #pragma warning restore 612, 618
         }

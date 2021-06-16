@@ -30,11 +30,9 @@ namespace FeedMe.Controllers
         // GET: MyCartItems/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            //We created a CartItem object in case the packet does not exist in our database
             MyCartItem c = new MyCartItem();
             c.Dish = new ourProject.Models.Dish();
             c.DishID = id;
-            //  c.Dish.ID = id;
             c.Quantity = 1;
             foreach (var item in _context.Dish)
             {
@@ -50,68 +48,116 @@ namespace FeedMe.Controllers
                     break;
                 }
             }
-            string s = HttpContext.Session.GetString("cart");
-            if (s != null)
-            {
-                c.MyCartID = Int32.Parse(s);
-                foreach (var item in _context.MyCart)
-                {
-                    if (item.ID == c.MyCartID)
-                    {
-                        c.MyCart = item;
-                        c.MyCart.TotalAmount += c.Price;
-                        c.MyCart.MyCartItems.Add(c);
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                MyCart cart = new MyCart();
-                cart.MyCartItems = new List<MyCartItem>();
-                cart.TotalAmount = c.Price;
-                c.MyCartID = cart.ID;
-                c.MyCart = cart;
-                //  c.cart1.CartItems.Add(c);
-                cart.MyCartItems.Add(c);
-                string l = cart.ID.ToString();
-                HttpContext.Session.SetString("cart", l);
-            }
-
-
             _context.Add(c);
             await _context.SaveChangesAsync();
-
-            /*    if (id == null)
-                {
-                    return NotFound();
-                }*/
-
+/*            if (id == null)
+            {
+                return NotFound();
+            }*/
             var myCartItem = await _context.MyCartItem.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
-
             if (myCartItem == null)
             {
                 return NotFound();
             }
-
             return View(myCartItem);
         }
-          /*  if (id == null)
-            {
-                return NotFound();
-            }
 
-            var myCartItem = await _context.MyCartItem
-                .Include(m => m.Dish)
-                .Include(m => m.MyCart)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (myCartItem == null)
-            {
-                return NotFound();
-            }
+        /*
+                //We created a CartItem object in case the packet does not exist in our database
+                MyCartItem c = new MyCartItem();
+                    c.Dish = new ourProject.Models.Dish();
+                    c.DishID = id;
+                    //  c.Dish.ID = id;
+                    c.Quantity = 1;
+                    foreach (var item in _context.Dish)
+                    {
+                        if (item.ID == id)
+                        {
+                            c.Dish.Name = item.Name;
+                            c.Dish.RestaurantID = item.RestaurantID;
+                            c.Dish.DishImage = item.DishImage;
+                            c.Dish.Description = item.Description;
+                            c.Dish.FoodType = item.FoodType;
+                            c.Dish.Price = item.Price;
+                            c.Price = item.Price;
+                            break;
+                        }
+                    }
+                    string s = HttpContext.Session.GetString("cart");
+                    if (s != null)
+                    {
+                        c.MyCartID = Int32.Parse(s);
+                        foreach (var item in _context.MyCart)
+                        {
+                            if (item.ID == c.MyCartID)
+                            {
+                                foreach (var cITemp in _context.MyCartItem)
+                                {
+                                    if (cITemp.MyCartID == item.ID)
+                                    {
+                                        item.MyCartItems.AddRange(cITemp.MyCart.MyCartItems);
+                                    }
+                                }
+                                c.MyCart = item;
+                                c.MyCart.TotalAmount += c.Price;
+                                c.MyCart.MyCartItems.Add(c);
+                                _context.MyCartItem.Add(c);
+                                _context.SaveChanges();
+                              //  _context.Add(c);
+                              //   _context.SaveChanges();
+                            //    await _context.SaveChangesAsync();
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MyCart cart = new MyCart();
+                        cart.MyCartItems = new List<MyCartItem>();
+                        cart.TotalAmount = c.Price;
+                        c.MyCartID = cart.ID;
+                        c.MyCart = cart;
+                        //  c.cart1.CartItems.Add(c);
+                        cart.MyCartItems.Add(c);
+                        _context.Add(c);
+                        await _context.SaveChangesAsync();
+                        string l = cart.ID.ToString();
+                        HttpContext.Session.SetString("cart", l);
+                    }
 
-            return View(myCartItem);
-        }*/
+
+
+
+                    *//*    if (id == null)
+                        {
+                            return NotFound();
+                        }*//*
+
+                    var myCartItem = await _context.MyCartItem.Include(r => r.Dish).FirstOrDefaultAsync(m => m.MyCartID == c.MyCartID);
+
+                    if (myCartItem == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return View(myCartItem);
+                }*/
+        /*  if (id == null)
+          {
+              return NotFound();
+          }
+
+          var myCartItem = await _context.MyCartItem
+              .Include(m => m.Dish)
+              .Include(m => m.MyCart)
+              .FirstOrDefaultAsync(m => m.ID == id);
+          if (myCartItem == null)
+          {
+              return NotFound();
+          }
+
+          return View(myCartItem);
+      }*/
 
         // GET: MyCartItems/Create
         public IActionResult Create()

@@ -44,7 +44,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id,Email,Password,Name,PhoneNumber")] User user, string ReturnUrl)
+        public async Task<IActionResult> Login([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate")] User user, string ReturnUrl)
         {
             //var qName = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
             /*user.Name = "a";
@@ -124,7 +124,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Id,Name,Email,Password,PhoneNumber,BirthdayDate")] User user)
+        public async Task<IActionResult> Register([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -203,7 +203,7 @@ namespace FeedMe.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Name,PhoneNumber,BirthdayDate,Type")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate,Type")] User user)
         {
             if (id != user.Id)
             {

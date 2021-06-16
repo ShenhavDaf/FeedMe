@@ -18,10 +18,8 @@ namespace FeedMe.Models
 
         public int Price { get; set; }
 
-        public int MyCartID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
-
         //MAMY cartItems TO ONE cart 
-
+        public int MyCartID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
         public MyCart MyCart { get; set; }
     }
 }

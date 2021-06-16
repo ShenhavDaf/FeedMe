@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ourProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,5 +15,10 @@ namespace FeedMe.Models
         public List<MyCartItem> MyCartItems { get; set; }
 
         public int TotalAmount { get; set; }
+
+        // MIGRATION
+        public int UserID { get; set; }
+        public User User { get; set; }
+        // MIGRATION
     }
 }

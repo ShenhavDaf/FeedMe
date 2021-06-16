@@ -3,23 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FeedMe.Migrations
 {
-    public partial class init : Migration
+    public partial class InIt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Cart1",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TotalAmount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cart1", x => x.ID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
@@ -74,6 +61,7 @@ namespace FeedMe.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthdayDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false)
@@ -179,7 +167,27 @@ namespace FeedMe.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartItem1",
+                name: "MyCart",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalAmount = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MyCart", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_MyCart_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MyCartItem",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -187,35 +195,24 @@ namespace FeedMe.Migrations
                     DishID = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Cart1ID = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    MyCartID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartItem1", x => x.ID);
+                    table.PrimaryKey("PK_MyCartItem", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_CartItem1_Cart1_Cart1ID",
-                        column: x => x.Cart1ID,
-                        principalTable: "Cart1",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CartItem1_Dish_DishID",
+                        name: "FK_MyCartItem_Dish_DishID",
                         column: x => x.DishID,
                         principalTable: "Dish",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MyCartItem_MyCart_MyCartID",
+                        column: x => x.MyCartID,
+                        principalTable: "MyCart",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CartItem1_Cart1ID",
-                table: "CartItem1",
-                column: "Cart1ID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CartItem1_DishID",
-                table: "CartItem1",
-                column: "DishID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryRestaurant_RestaurantsID",
@@ -237,13 +234,26 @@ namespace FeedMe.Migrations
                 name: "IX_Dish_RestaurantID",
                 table: "Dish",
                 column: "RestaurantID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyCart_UserID",
+                table: "MyCart",
+                column: "UserID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyCartItem_DishID",
+                table: "MyCartItem",
+                column: "DishID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyCartItem_MyCartID",
+                table: "MyCartItem",
+                column: "MyCartID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "CartItem1");
-
             migrationBuilder.DropTable(
                 name: "CategoryRestaurant");
 
@@ -254,10 +264,7 @@ namespace FeedMe.Migrations
                 name: "CreditCard");
 
             migrationBuilder.DropTable(
-                name: "Cart1");
-
-            migrationBuilder.DropTable(
-                name: "Dish");
+                name: "MyCartItem");
 
             migrationBuilder.DropTable(
                 name: "Category");
@@ -266,10 +273,16 @@ namespace FeedMe.Migrations
                 name: "City");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Dish");
+
+            migrationBuilder.DropTable(
+                name: "MyCart");
 
             migrationBuilder.DropTable(
                 name: "Restaurant");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

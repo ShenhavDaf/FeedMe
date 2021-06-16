@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeedMe.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,6 +31,11 @@ namespace ourProject.Models
         [Required(ErrorMessage = "Please insert name")]
         public String Name { get; set; }
 
+        // MIGRATION
+        [Required(ErrorMessage = "Please insert address")]
+        public String Address { get; set; }
+        // MIGRATION
+
         [Display(Name = "Phone number")]
         [Required(ErrorMessage = "Please insert phone")]
         [DataType(DataType.PhoneNumber)]
@@ -42,5 +48,10 @@ namespace ourProject.Models
         public CreditCard CreditCard { get; set; }
 
         public UserType Type { get; set; } = UserType.Guest;
+
+
+        // MIGRATION
+        public MyCart MyCart { get; set; }
+        // MIGRATION
     }
 }
