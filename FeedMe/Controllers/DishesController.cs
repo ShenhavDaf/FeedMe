@@ -72,6 +72,7 @@ namespace FeedMe.Controllers
 
                 _context.Add(dish);
                 await _context.SaveChangesAsync();
+                PostMessageToFacebook().Wait();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", "Address", dish.RestaurantID);
@@ -164,6 +165,27 @@ namespace FeedMe.Controllers
         private bool DishExists(int id)
         {
             return _context.Dish.Any(e => e.ID == id);
+        }
+
+
+
+        public static async Task<string> PostMessageToFacebook()
+        {
+            // Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+            // for details on configuring this project to bundle and minify static web assets.
+
+            // Post to Facebook after new dish is validated and created in the database
+            string pageId = "105380358425572";
+            string accessToken = "EAAMUCFVTWL0BAMhxIJkFQRBOZCmyOffnTkAlonCOj8U8ILB2O943aBqpOOMIou6MEduKppMUM9TcO67yPcQaqEchD2pTvC4FPsJwkQ6SIZAzgbhFhIgrFN50w5QofVWQayq4sIf5AVqWg7fCxtxPEHDDZCtyLmBFczn1kqmMIyWZBQQHOTrf";
+
+            string message = "Fuck FeedMe! We wants pork";
+
+            FacebookApi api = new FacebookApi(pageId, accessToken);
+            string result = await api.PostMessage(message);
+
+            Console.WriteLine(result);
+
+            return result;
         }
     }
 }

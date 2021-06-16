@@ -3,21 +3,43 @@
 
 // Write your JavaScript code.
 
-const options = {
-    bottom: '32px', // default: '32px'
-    right: '32px', // default: '32px'
-    left: 'unset', // default: 'unset'
-    time: '0.3s', // default: '0.3s'
-    mixColor: '#fff', // default: '#fff'
-    backgroundColor: '#fff',  // default: '#fff'
-    buttonColorDark: '#100f2c',  // default: '#100f2c'
-    buttonColorLight: '#fff', // default: '#fff'
-    saveInCookies: true, // default: true,
-    label: '🌓', // default: ''
-}
+////////////////////////////////    BASIC SYNTAX EXAMPLES   ////////////////////////////////
+//$(function () {
+//    alert('myButton11')
 
-/*const darkmode = new Darkmode(options);
-darkmode.showWidget();*/
+//    $('#myButton1').on('click', function (e) {
+//        e.preventDefault();
+//        alert('myButton12')
+//    })
+//});
+
+//$(document).ready(function () {
+//    alert('myButton21')
+
+//    $('#myButton2').click(function () {
+//        alert('myButton22')
+//    });
+//});
+////////////////////////////////    BASIC SYNTAX EXAMPLES   ////////////////////////////////
+
+
+
+//const options = {
+//    bottom: '32px', // default: '32px'
+//    right: '32px', // default: '32px'
+//    left: 'unset', // default: 'unset'
+//    time: '0.3s', // default: '0.3s'
+//    mixColor: '#fff', // default: '#fff'
+//    backgroundColor: '#fff',  // default: '#fff'
+//    buttonColorDark: '#100f2c',  // default: '#100f2c'
+//    buttonColorLight: '#fff', // default: '#fff'
+//    saveInCookies: true, // default: true,
+//    label: '🌓', // default: ''
+//}
+
+
+//const darkmode = new Darkmode(options);
+//darkmode.showWidget();
 
 
 
@@ -100,6 +122,44 @@ $changedInput.on("change", function (event) {
 
 
 
+// POST TO FACEBOOK AFTER NEW DISH CREATED
+$(function () {
+    $('#postToFbButton').click(function () {
+        alert("JS Clicked");
+        e.preventDefault();
+        var page_id = '105380358425572';
+        var msg = "Test1";
+        var page_access_token = 'EAAMUCFVTWL0BAHyugkuovWBw5uXzDkVkWrtxSLSdYXZAb8VhDE0MCzy3Av9JYUwlJJSQ64Cv6C8Qb9cZAjFEqXWDeW7UZATt7t9hWcb3fnim0zokzLxGKB6nvN5mU6bDrZAUFOXDzHhTfqi9fcc8jkyuZAlKOReOYEsoZCoQWN3Hy1Rp0WZCHHIqEc986s591S7AKgD3B6hnHgH960jnA7v';
+
+
+        postToFacebook(page_id, msg, page_access_token);
+        //$.ajax({
+        //    method: 'GET',
+        //    url: 'https://graph.facebook.com/' + page_id + '?message=' + msg + '&access_token=' + page_access_token
+        //}).done(function () {
+        //    alert('Succeed Posting a post');
+        //}).fail(function () {
+        //    alert('Error, Something went wrong');
+        //}).always(function () {
+        //    alert('AJAX Clicked');
+        //});
+    });
+});
+
+function postToFacebook(page_id, msg, page_access_token) {
+    alert('AJAX Clicked');
+    $.ajax({
+        method: 'POST',
+        url: 'https://graph.facebook.com/105380358425572/feed?message=HelloFans1111!&access_token=EAAMUCFVTWL0BAMhxIJkFQRBOZCmyOffnTkAlonCOj8U8ILB2O943aBqpOOMIou6MEduKppMUM9TcO67yPcQaqEchD2pTvC4FPsJwkQ6SIZAzgbhFhIgrFN50w5QofVWQayq4sIf5AVqWg7fCxtxPEHDDZCtyLmBFczn1kqmMIyWZBQQHOTrf'
+    }).done(function () {
+        alert('Succeed Posting a post');
+    }).fail(function () {
+        alert('Error, Something went wrong');
+    }).always(function () {
+        alert('AJAX Clicked');
+    });
+}
+
 
 
 
@@ -117,7 +177,7 @@ $(function () {
     });
 });
 
-function addToCart(id, quantity) {    
+function addToCart(id, quantity) {
     $.ajax({
         method: 'post',
         url: '/CartItems/Create',
