@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ourProject.Models
+namespace FeedMe.Models
 {
-    public class CartItem
+    public class MyCartItem
     {
         public int ID { get; set; }
 
@@ -17,5 +17,11 @@ namespace ourProject.Models
         public int Quantity { get; set; }
 
         public int Price { get; set; }
+
+        public int MyCartID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
+
+        //MAMY cartItems TO ONE cart 
+
+        public MyCart MyCart { get; set; }
     }
 }

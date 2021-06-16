@@ -1,12 +1,12 @@
-﻿@model ourProject.Models.CartItem
+﻿@model FeedMe.Models.MyCartItem
 
 @{
-    ViewData["Title"] = "Edit a cart item";
+    ViewData["Title"] = "Edit";
 }
 
 <h1>Edit</h1>
 
-<h4>CartItem</h4>
+<h4>MyCartItem</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,6 +22,16 @@
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MyCartID" class="control-label"></label>
+                <select asp-for="MyCartID" class="form-control" asp-items="ViewBag.MyCartID"></select>
+                <span asp-validation-for="MyCartID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -1,23 +1,22 @@
-﻿using FeedMe.Models;
-using System;
+﻿/*using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ourProject.Models
+namespace FeedMe.Models
 {
-    public class Cart
+    public class Cart1
     {
         //אמור להיות לתצוגה בלבד, יכול להיות שבכלל לא צריך מודל
 
         //Serial number (generic)
-        public int ID{ get; set; }
+        public int ID { get; set; }
 
         //ONE cart TO MAMY cart items
-        public List<CartItem> CartItems { get; set; }
+        public List<CartItem1> CartItems { get; set; }
 
-        public int TotalAmount{ get; set; }
+        public int TotalAmount { get; set; }
 
     }
 }
+*/
