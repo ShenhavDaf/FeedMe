@@ -58,8 +58,13 @@ namespace FeedMe.Controllers
                 //var q = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                 int count = await q.CountAsync();
 
+                user.MyCart = new Models.MyCart(); // להעביר למקום אחר 
+                user.MyCart.UserID = user.Id;
+                user.MyCart.TotalAmount = 0;
+
                 if (count > 0)
                 {
+
                     //HttpContext.Session.SetString("email", q.First().Email);
                     //HttpContext.Session.SetString("type", q.First().Type.ToString());
                     Signin(q.First());
@@ -87,11 +92,11 @@ namespace FeedMe.Controllers
         private async void Signin(User account)
         {
             var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Email, account.Email),
-                    new Claim(ClaimTypes.Role, account.Type.ToString()),
-                    new Claim(ClaimTypes.Name, account.Name),
-                };
+            {
+                new Claim(ClaimTypes.Email, account.Email),
+                new Claim(ClaimTypes.Role, account.Type.ToString()),
+                new Claim(ClaimTypes.Name, account.Name),
+            };
 
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -126,6 +131,10 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate")] User user)
         {
+            user.MyCart = new Models.MyCart();
+            user.MyCart.UserID = user.Id;
+            user.MyCart.TotalAmount = 0;
+
             if (ModelState.IsValid)
             {
                 var q = _context.User.FirstOrDefault(u => u.Email == user.Email);

@@ -28,6 +28,47 @@ namespace FeedMe.Controllers
         // GET: MyCarts/Details/5
         public async Task<IActionResult> Details(int id)
         {
+            MyCartItem myCartItem = new MyCartItem();
+            myCartItem.Quantity = 1;
+
+            foreach (var dish in _context.Dish)
+            {
+                if (id == dish.ID)//save dish values
+                {
+                    dish.Name = dish.Name;
+                    dish.Price = dish.Price;
+                    dish.RestaurantID = dish.RestaurantID;
+                    dish.FoodType = dish.FoodType;
+                    dish.DishImage = dish.DishImage;
+                    dish.Description = dish.Description;
+                    myCartItem.Dish = dish;
+                    myCartItem.DishID = id;
+                    myCartItem.Price = dish.Price;
+                    break;
+                }
+            }
+
+            foreach (var item in _context.User)
+            {
+                if(item.Email == User.Claims.ToList()[0].Value) 
+                { 
+                    if(item.MyCart == null)
+                    {
+                        item.MyCart.MyCartItems = new List<MyCartItem>();
+                        item.MyCart.TotalAmount = myCartItem.Price;
+                    }
+                    else
+                    {
+                        item.MyCart.TotalAmount += myCartItem.Price;
+                    }
+                    myCartItem.MyCartID = item.MyCart.ID;
+                    myCartItem.MyCart = item.MyCart;
+                    item.MyCart.MyCartItems.Add(myCartItem);
+                   
+                }
+
+            }
+            
             MyCart c = null;
             //  Cart1 cart1 = new Cart1(); 
             foreach (var item in _context.MyCartItem)
