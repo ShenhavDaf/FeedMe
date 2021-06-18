@@ -59,8 +59,12 @@ namespace FeedMe.Controllers
                 int count = await q.CountAsync();
 
                 user.MyCart = new Models.MyCart(); // להעביר למקום אחר 
+                user.MyCart.MyCartItems = new List<Models.MyCartItem>();
                 user.MyCart.UserID = user.Id;
                 user.MyCart.TotalAmount = 0;
+
+                _context.Update(user);
+                await _context.SaveChangesAsync(); 
 
                 if (count > 0)
                 {
@@ -132,6 +136,7 @@ namespace FeedMe.Controllers
         public async Task<IActionResult> Register([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate")] User user)
         {
             user.MyCart = new Models.MyCart();
+            user.MyCart.MyCartItems = new List<Models.MyCartItem>();
             user.MyCart.UserID = user.Id;
             user.MyCart.TotalAmount = 0;
 
