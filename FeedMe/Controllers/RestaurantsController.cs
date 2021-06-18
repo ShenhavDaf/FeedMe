@@ -169,6 +169,40 @@ namespace FeedMe.Controllers
             return View(restaurant);
         }
 
+        public async Task<IActionResult> EditRate(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate, Categories")] Restaurant restaurant, int[] deliveryCities)
+        {
+            if (id != restaurant.ID)
+            {
+                return NotFound();
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                restaurant.DeliveryCities = new List<City>();
+                restaurant.DeliveryCities.AddRange(_context.City.Where(x => deliveryCities.Contains(x.ID)));
+
+                try
+                {
+                    _context.Update(restaurant);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RestaurantExists(restaurant.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(restaurant);
+        }
+
         // GET: Restaurants/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
@@ -204,5 +238,7 @@ namespace FeedMe.Controllers
         {
             return _context.Restaurant.Any(e => e.ID == id);
         }
+
+   
     }
 }

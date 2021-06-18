@@ -48,9 +48,12 @@ namespace FeedMe.Controllers
                     break;
                 }
             }
+
+            var userEmail = User.Claims.ToList()[0].Value;
+
             foreach (var item in _context.User)//get the currect user that is log in.
             {
-                if (item.Email == User.Claims.ToList()[0].Value)
+                if (item.Email == userEmail)
                 {
                     foreach (var cart in _context.MyCart) // get user cart values.
                     {

@@ -483,9 +483,15 @@ span {
     margin-top: auto;
 }
 
+/*for rate stars in resutrant*/
+.checked {
+    color: orange;
+}
+
+
 li {
     float: left;
-    margin:5px;
+    margin: 5px;
 }
 
 .maps {
@@ -494,3 +500,4 @@ li {
     width: 150%;
     margin-top: 100px;
 }
+

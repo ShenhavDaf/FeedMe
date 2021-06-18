@@ -26,102 +26,42 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCarts/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            MyCartItem myCartItem = new MyCartItem();
-            myCartItem.Quantity = 1;
-
-            foreach (var dish in _context.Dish)
+            if (id == null)
             {
-                if (id == dish.ID)//save dish values
-                {
-                    dish.Name = dish.Name;
-                    dish.Price = dish.Price;
-                    dish.RestaurantID = dish.RestaurantID;
-                    dish.FoodType = dish.FoodType;
-                    dish.DishImage = dish.DishImage;
-                    dish.Description = dish.Description;
-                    myCartItem.Dish = dish;
-                    myCartItem.DishID = id;
-                    myCartItem.Price = dish.Price;
-                    break;
-                }
+                return NotFound();
             }
 
-            foreach (var item in _context.User)
-            {
-                if(item.Email == User.Claims.ToList()[0].Value) 
-                { 
-                    if(item.MyCart == null)
-                    {
-                        item.MyCart.MyCartItems = new List<MyCartItem>();
-                        item.MyCart.TotalAmount = myCartItem.Price;
-                    }
-                    else
-                    {
-                        item.MyCart.TotalAmount += myCartItem.Price;
-                    }
-                    myCartItem.MyCartID = item.MyCart.ID;
-                    myCartItem.MyCart = item.MyCart;
-                    item.MyCart.MyCartItems.Add(myCartItem);
-                   
-                }
+            var myCart = await _context.MyCart.Include(r => r.MyCartItems).FirstOrDefaultAsync(m => m.ID == id);
 
-            }
-            
-            MyCart c = null;
-            //  Cart1 cart1 = new Cart1(); 
-            foreach (var item in _context.MyCartItem)
+            foreach (var myCartItem in _context.MyCartItem)
             {
-                if (item.ID == id)
+                if (myCart.ID == myCartItem.MyCartID)
                 {
-                    foreach (var dish in _context.Dish)
+                    foreach(var dish in _context.Dish)
                     {
-                        if (item.DishID == dish.ID)//save dish values
+                        if(dish.ID == myCartItem.DishID)
                         {
-                            item.Dish.Name = dish.Name;
-                            item.Dish.Price = dish.Price;
-                            item.Dish.RestaurantID = dish.RestaurantID;
-                            item.Dish.FoodType = dish.FoodType;
-                            item.Dish.DishImage = dish.DishImage;
-                            item.Dish.Description = dish.Description;
+                            myCartItem.Dish = dish;
+                            myCartItem.DishID = dish.ID;
+                            myCartItem.Price = dish.Price;
+                            myCartItem.Quantity = 1; ////////////////////////////// לטפל
                             break;
                         }
                     }
-
-                    if (item.MyCart != null)
-                    {
-                        c = item.MyCart;
-                        item.MyCart.TotalAmount += item.Price;
-                        item.MyCart.MyCartItems.Add(item);
-                        _context.Add(item.MyCart);
-                        await _context.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        c = new MyCart();
-                        c.MyCartItems = new List<MyCartItem>();
-                        item.MyCartID = c.ID;
-                        c.TotalAmount = item.Price;
-                        c.MyCartItems.Add(item);
-                    }
-                    break;
+                    //myCartItem.MyCart = myCart;
+                    //myCartItem.MyCartID = myCart.ID;
+                    //myCart.MyCartItems = new List<MyCartItem>();
+                    //myCart.MyCartItems.Add(myCartItem);
+/*                    _context.Add(myCartItem);
+                    await _context.SaveChangesAsync();*/
                 }
-
             }
 
-            _context.Add(c);
-            await _context.SaveChangesAsync();
 
-            /*   if (id == null)
-               {
-                   return NotFound();
-               }*/
-
-            var myCart = await _context.MyCart.Include(r => r.MyCartItems).FirstOrDefaultAsync(m => m.ID == c.ID);
-            //var cart1 = await _context.Cart1
-            //    .FirstOrDefaultAsync(m => m.ID == id);
-            //cart1 = await _context.Cart1.Include(r => r.CartItems).FirstOrDefaultAsync(m => m.ID == i);
+            //restaurant.Categories = new List<Category>();
+            //restaurant.Categories.AddRange(_context.Category);
 
             if (myCart == null)
             {
@@ -129,6 +69,39 @@ namespace FeedMe.Controllers
             }
 
             return View(myCart);
+            //MyCart myCart = new MyCart();
+            //var userEmail = User.Claims.ToList()[0].Value;
+
+            //foreach (var item in _context.User)//get the currect user that is log in.
+            //{
+            //    if (item.Email == userEmail)
+            //    {
+            //        foreach (var cart in _context.MyCart) // get user cart values.
+            //        {
+            //            if (item.Id == cart.UserID)
+            //            {
+            //                item.MyCart = cart;
+            //                myCart = cart;
+            //            }
+            //        }
+            //    }
+            //}
+            ////if (id == null)
+            ////{
+            ////    return NotFound();
+            ////}
+
+            ////var myCart = await _context.MyCart.Include(r => r.MyCartItems).FirstOrDefaultAsync(m => m.ID == id);
+
+            ////restaurant.Categories = new List<Category>();
+            ////restaurant.Categories.AddRange(_context.Category);
+
+            //if (myCart == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(myCart);
         }
         /* if (id == null)
          {

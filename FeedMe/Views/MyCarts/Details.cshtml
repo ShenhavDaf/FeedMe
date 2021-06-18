@@ -27,9 +27,7 @@
                             <p class="text-center"> @myCartItem.Dish.Price₪</p>
                         </div>
                         <div class="col ">
-                            <p>
-                                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@myCartItem.ID"> Pay</a> </button>
-                            </p>
+
                             <tr>
                                 <td>
                                     <a asp-controller="cartItem1" asp-action="Edit" asp-route-id="@myCartItem.ID">Edit</a> |
@@ -41,6 +39,9 @@
                     </div>
                 </div>
             }
+            <p>
+                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="CreditCards" asp-action="Details" asp-route-id="@Model.ID"> Pay</a> </button>
+            </p>
         </div>
     </div>
 </div>
