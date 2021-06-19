@@ -120,6 +120,69 @@ $changedInput.on("change", function (event) {
 })
 */
 
+function GetMap() {
+    var map = new Microsoft.Maps.Map('#myMap', {
+        credentials: 'AgKM2ujhhQsxdOGDplWe_PcRt59_Y8KhlxcQsY4bWurgt-M8nkXVXWERyEd0z6pf',
+        /* No need to set credentials if already passed in URL */
+        center: new Microsoft.Maps.Location(31.9700919, 34.77205380048267),
+        mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+        zoom: 8
+    });
+
+
+    let name;
+    const bing_key = 'AgKM2ujhhQsxdOGDplWe_PcRt59_Y8KhlxcQsY4bWurgt-M8nkXVXWERyEd0z6pf';
+    var pin;
+    var pin_location;
+    let count = 0;
+    $.ajax({
+        url: 'Cities/GetCitiesList',
+        type: 'GET',
+        success: function (data) {
+            $.each(data, function (index) {
+                setTimeout(() => {
+                    name = data[index].name;
+                    console.log(name);
+
+                    pin_location = getLatLon(name, bing_key);
+                    //console.log(pin_location);
+
+                    pin = new Microsoft.Maps.Pushpin(pin_location);
+                    map.entities.push(pin);
+                }, index * 200);
+            });
+            //console.log(data);
+            ////////////////////////////////        $.each WITH TIMEOUT      ////////////////////////////////
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
+function getLatLon(query, bing_key) {
+    var latlon;
+    var mapObject;
+    $.ajax({
+        method: 'GET',
+        url: `https://dev.virtualearth.net/REST/v1/Locations?q=${query}&key=${bing_key}`,
+        async: false,
+        success: function (data) {
+            latlon = data.resourceSets[0].resources[0].point.coordinates;
+            mapObject = new Microsoft.Maps.Location(latlon[0], latlon[1])
+            //console.log(data);
+            //console.log(latlon[0] + ',' + latlon[1]);
+            //console.log(mapObject)
+            //return mapObject;
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+    return mapObject;
+}
+
+
 
 
 // POST TO FACEBOOK AFTER NEW DISH CREATED

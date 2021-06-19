@@ -62,6 +62,11 @@ html {
 body {
     /* Margin bottom by footer height*/
     background-color: #CCE5FF;
+    margin-bottom: 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 /* 1111.footer {
@@ -75,19 +80,24 @@ body {
 footer {
     padding-top: 30px;
     padding-bottom: 1px;
-    background-color: #292c2f;
+    background-color: #383c40;
     bottom: 0;
     width: 100%;
+    position: absolute;
+    /*bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;*/
 }
 
     footer p, .info b {
         font-size: 12px;
         font-family: 'Roboto', sans-serif;
-        color: #0000cc;
+        color: #000;
     }
 
     footer b {
-        color: cornflowerblue;
+        color: #000;
         font-size: 25px;
         font-family: "Times New Roman", Times, serif;
     }
@@ -97,8 +107,11 @@ footer {
 }
 
 .logo-part {
+    font-family: 'Lobster' !important;
+    font-size: 35px;
     border-right: 1px solid grey;
     height: 100%;
+    text-align: left;
 }
 
 
@@ -107,9 +120,9 @@ footer {
 }
 
     .resturantslinks h6 {
-        color: cornflowerblue;
+        color: #000;
         /*font-size: 50px;*/
-        padding-right: 5em;
+        /*padding-right: 5em;*/
     }
 
 
@@ -120,7 +133,7 @@ footer {
 
         .resturantslinks ul li a {
             text-decoration: none;
-            color: #0000cc;
+            /*color: #0000cc;*/
             text-decoration: none;
         }
 
@@ -130,7 +143,7 @@ footer {
             }
 
 .form-footer h6 {
-    color: cornflowerblue;
+    color: #000;
     font-size: 22px;
 }
 
@@ -139,7 +152,7 @@ footer {
     border-radius: 16px 0 0 16px;
     outline: none;
     padding-left: 10px;
-    background: #232323;
+    background: #383c40;
     color: #fff;
 }
 
@@ -151,12 +164,12 @@ footer {
 
 .form-footer input[type="submit"] {
     border: none;
-    background: #232323;
+    background: #383c40;
     margin-left: -5px;
     color: #fff;
     outline: none;
     border-radius: 0 16px 16px 0;
-    padding: 2px 12px;
+    padding: 1px 12px;
 }
 
 
@@ -336,7 +349,7 @@ footer {
 }
 
 #dishBody {
-    background-color: lightpink;
+    /*background-color: lightpink;*/
 }
 
     #dishBody img {
@@ -427,15 +440,15 @@ span {
     width: 2%;
 }*/
 
-    nput::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+nput::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
-    input:disabled {
-        background-color: white;
-    }
+input:disabled {
+    background-color: white;
+}
 
 
 /*Categories style*/
@@ -456,7 +469,7 @@ span {
 /*Home style*/
 #homeLayoutStyle {
     background-image: url(../Photos/Background.png);
-    background-size: cover;
+    /*background-size: cover;*/
 }
 
 .homeTitle {
@@ -494,10 +507,10 @@ li {
     margin: 5px;
 }
 
-.maps {
-    background-color: #e0e0eb;
-    height: 480;
-    width: 150%;
-    margin-top: 100px;
+/* Map style*/
+#myMap {
+    position: relative;
+    /*width: 600px;*/
+    height: 500px;
+    margin-top: 50px;
 }
-

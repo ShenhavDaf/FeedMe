@@ -19,6 +19,8 @@
     <meta name="google-signin-client_id" content="1041300067142-dq864str39ak81umc58uroqi81crn3gi.apps.googleusercontent.com">
 
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/drive.metadata.readonly">
+
+    <link rel="stylesheet" href="~/css/dark-mode.css">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
@@ -133,7 +135,7 @@
                                 Hello, @User.Identity.Name!
                             </li>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><span class="dropdown-item-text">User Status: @Context.User.Claims.ToList()[1].Value</span></li>
+                                <li><span class="dropdown-item-text">Status: @Context.User.Claims.ToList()[1].Value</span></li>
                                 <li><a class="dropdown-item" href="#">My Cart</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Logout</a></li>
@@ -153,6 +155,10 @@
                     </a>
                 </div>
             </div>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="darkSwitch">
+                <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+            </div>
         </nav>
     </header>
     <div class="container">
@@ -165,11 +171,13 @@
         <div class="container-fluid bg-white py-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
                         <div class="row">
                             <div class="logo-part">
-                                <img src="~/Photos/logo.png" height="50px" />
-                                <b>&nbsp;FeedMe&nbsp;</b>
+                                <img src="~/Photos/logo.png" height="50px" />&nbsp;&nbsp;FeedMe
+
                                 <div class="info">
                                     <p><br> <b>Address:</b> Eli Wiesel 2, Rishon Lezion <br> <b>Phone Number:</b> 03-963-4001 <br> <b>Email:</b> feedme@gmail.com <br> <b>Activity time:</b> 10:00 - 02:00 </p>
                                 </div>
@@ -180,17 +188,18 @@
                         <div class="row">
                             <div class="col-md-6 px-4">
                                 <div class="resturantslinks">
-                                    <h6> Top 5 Restaurants</h6>
-                                    <div class="row ">
-                                        <div class="col-md-7">
+                                    <h6> Top 4 Restaurants</h6>
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
                                             <ul>
-                                                <li> <a href="https://localhost:44376/Cities"> restaurant 1</a> </li>
-                                                <li> <a href="#"> restaurant 2</a> </li>
-                                                <li> <a href="#"> restaurant 3</a> </li>
-                                                <li> <a href="#"> restaurant 4</a> </li>
-                                                <li> <a href="#"> restaurant 5</a> </li>
+                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="1"> Restaurant 1</a> </li>
+                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="2"> Restaurant 2</a> </li>
+                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="9"> Restaurant 3</a> </li>
+                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="10"> Restaurant 4</a> </li>
                                             </ul>
                                         </div>
+                                        <div class="col-md-2"></div>
                                     </div>
                                 </div>
                             </div>
@@ -221,16 +230,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
     @*<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>*@
     <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
 
-
-
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
+    <script src="~/js/dark-mode-switch.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
