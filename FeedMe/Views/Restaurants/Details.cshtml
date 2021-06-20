@@ -22,37 +22,41 @@
     <div class="container">
         <div class="row">
 
-            @foreach (var dish in Model.Dishes)
+            @foreach (var group in Model.Dishes.GroupBy(x => x.FoodType))
             {
-                <div class="container">
-                    <hr />
-                    <div class="row">
-                        <div class="col">
-                            <img src="@dish.DishImage">
-                        </div>
-                        <div class="col-6" tabindex="0">
+                <h4>FoodType : @group.Key</h4>
+                @foreach (var dish in group)
+                {
+                    <div class="container">
+                        <hr />
+                        <div class="row">
+                            <div class="col">
+                                <img src="@dish.DishImage">
+                            </div>
+                            <div class="col-6" tabindex="0">
 
-                            <h4 class="text-center">@dish.Name</h4>
-                            <p class="text-center"> @dish.Description</p>
-                            <p class="text-center"> @dish.Price₪</p>
-                        </div>
-                        <div class="col ">
-                            <p>
-                                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@dish.ID"> Add to order</a> </button>
-                            </p>
-                            <tr>
-                                <td>
-                                    <a  asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
-                                    <a asp-controller="Dishes" asp-action="Details" asp-route-id="@dish.ID">Details</a> |
-                                    <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
-                                </td>
-                            </tr>
+                                <h4 class="text-center">@dish.Name</h4>
+                                <p class="text-center"> @dish.Description</p>
+                                <p class="text-center"> @dish.Price₪</p>
+                            </div>
+                            <div class="col ">
+                                <p>
+                                    <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@dish.ID"> Add to order</a> </button>
+                                </p>
+                                <tr>
+                                    <td>
+                                        <a asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
+                                        <a asp-controller="Dishes" asp-action="Details" asp-route-id="@dish.ID">Details</a> |
+                                        <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
+                                    </td>
+                                </tr>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                }
             }
-        </div>
+            </div>
     </div>
 </div>
 
