@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using ourProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using FeedMe.Models;
 
 namespace FeedMe.Controllers
 {
@@ -135,6 +136,32 @@ namespace FeedMe.Controllers
             }
             ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", "Address", dish.RestaurantID);
             return View(dish);
+        }
+
+        public async Task<IActionResult> JoinDishRestaurant(int? id)
+        {
+            ViewJoin viewJoin = new ViewJoin();
+
+            viewJoin.Restaurants = null;
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var rest = from r in _context.Restaurant.Include(r => r.Address).Include(r => r.Name).Include(r => r.RestaurantImage).Include(r => r.PhoneNumber)
+                       join dish in _context.Dish on r.ID equals dish.RestaurantID
+                       where id == r.ID
+                       select r;
+
+            if(rest == null)
+            {
+                return NotFound();
+            }
+
+            viewJoin.Restaurants = rest.Distinct().Select(x => x).ToList();
+
+            return View(viewJoin);
         }
 
         // GET: Dishes/Delete/5
