@@ -5,8 +5,6 @@
 
 <div class="container">
     <div class="row">
-        <button type="button" class="btn btn-danger" id="postToFbButton">Click to post Post to Facebook</button>
-
         <marquee behavior="slide" direction="left" BGCOLOR=#e0e0eb scrollamount="10">
             <li>
                 <span>09/06/2021 - Ruben Restaurant has joined our site! </span>
@@ -86,49 +84,9 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+            <div id="myMap"></div>
         </div>
 
-        @*<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />*@
-
-
-
-
-        @*<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active" style=" border-radius: 0.5rem; ">
-                        <img class="d-block" style=" background-image: url(../Photos/Pizza/2.jpg)">
-                    </div>
-                    <div class="carousel-item" style=" border-radius: 0.5rem;">
-                        <img src="~/Photos/Pizza/1.jpg" style=" background-image: url(../Photos/Pizza/3.jpg)" class="d-block">
-                    </div>
-                    <div class="carousel-item" style=" border-radius: 0.5rem; ">
-                        <img src="~/Photos/Pizza/1.jpg" style=" background-image: url(../Photos/Pizza/1.jpg)" class="d-block">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        *@
-
-
-        <div class="text-center maps">
-            <h3>FeedMe makes deliveries to a wide variety of cities:</h3>
-            <iframe src="https://www.google.com/maps/d/embed?mid=12Gg-rxj6-6tZScVPfybjzq6a8g2B3Drq" width="640" height="480"></iframe>
-
-        </div>
-
+        <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AgKM2ujhhQsxdOGDplWe_PcRt59_Y8KhlxcQsY4bWurgt-M8nkXVXWERyEd0z6pf&callback=GetMap' async defer></script>
     </div>
 </div>

@@ -38,6 +38,17 @@ namespace FeedMe.Controllers
             return View(await cities.ToListAsync());
         }
 
+        public JsonResult GetCitiesList()
+        {
+            List<City> citiesList = new List<City>();
+            foreach (var item in _context.City)
+            {
+                citiesList.Add(item);
+                //Console.WriteLine(item.Name);
+            }
+            return Json(citiesList);
+        }
+
 
         // GET: Cities/Details/5
         [Authorize(Roles = "Admin")]

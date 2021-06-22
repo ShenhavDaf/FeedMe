@@ -22,15 +22,18 @@
     <div class="container">
         <div class="row">
 
-            @foreach (var dish in Model.Dishes)
+            @foreach (var group in Model.Dishes.GroupBy(x => x.FoodType))
             {
-                <div class="container">
-                    <hr />
-                    <div class="row">
-                        <div class="col">
-                            <img src="@dish.DishImage">
-                        </div>
-                        <div class="col-6" tabindex="0">
+                <h4>FoodType : @group.Key</h4>
+                @foreach (var dish in group)
+                {
+                    <div class="container">
+                        <hr />
+                        <div class="row">
+                            <div class="col">
+                                <img src="@dish.DishImage">
+                            </div>
+                            <div class="col-6" tabindex="0">
 
                             <h4 class="text-center">@dish.Name</h4>
                             <p class="text-center"> @dish.Description</p>
