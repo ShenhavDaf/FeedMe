@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
-using ourProject.Models;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using FeedMe.Models;
 
 namespace FeedMe.Controllers
 {
@@ -58,8 +58,8 @@ namespace FeedMe.Controllers
                 //var q = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                 int count = await q.CountAsync();
 
-                user.MyCart = new Models.MyCart(); // להעביר למקום אחר 
-                user.MyCart.MyCartItems = new List<Models.MyCartItem>();
+                user.MyCart = new MyCart(); // להעביר למקום אחר 
+                user.MyCart.MyCartItems = new List<MyCartItem>();
                 user.MyCart.UserID = user.Id;
                 user.MyCart.TotalAmount = 0;
 
@@ -135,8 +135,8 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate")] User user)
         {
-            user.MyCart = new Models.MyCart();
-            user.MyCart.MyCartItems = new List<Models.MyCartItem>();
+            user.MyCart = new MyCart();
+            user.MyCart.MyCartItems = new List<MyCartItem>();
             user.MyCart.UserID = user.Id;
             user.MyCart.TotalAmount = 0;
 

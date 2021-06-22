@@ -24,6 +24,7 @@
 
                             <h4 class="text-center">@myCartItem.Dish.Name</h4>
                             <p class="text-center"> @myCartItem.Dish.Description</p>
+                            <p class="text-center"> @myCartItem.Quantity</p>
                             <p class="text-center"> @myCartItem.Dish.Price₪</p>
                         </div>
                         <div class="col ">
@@ -39,6 +40,7 @@
                     </div>
                 </div>
             }
+            <p class="text-center"> @Model.TotalAmount₪</p>
             <p>
                 <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="CreditCards" asp-action="Details" asp-route-id="@Model.ID"> Pay</a> </button>
             </p>

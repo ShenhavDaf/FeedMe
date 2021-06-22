@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ourProject.Models;
 using FeedMe.Models;
 
 namespace FeedMe.Data
@@ -15,19 +14,15 @@ namespace FeedMe.Data
         {
         }
 
-        public DbSet<ourProject.Models.Category> Category { get; set; }
+        public DbSet<FeedMe.Models.Category> Category { get; set; }
 
-        public DbSet<ourProject.Models.Restaurant> Restaurant { get; set; }
+        public DbSet<FeedMe.Models.Restaurant> Restaurant { get; set; }
 
-        public DbSet<ourProject.Models.Dish> Dish { get; set; }
+        public DbSet<FeedMe.Models.Dish> Dish { get; set; }
 
-        public DbSet<ourProject.Models.City> City { get; set; }
+        public DbSet<FeedMe.Models.City> City { get; set; }
 
-        public DbSet<ourProject.Models.User> User { get; set; }
-
-/*        public DbSet<FeedMe.Models.Cart1> Cart1 { get; set; }
-
-        public DbSet<FeedMe.Models.CartItem1> CartItem1 { get; set; }*/
+        public DbSet<FeedMe.Models.User> User { get; set; }
 
         public DbSet<FeedMe.Models.MyCartItem> MyCartItem { get; set; }
 

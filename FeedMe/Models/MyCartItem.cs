@@ -1,5 +1,4 @@
-﻿using ourProject.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,5 +20,8 @@ namespace FeedMe.Models
         //MAMY cartItems TO ONE cart 
         public int MyCartID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
         public MyCart MyCart { get; set; }
+
+        public Boolean SaveQ { get; set; } //Check if the quantity of cartItem has been saved.
+
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ourProject.Models
+namespace FeedMe.Models
 {
     public class RestaurantHours
     {
