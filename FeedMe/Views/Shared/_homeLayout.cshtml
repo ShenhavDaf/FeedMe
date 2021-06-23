@@ -97,7 +97,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        @Html.Partial("~/Views/Users/Login.cshtml", new ourProject.Models.User())
+                                        @Html.Partial("~/Views/Users/Login.cshtml", new User())
                                     </div>
                                     <div class="modal-footer">
                                         @*<button class="btn btn-link" data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Back to first</button>*@
@@ -116,7 +116,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        @Html.Partial("~/Views/Users/Register.cshtml", new ourProject.Models.User())
+                                        @Html.Partial("~/Views/Users/Register.cshtml", new User())
                                     </div>
                                     <div class="modal-footer">
                                         @*<button class="btn btn-link" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Already registered? Please Login</button>*@
