@@ -30,7 +30,7 @@ namespace FeedMe.Controllers
 
 
 
-        public async Task<IActionResult> Index(string searchString, string searchCity)
+        public async Task<IActionResult> Index(string searchString, string searchCity, string searchCategories)
         {
 
             var restaurants = from m in _context.Restaurant
@@ -41,7 +41,7 @@ namespace FeedMe.Controllers
             //    restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
 
             //}
-            restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
+            restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null) &&(s.Categories.Equals(searchCategories) || searchCategories == null));
 
 
             return View(await restaurants.ToListAsync());
