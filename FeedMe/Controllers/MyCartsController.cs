@@ -47,7 +47,7 @@ namespace FeedMe.Controllers
                         {
                             if (item.Id == cart.UserID)
                             {
-                                myCart = cart; // Here The cart doesn't receive the data on the cartItems.
+                                myCart.ID = cart.ID; // Here The cart doesn't receive the data on the cartItems.
                             }
                         }
                     }
@@ -62,6 +62,12 @@ namespace FeedMe.Controllers
             {
                 if (myCart.ID == myCartItem.MyCartID)
                 {
+                    if (myCartItem.SaveQ == false)//Checks if the buyer didn't approved the cart item than it won't add to the cart.
+                    {
+                        _context.Remove(myCartItem);
+                        continue;
+                    }
+
                     foreach (var dish in _context.Dish) //Get dish data.
                     {
                         if (dish.ID == myCartItem.DishID)
@@ -72,12 +78,14 @@ namespace FeedMe.Controllers
                             break;
                         }
                     }
-                    myCartItem.MyCart = myCart; //Save the data in the cart and the cartItem.
-                    myCartItem.MyCartID = myCart.ID;
+                    //myCartItem.MyCart = myCart; //Save the data in the cart and the cartItem.
+                   // myCartItem.MyCartID = myCart.ID;
                     myCart.TotalAmount += ((myCartItem.Price) * (myCartItem.Quantity));
                     myCart.MyCartItems.Add(myCartItem);
                 }
             }
+
+            await _context.SaveChangesAsync();
 
             if (myCart == null)
             {

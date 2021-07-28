@@ -82,7 +82,7 @@ namespace FeedMe.Controllers
 
             var myCartItem = await _context.MyCartItem.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
 
-          
+
 
             if (myCartItem == null)
             {
@@ -145,29 +145,37 @@ namespace FeedMe.Controllers
         public async Task<IActionResult> Edit(int quantity)
         {
             var myCartItem = new MyCartItem();
+            int save = 0;
 
             foreach (var cartItem in _context.MyCartItem)
             {
-                if (cartItem.SaveQ == false)
+                if (cartItem.SaveQ == false) //If the buyer before didn't approve the same dish then it will be deleted from his cart.
                 {
+                    if (save != 0)
+                    {
+                        _context.Remove(myCartItem);
+                      //  await _context.SaveChangesAsync();
+                        myCartItem = new MyCartItem();
+                    }
                     myCartItem = cartItem;
-
-                    foreach (var cart in _context.MyCart) // find cartItem cart
-                    {
-                        if (cartItem.MyCartID == cart.ID)
-                        {
-                            cartItem.MyCart = cart;
-                        }
-                    }
-
-                    myCartItem.SaveQ = true;// so we wont change the quantity again.
-                    if (quantity != 1) //if the quantity is 1 no need make changes.
-                    {
-                        myCartItem.Quantity = quantity;
-                        myCartItem.MyCart.TotalAmount += ((myCartItem.Price) * (quantity - 1)); 
-                    }
-                    break;
+                    save++;
                 }
+
+            }
+
+            foreach (var cart in _context.MyCart) // find cartItem cart
+            {
+                if (myCartItem.MyCartID == cart.ID)
+                {
+                    myCartItem.MyCart = cart;
+                }
+            }
+
+            myCartItem.SaveQ = true;// so we wont change the quantity again.
+            if (quantity != 1) //if the quantity is 1 no need make changes.
+            {
+                myCartItem.Quantity = quantity;
+                myCartItem.MyCart.TotalAmount += ((myCartItem.Price) * (quantity - 1));
             }
 
             _context.Update(myCartItem); //update new quantity.
@@ -197,7 +205,7 @@ namespace FeedMe.Controllers
             }
 
             //Show the restaurant that the dish belongs.
-            return RedirectToAction("Details", "Restaurants", new { id = myCartItem.Dish.RestaurantID }); 
+            return RedirectToAction("Details", "Restaurants", new { id = myCartItem.Dish.RestaurantID });
 
         }
 
