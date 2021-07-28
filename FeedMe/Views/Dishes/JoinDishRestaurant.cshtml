@@ -1,4 +1,4 @@
-﻿@model ViewJoin
+﻿@model FeedMe.Models.ViewJoin
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -8,37 +8,29 @@
 <div id="">
     <div class="container">
         <div class="row">
-               
-                @foreach (var dish in Model.Dishes)
-                {
-                    <div class="container">
-                        <hr />
-                        <div class="row">
-                            <div class="col">
-                                <img src="@dish.DishImage">
-                            </div>
-                            <div class="col-6" tabindex="0">
-
-                                <h4 class="text-center">@dish.Name</h4>
-                                <p class="text-center"> @dish.Description</p>
-                                <p class="text-center"> @dish.Price₪</p>
-                            </div>
-                            <div class="col ">
-                                <p>
-                                    <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@dish.ID"> Add to order</a> </button>
-                                </p>
-                                <tr>
-                                    <td>
-                                        <a asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
-                                        <a asp-controller="Dishes" asp-action="Details" asp-route-id="@dish.ID">Details</a> |
-                                        <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
-                                    </td>
-                                </tr>
-                            </div>
-                        </div>
+            <div class="container">
+                <hr />
+                <div class="row">
+                    <div class="col-3">
                     </div>
-
-                }
+                    <div class="col-6" tabindex="0">
+                        @foreach (var dish in Model.Dishes)
+                        {
+                            <h4 class="text-center">@dish.Name</h4>
+                            <p class="text-center"> @dish.Description</p>
+                            <p class="text-center"> @dish.Price₪</p>
+                        }
+                        @foreach (var res in Model.Restaurants)
+                        {
+                            <h4 class="text-center">@res.Name</h4>
+                            <p class="text-center"> @res.Description</p>
+                            <p class="text-center"> @res.Address</p>
+                        }
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

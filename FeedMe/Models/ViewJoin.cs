@@ -10,7 +10,7 @@ namespace FeedMe.Models
     public class ViewJoin
     {
         [ForeignKey("RestaurantID")]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [NotMapped]
         public List<Dish> Dishes { get; set; }

@@ -141,24 +141,63 @@ namespace FeedMe.Controllers
         {
             ViewJoin viewJoin = new ViewJoin();
 
-            viewJoin.Restaurants = null;
+            //viewJoin.Restaurants = null;
+            viewJoin.Dishes = null;
 
             if (id == null)
             {
                 return NotFound();
             }
 
-            var rest = from r in _context.Restaurant.Include(r => r.Address).Include(r => r.Name).Include(r => r.RestaurantImage).Include(r => r.PhoneNumber)
-                       join dish in _context.Dish on r.ID equals dish.RestaurantID
-                       where id == r.ID
-                       select r;
+            //var review = from r in _context.Review.Include(r => r.App).Include(r => r.Name).Include(r => r.UserName)
+            //           join usr in _context.User on r.UserNameId equals usr.Id
+            //           where id == r.UserNameId
+            //           select r;
 
-            if(rest == null)
-            {
-                return NotFound();
-            }
 
-            viewJoin.Restaurants = rest.Distinct().Select(x => x).ToList();
+
+
+            var allRestaurants = await _context.Restaurant.ToListAsync();
+            //var allDishes = await _context.Dish.ToListAsync();
+            var allDishes = await _context.Dish.Where(d => d.ID == id).ToListAsync();
+
+            //var joinResult =
+            //        from r in allRestaurants // This is the column that connects the 2 tables.
+            //        join d in allDishes
+            //        on r.ID equals d.RestaurantID into result
+            //        select result;
+
+            var query1 = from d in allDishes
+                        join r in allRestaurants
+                            on d.RestaurantID equals r.ID
+                        select new { d, r };
+
+            var query2 = from d in allDishes
+                        join r in allRestaurants
+                            on d.RestaurantID equals r.ID into result
+                        select result;
+
+            var query3 = from d in allDishes
+                        join r in allRestaurants
+                            on d.RestaurantID equals r.ID
+                        select d;
+
+            var query4 = from d in allDishes
+                        join r in allRestaurants
+                            on d.RestaurantID equals r.ID
+                        where id == d.RestaurantID
+                        select d;
+            // קח את כל שמות המסעדות, מזג אותן עם כל המנות, היכן שהאיידי של מסעדה במסדר נתונים של מנות זהה לאיידי של רשימת המסעדות
+            //  transaction/photo = dish table. user/person = restaurant table
+
+            //if (query1 == null)
+            //{
+            //    return NotFound();
+            //}
+
+            viewJoin.Restaurants = query2.Distinct().SelectMany(x => x).ToList();
+            viewJoin.Dishes = query3.ToList();
+            //viewJoin.Restaurants = rest.Distinct().Select(x => x).ToList();
 
             return View(viewJoin);
         }
