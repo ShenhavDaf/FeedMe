@@ -21,10 +21,18 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string searchType, string searchRest)
         {
-            var feedMeContext = _context.Dish.Include(d => d.Restaurant);
-            return View(await feedMeContext.ToListAsync());
+
+            var dish = from m in _context.Dish
+                              select m;
+
+            dish = dish.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.Description.Equals(searchType) || searchType == null) && (s.Restaurant.Equals(searchRest) || searchRest == null));
+
+
+            //var feedMeContext = _context.Dish.Include(d => d.Restaurant);
+            // return View(await feedMeContext.ToListAsync());
+            return View(await dish.ToListAsync());
         }
 
         // GET: Dishes/Details/5
