@@ -1,5 +1,17 @@
 ﻿﻿ /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+h1 {
+    line-height: 2em;
+    text-align: center;
+    /* display: flex; */
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
 
 .row {
     display: -ms-flexbox; /* IE10 */
@@ -77,3 +89,5 @@ span.price {
         margin-bottom: 20px;
     }
 }
+
+

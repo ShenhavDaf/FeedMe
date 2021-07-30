@@ -42,7 +42,7 @@
             }
             <p class="text-center"> @Model.TotalAmount₪</p>
             <p>
-                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="CreditCards" asp-action="Details" asp-route-id="@Model.ID"> Pay</a> </button>
+                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-action="Pay" asp-route-id="@Model.ID"> Pay</a> </button>
             </p>
         </div>
     </div>

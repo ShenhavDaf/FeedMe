@@ -60,16 +60,29 @@ namespace FeedMe.Controllers
                 //var q = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                 int count = await q.CountAsync(); // Check if the user that we searched for is exist in the DB
 
-                user.MyCart = new MyCart(); // להעביר למקום אחר 
-                user.MyCart.MyCartItems = new List<MyCartItem>();
-                user.MyCart.UserID = user.Id;
-                user.MyCart.TotalAmount = 0;
+                //user.MyCart = new MyCart(); // להעביר למקום אחר 
+                //user.MyCart.MyCartItems = new List<MyCartItem>();
+                //user.MyCart.UserID = user.Id;
+                //user.MyCart.TotalAmount = 0;
 
-                _context.Update(user);
-                await _context.SaveChangesAsync();
+                // _context.Update(user);
+                //  await _context.SaveChangesAsync(); 
 
                 if (count > 0)
                 {
+                 
+                    if(user.MyCarts == null) //first buy in FeedMe
+                    {
+                        user.MyCarts = new List<MyCart>();
+                    }
+                    MyCart myCart = new MyCart();
+                    myCart.UserID = user.Id;
+                    myCart.MyCartItems = new List<MyCartItem>();
+                    myCart.TotalAmount = 0;
+                    user.MyCarts.Add(myCart);
+
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
 
                     //HttpContext.Session.SetString("email", q.First().Email);
                     //HttpContext.Session.SetString("type", q.First().Type.ToString());
@@ -138,10 +151,10 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate")] User user)
         {
-            user.MyCart = new MyCart();
-            user.MyCart.MyCartItems = new List<MyCartItem>();
-            user.MyCart.UserID = user.Id;
-            user.MyCart.TotalAmount = 0;
+            //user.MyCart = new MyCart();
+            //user.MyCart.MyCartItems = new List<MyCartItem>();
+            //user.MyCart.UserID = user.Id;
+            //user.MyCart.TotalAmount = 0;
 
             if (ModelState.IsValid)
             {
@@ -149,6 +162,16 @@ namespace FeedMe.Controllers
 
                 if (q == null)
                 {
+                    if (user.MyCarts == null) //first buy in FeedMe
+                    {
+                        user.MyCarts = new List<MyCart>();
+                    }
+                    MyCart myCart = new MyCart();
+                    myCart.UserID = user.Id;
+                    myCart.MyCartItems = new List<MyCartItem>();
+                    myCart.TotalAmount = 0;
+                    user.MyCarts.Add(myCart);
+
                     user.Type = UserType.Client;
                     _context.Add(user);
                     await _context.SaveChangesAsync();

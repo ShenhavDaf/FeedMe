@@ -31,6 +31,7 @@ namespace FeedMe.Controllers
         public async Task<IActionResult> Details(int id)
         {
             MyCartItem c = new MyCartItem();
+            MyCart myCart = new MyCart();
             c.Dish = new Dish();
             c.DishID = id;
             c.Quantity = 1;
@@ -53,25 +54,30 @@ namespace FeedMe.Controllers
 
             var userEmail = User.Claims.ToList()[0].Value;
 
-            foreach (var item in _context.User)//get the currect user that is log in.
+            foreach (var user in _context.User)//get the currect user that is log in.
             {
-                if (item.Email == userEmail)
+                if (user.Email == userEmail)
                 {
                     foreach (var cart in _context.MyCart) // get user cart values.
-                    {
-                        if (item.Id == cart.UserID)
+                    {//לבדוק אם אחרי שאשנה לרשימה של יוזרים אם אפשר לייעל ולעבור על הרשימה של היוזר
+                        if (user.Id == cart.UserID && cart.IsClose == false)
                         {
-                            item.MyCart = cart;
+                            myCart = cart;
                         }
                     }
-                    if (item.MyCart.MyCartItems == null)
+                    if (myCart.MyCartItems == null)//check if this the first cart item.
                     {
-                        item.MyCart.MyCartItems = new List<MyCartItem>();
+                        myCart.MyCartItems = new List<MyCartItem>();
                     }
-                    item.MyCart.TotalAmount += c.Price; //update all new cartItem data.
-                    c.MyCartID = item.MyCart.ID;
-                    c.MyCart = item.MyCart;
-                    item.MyCart.MyCartItems.Add(c);
+                    myCart.TotalAmount += c.Price; //update all new cartItem data.
+                    c.MyCartID = myCart.ID;
+                    c.MyCart = myCart;
+                    myCart.MyCartItems.Add(c);
+
+                    //user.MyCarts.TotalAmount += c.Price; //update all new cartItem data.
+                    //c.MyCartID = user.MyCarts.ID;
+                    //c.MyCart = user.MyCarts;
+                    //user.MyCarts.MyCartItems.Add(c);
                 }
 
             }
@@ -80,16 +86,23 @@ namespace FeedMe.Controllers
             _context.Add(c);
             await _context.SaveChangesAsync();
 
-            var myCartItem = await _context.MyCartItem.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
-
-          
-
-            if (myCartItem == null)
+            if (c == null)
             {
                 return NotFound();
-
             }
-            return View(myCartItem);
+
+            return View(c);
+
+            //var myCartItem = await _context.MyCartItem.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
+
+
+
+            //if (myCartItem == null)
+            //{
+            //    return NotFound();
+
+            //}
+            //return View(myCartItem);
         }
 
         // GET: MyCartItems/Create
@@ -145,30 +158,44 @@ namespace FeedMe.Controllers
         public async Task<IActionResult> Edit(int quantity)
         {
             var myCartItem = new MyCartItem();
+            int save = 0;
 
             foreach (var cartItem in _context.MyCartItem)
             {
-                if (cartItem.SaveQ == false)
+                if (cartItem.SaveQ == false) //If the buyer before didn't approve the same dish then it will be deleted from his cart.
                 {
+                    if (save != 0)
+                    {
+                        _context.Remove(myCartItem);
+                        //  await _context.SaveChangesAsync();
+                        myCartItem = new MyCartItem();
+                        save = 0; // לבדוקקקקקקקקקקקקקקקקקקקקקקקקקקקקקקק
+                    }
                     myCartItem = cartItem;
+                    save++;
+                }
 
-                    foreach (var cart in _context.MyCart) // find cartItem cart
-                    {
-                        if (cartItem.MyCartID == cart.ID)
-                        {
-                            cartItem.MyCart = cart;
-                        }
-                    }
+            }
 
-                    myCartItem.SaveQ = true;// so we wont change the quantity again.
-                    if (quantity != 1) //if the quantity is 1 no need make changes.
-                    {
-                        myCartItem.Quantity = quantity;
-                        myCartItem.MyCart.TotalAmount += ((myCartItem.Price) * (quantity - 1)); 
-                    }
-                    break;
+            foreach (var cart in _context.MyCart) // find cartItem cart
+            {
+                if (myCartItem.MyCartID == cart.ID)
+                {
+                    myCartItem.MyCart = cart;
                 }
             }
+
+            if (quantity >= 1) //if the quantity is 1 no need make changes.
+            {
+                myCartItem.Quantity = quantity;
+                myCartItem.MyCart.TotalAmount += ((myCartItem.Price) * (quantity - 1));
+                myCartItem.SaveQ = true;// so we wont change the quantity again.
+            }
+            else
+            {
+                myCartItem.SaveQ = false;// so that cart item will be deleted.
+            }
+
 
             _context.Update(myCartItem); //update new quantity.
             await _context.SaveChangesAsync();
@@ -197,7 +224,7 @@ namespace FeedMe.Controllers
             }
 
             //Show the restaurant that the dish belongs.
-            return RedirectToAction("Details", "Restaurants", new { id = myCartItem.Dish.RestaurantID }); 
+            return RedirectToAction("Details", "Restaurants", new { id = myCartItem.Dish.RestaurantID });
 
         }
 

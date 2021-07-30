@@ -9,6 +9,7 @@ namespace FeedMe.Models
     {
         public int ID { get; set; }
 
+        //one to one
         public int DishID { get; set; }
 
         public Dish Dish { get; set; }

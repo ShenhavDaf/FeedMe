@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FeedMe.Migrations
 {
-    public partial class InIt : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -173,7 +173,8 @@ namespace FeedMe.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalAmount = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    IsClose = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,7 +196,8 @@ namespace FeedMe.Migrations
                     DishID = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    MyCartID = table.Column<int>(type: "int", nullable: false)
+                    MyCartID = table.Column<int>(type: "int", nullable: false),
+                    SaveQ = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -238,8 +240,7 @@ namespace FeedMe.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_MyCart_UserID",
                 table: "MyCart",
-                column: "UserID",
-                unique: true);
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MyCartItem_DishID",

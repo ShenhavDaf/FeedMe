@@ -30,7 +30,7 @@ namespace FeedMe.Controllers
         {
             var cities = from m in _context.City.OrderBy(x => x.Name)
                          select m;
-      
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 cities = cities.Where(s => s.Name.Contains(searchString));

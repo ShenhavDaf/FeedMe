@@ -31,7 +31,7 @@ namespace FeedMe.Controllers
                 categories = categories.Where(s => s.Name.Contains(searchString));
             }
             //return View(await _context.Category.ToListAsync());
-            return View( await categories.ToListAsync());
+            return View(await categories.ToListAsync());
         }
 
         // GET: Categories/Details/5

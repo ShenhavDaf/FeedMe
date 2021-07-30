@@ -30,7 +30,7 @@ namespace FeedMe.Controllers
 
 
 
-        public async Task<IActionResult> Index(string searchString, string searchCity)
+        public async Task<IActionResult> Index(string searchString, string searchCity, string searchCategories)
         {
 
             var restaurants = from m in _context.Restaurant
@@ -41,7 +41,7 @@ namespace FeedMe.Controllers
             //    restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
 
             //}
-            restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
+            restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null) && (s.Categories.Equals(searchCategories) || searchCategories == null));
 
 
             return View(await restaurants.ToListAsync());
@@ -117,9 +117,9 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-           var restaurant = await _context.Restaurant.FindAsync(id);
+            var restaurant = await _context.Restaurant.FindAsync(id);
             //restaurant.Categories = _context.Category.Where()
-           
+
 
             if (restaurant == null)
             {
@@ -147,7 +147,7 @@ namespace FeedMe.Controllers
             {
                 restaurant.DeliveryCities = new List<City>();
                 restaurant.DeliveryCities.AddRange(_context.City.Where(x => deliveryCities.Contains(x.ID)));
-              
+
                 try
                 {
                     _context.Update(restaurant);
@@ -239,6 +239,6 @@ namespace FeedMe.Controllers
             return _context.Restaurant.Any(e => e.ID == id);
         }
 
-   
+
     }
 }
