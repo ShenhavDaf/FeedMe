@@ -224,33 +224,42 @@ footer {
     margin: auto;
     background-color: rgba(128, 128, 128, 0);
     border: gray;
-    border-style: double;
+    /*border-style: double;*/
     align-items: center;
-    border-radius: 25px;
+    /*border-radius: 25px;*/
     width: 18rem;
     height: 18rem
 }
 
-#restaurantBtn {
-    margin-top: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
-    margin-bottom: 5px;
+.resCardBtn {
+    /*margin: auto;
     background-color: rgba(128, 128, 128, 0);
     border: gray;
     border-style: double;
     align-items: center;
     border-radius: 25px;
     width: 20rem;
-    height: 30rem;
+    height: 30rem;*/
 }
+    .resCardBtn img {
+        height: 200px;
+        border-bottom: 1px solid #ddd;
+    }
+    .resCardBtn p {
+        overflow: hidden;
+        max-width: 75ch;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-/*restaurant and category*/
+    /*restaurant and category*/
 .card {
     /*background-color: #efefef;*/
-    background-color: rgba(128, 128, 128, 0);
-    border: hidden;
+    /*background-color: rgba(128, 128, 128, 0);
+    border: hidden;*/
+    border: 0px solid rgba(0,0,0,.125);
 }
+
 
 
 
@@ -352,12 +361,6 @@ footer {
     /*background-color: lightpink;*/
 }
 
-    #dishBody img {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-    }
-
     #dishBody p {
         margin-top: auto;
     }
@@ -370,8 +373,21 @@ footer {
     margin-right: auto;
 }
 
-/* -- quantity box in dish-- */
+.dishCardBtn img {
+    height: 200px;
+    width: 300px;
+}
+.dishCardBtn p {
+    overflow: hidden;
+    max-width: 75ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.dishCardBtn #bodyBorder {
+    border-right: 1px solid #d8d8d8;
+}
 
+/* -- quantity box in dish-- */
 /*.qty {
     margin-top: 70px;
 }
@@ -424,10 +440,6 @@ div {
 .plus:hover {
     background-color: #717fe0 !important;
 }*/
-
-
-
-
 /*Prevent text selection*/
 span {
     -webkit-user-select: none;
@@ -453,8 +465,8 @@ input:disabled {
 
 /*Categories style*/
 .categoryImage {
+    height: 175px;
     width: 100%;
-    height: 100%;
     border-radius: 10px;
 }
 

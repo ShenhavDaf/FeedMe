@@ -24,6 +24,7 @@ namespace FeedMe.Controllers
             _context = context;
         }
 
+        // LOGOUT FROM USER
         public async Task<IActionResult> Logout()
         {
             //LOGOUT VIA SESSION: HttpContext.Session.Clear();
@@ -33,6 +34,7 @@ namespace FeedMe.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // REDIRECT TO VIEW OF LOGIN
         // GET: Users/Login
         public IActionResult Login()
         {
@@ -51,12 +53,12 @@ namespace FeedMe.Controllers
             user.PhoneNumber = "d";*/
 
             if (ModelState.IsValid)
-            {
+            {   // Search inside User's DB the user with the same Email & Password
                 var q = from u in _context.User
                         where u.Email == user.Email && u.Password == user.Password
                         select u;
                 //var q = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
-                int count = await q.CountAsync();
+                int count = await q.CountAsync(); // Check if the user that we searched for is exist in the DB
 
                 user.MyCart = new MyCart(); // להעביר למקום אחר 
                 user.MyCart.MyCartItems = new List<MyCartItem>();
@@ -64,7 +66,7 @@ namespace FeedMe.Controllers
                 user.MyCart.TotalAmount = 0;
 
                 _context.Update(user);
-                await _context.SaveChangesAsync(); 
+                await _context.SaveChangesAsync();
 
                 if (count > 0)
                 {
@@ -110,6 +112,7 @@ namespace FeedMe.Controllers
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
             };
 
+            // The action takes all 3 data from above and use it to create cookie authentication
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
