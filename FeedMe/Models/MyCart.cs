@@ -17,7 +17,10 @@ namespace FeedMe.Models
 
         // MIGRATION
         public int UserID { get; set; }
+
         public User User { get; set; }
+
+        public Boolean IsClose { get; set; }
         // MIGRATION
     }
 }

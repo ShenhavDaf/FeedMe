@@ -79,3 +79,16 @@
         color: #eee !important;
     }*/
     /* Popovers */
+
+
+    [data-theme="dark"] #categoryBtn h5 {
+        color: #eee !important;
+    }
+
+    [data-theme="dark"] .resCardBtn h5, .resCardBtn p {
+        color: #000 !important;
+    }
+
+    [data-theme="dark"] .dishCardBtn h5, .dishCardBtn p, .dishCardBtn a {
+        color: #404040 !important;
+    }

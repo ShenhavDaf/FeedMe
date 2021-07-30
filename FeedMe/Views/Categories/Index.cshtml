@@ -25,8 +25,8 @@
         @foreach (var category in Model)
         {
             <button id="categoryBtn">
-                <div class="card text-center">
-                    <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.ID" >
+                <div class="card bg-transparent text-center">
+                    <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.ID">
                         <img src="@category.CategoryImage" class="itemCard categoryImage">
                         @if (category.CategoryImage == null)
                         {
@@ -37,15 +37,16 @@
                         <h5 class="text-center">@category.Name</h5>
                         <tr>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@category.ID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@category.ID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@category.ID">Delete</a>
+                                @*<a asp-action="Details" asp-route-id="@category.ID">Details</a>*@
+                                @if (Context.User.Claims.ToList()[1].Value == "Admin")
+                                {
+                                    <a asp-action="Edit" asp-route-id="@category.ID">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@category.ID">Delete</a>
+                                }
                             </td>
                         </tr>
-
                     </div>
                 </div>
-
             </button>
         }
     </div>

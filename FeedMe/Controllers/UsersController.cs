@@ -24,6 +24,7 @@ namespace FeedMe.Controllers
             _context = context;
         }
 
+        // LOGOUT FROM USER
         public async Task<IActionResult> Logout()
         {
             //LOGOUT VIA SESSION: HttpContext.Session.Clear();
@@ -33,6 +34,7 @@ namespace FeedMe.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // REDIRECT TO VIEW OF LOGIN
         // GET: Users/Login
         public IActionResult Login()
         {
@@ -51,23 +53,36 @@ namespace FeedMe.Controllers
             user.PhoneNumber = "d";*/
 
             if (ModelState.IsValid)
-            {
+            {   // Search inside User's DB the user with the same Email & Password
                 var q = from u in _context.User
                         where u.Email == user.Email && u.Password == user.Password
                         select u;
                 //var q = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
-                int count = await q.CountAsync();
+                int count = await q.CountAsync(); // Check if the user that we searched for is exist in the DB
 
-                user.MyCart = new MyCart(); // להעביר למקום אחר 
-                user.MyCart.MyCartItems = new List<MyCartItem>();
-                user.MyCart.UserID = user.Id;
-                user.MyCart.TotalAmount = 0;
+                //user.MyCart = new MyCart(); // להעביר למקום אחר 
+                //user.MyCart.MyCartItems = new List<MyCartItem>();
+                //user.MyCart.UserID = user.Id;
+                //user.MyCart.TotalAmount = 0;
 
-                _context.Update(user);
-                await _context.SaveChangesAsync(); 
+                // _context.Update(user);
+                //  await _context.SaveChangesAsync(); 
 
                 if (count > 0)
                 {
+                 
+                    if(user.MyCarts == null) //first buy in FeedMe
+                    {
+                        user.MyCarts = new List<MyCart>();
+                    }
+                    MyCart myCart = new MyCart();
+                    myCart.UserID = user.Id;
+                    myCart.MyCartItems = new List<MyCartItem>();
+                    myCart.TotalAmount = 0;
+                    user.MyCarts.Add(myCart);
+
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
 
                     //HttpContext.Session.SetString("email", q.First().Email);
                     //HttpContext.Session.SetString("type", q.First().Type.ToString());
@@ -110,6 +125,7 @@ namespace FeedMe.Controllers
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
             };
 
+            // The action takes all 3 data from above and use it to create cookie authentication
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
@@ -135,10 +151,10 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate")] User user)
         {
-            user.MyCart = new MyCart();
-            user.MyCart.MyCartItems = new List<MyCartItem>();
-            user.MyCart.UserID = user.Id;
-            user.MyCart.TotalAmount = 0;
+            //user.MyCart = new MyCart();
+            //user.MyCart.MyCartItems = new List<MyCartItem>();
+            //user.MyCart.UserID = user.Id;
+            //user.MyCart.TotalAmount = 0;
 
             if (ModelState.IsValid)
             {
@@ -146,6 +162,16 @@ namespace FeedMe.Controllers
 
                 if (q == null)
                 {
+                    if (user.MyCarts == null) //first buy in FeedMe
+                    {
+                        user.MyCarts = new List<MyCart>();
+                    }
+                    MyCart myCart = new MyCart();
+                    myCart.UserID = user.Id;
+                    myCart.MyCartItems = new List<MyCartItem>();
+                    myCart.TotalAmount = 0;
+                    user.MyCarts.Add(myCart);
+
                     user.Type = UserType.Client;
                     _context.Add(user);
                     await _context.SaveChangesAsync();

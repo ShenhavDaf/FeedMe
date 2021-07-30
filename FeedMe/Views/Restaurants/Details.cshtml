@@ -28,7 +28,6 @@
                 @foreach (var dish in group)
                 {
                     <div class="container">
-                        <hr />
                         <div class="row">
                             <div class="col">
                                 <img src="@dish.DishImage">
@@ -45,16 +44,19 @@
                                 </p>
                                 <tr>
                                     <td>
-                                        <a asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.ID">Edit</a> |
-                                        <a asp-controller="Dishes" asp-action="Details" asp-route-id="@dish.ID">Details</a> |
-                                        <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
+                                        <a asp-controller="Dishes" asp-action="Details" asp-route-id="@dish.ID">Details</a>
+                                        @if (Context.User.Claims.ToList()[1].Value == "Admin")
+                                        {
+                                            <a asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.ID">Edit</a>
+                                            <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
+                                        }
                                     </td>
                                 </tr>
                             </div>
                         </div>
                     </div>
-
                 }
+            }
 
                 @*<button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details" asp-route-id="@Model.ID"> My Cart</a> </button>*@
             }

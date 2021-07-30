@@ -9,7 +9,6 @@ namespace FeedMe.Models
 {
     public enum UserType
     {
-        Guest,
         Client,
         rManager,
         Admin
@@ -47,11 +46,12 @@ namespace FeedMe.Models
         //ONE TO ONE
         public CreditCard CreditCard { get; set; }
 
-        public UserType Type { get; set; } = UserType.Guest;
+        public UserType Type { get; set; } = UserType.Client;
 
 
         // MIGRATION
-        public MyCart MyCart { get; set; }
+        public List<MyCart> MyCarts { get; set; }
+
         // MIGRATION
     }
 }
