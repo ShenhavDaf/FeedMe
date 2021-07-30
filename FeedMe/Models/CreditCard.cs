@@ -28,15 +28,15 @@ namespace FeedMe.Models
         [Required]
         [RegularExpression("@^[0-9]{3}")]
         public int CVV { get; set; }
-    
+
         /*----------------------------------------------------------------------*/
-        
+
         public int UserID { get; set; }
         //one to one
         public User User { get; set; }
 
         [Required]
         [RegularExpression("@[0-9]{9}")]
-        public string IDnumber{ get; set; }
+        public string IDnumber { get; set; }
     }
 }
