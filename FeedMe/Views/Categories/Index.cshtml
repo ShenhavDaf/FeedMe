@@ -40,7 +40,7 @@
                                 @*<a asp-action="Details" asp-route-id="@category.ID">Details</a>*@
                                 @if (Context.User.Claims.ToList()[1].Value == "Admin")
                                 {
-                                    <a asp-action="Edit" asp-route-id="@category.ID">Edit</a>
+                                    <a asp-action="Edit" asp-route-id="@category.ID">Edit</a> <text>|</text>
                                     <a asp-action="Delete" asp-route-id="@category.ID">Delete</a>
                                 }
                             </td>

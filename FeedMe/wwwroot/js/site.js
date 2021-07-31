@@ -19,7 +19,7 @@ function GetMap() {
     var pin_location;
     let count = 0;
     $.ajax({
-        url: 'Cities/GetCitiesList',
+        url: 'https://' + new URL(window.location.host) + '/Cities/GetCitiesList',
         type: 'GET',
         success: function (data) {
             $.each(data, function (index) {
