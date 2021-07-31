@@ -5,7 +5,40 @@
 
 <head>
     <link rel="stylesheet" href="~/css/aboutUs.css" />
-    <script type="text/javascript">
+
+    <body>
+        <div style="font-size: 30px; font-weight: bold; text-align:center;">
+            <p1>
+                <br />
+                “Humor keeps us alive. Humor and food. Don't forget food. You can go a week without laughing.”
+                ― Joss Whedon
+            </p1>
+        </div>
+
+        <br /><br /><br />
+
+        <div class="aboutUs">
+            <p3>
+                ABOUT AS:
+                <br />
+            </p3>
+            We are Liel, Shenhav, Daniel, Kely and Bar - computer science students at the Rishon Lezion College of Management.
+            We were asked to do a project as part of our studies in the "Web application development" course with lecturer Menachem Leibowitz. We chose to develop a website for food lovers just like us.
+            FeedMe is a kosher site that reaches a large number of cities in the center and works with restaurants with a wide variety of dishes.
+            Enjoy your meal.
+        </div>
+        <br /><br /><br />
+
+        <section>
+            <h2 style="text-align:center;">Our Statistics</h2>
+            <p>Here you can see our data about which categories and restaurants are most popular: </p>
+        </section>
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+
+        <script type="text/javascript">
         const map = @Html.Raw(ViewData["Graph"]);
         window.onload = function () {
             var dataPoints = [];
@@ -28,28 +61,12 @@
             chart.render();
 
         }
-    </script>
-    <body>
-        <aside>
-            <p>
-                <br> “Humor keeps us alive. Humor and food. Don't forget food. You can go a week without laughing.”
-                ― Joss Whedon
-            </p>
-        </aside>
+        </script>
 
-        <section>
-            <h2>Our Statistics</h2>
-            <p>Here you can see our data about which categories and restaurants are most popular: </p>
-        </section>
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    </body>
+        @*Graph 2*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-    @*Graph 2*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <body>
-
-        <canvas id="myChart" style="height: 370px; width: 100%; padding-top:80px;"></canvas>
+        <canvas id="myChart"></canvas>
         <script>
             const xValues = @Html.Raw(ViewData["GraphX"]);
             const yValues = @Html.Raw(ViewData["GraphY"]);
@@ -81,20 +98,13 @@
             });
         </script>
 
-        <div class="aboutUs">
-            Hi, we are Liel, Shenhav, Daniel, Kely and Bar - computer science students at the Rishon Lezion College of Management.
-            We were asked to do a project as part of our studies in the "Application Development" course with lecturer Menachem Leibowitz. We chose to develop a website for food lovers just like us.
-            FeedMe is a kosher site that reaches a large number of cities in the center and works with restaurants with a wide variety of dishes.
-            enjoy your meal
-        </div>
-
 
 
         <div id="myMap"></div>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AgKM2ujhhQsxdOGDplWe_PcRt59_Y8KhlxcQsY4bWurgt-M8nkXVXWERyEd0z6pf&callback=GetMap' async defer></script>
     </body>
 
-   
+
 
 </head>
 
