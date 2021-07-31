@@ -60,28 +60,41 @@ namespace FeedMe.Controllers
                 //var q = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                 int count = await q.CountAsync(); // Check if the user that we searched for is exist in the DB
 
-                //user.MyCart = new MyCart(); // להעביר למקום אחר 
-                //user.MyCart.MyCartItems = new List<MyCartItem>();
-                //user.MyCart.UserID = user.Id;
-                //user.MyCart.TotalAmount = 0;
-
                 // _context.Update(user);
                 //  await _context.SaveChangesAsync(); 
 
                 if (count > 0)
                 {
-                 
-                    if(user.MyCarts == null) //first buy in FeedMe
+                    foreach (var u in _context.User)//Find the current user id.
+                        if (u.Email == user.Email)
+                            user.Id = u.Id;
+
+                    if (user.MyCarts == null) //If the buyer didn't finish his buy on register day or the times after.
                     {
                         user.MyCarts = new List<MyCart>();
                     }
+
+                    foreach (var cart in _context.MyCart) //Check if the user had open carts that he didnt paid on.
+                    {
+                        if (cart.UserID == user.Id)
+                        {
+                            if(cart.IsClose == true)
+                                user.MyCarts.Add(cart);
+                            else
+                            {
+                                _context.Remove(cart);
+                            }
+                        }    
+                    }
+
                     MyCart myCart = new MyCart();
                     myCart.UserID = user.Id;
                     myCart.MyCartItems = new List<MyCartItem>();
                     myCart.TotalAmount = 0;
+                    myCart.IsClose = false;
                     user.MyCarts.Add(myCart);
 
-                    _context.Update(user);
+                    _context.Update(myCart);
                     await _context.SaveChangesAsync();
 
                     //HttpContext.Session.SetString("email", q.First().Email);
@@ -162,14 +175,12 @@ namespace FeedMe.Controllers
 
                 if (q == null)
                 {
-                    if (user.MyCarts == null) //first buy in FeedMe
-                    {
-                        user.MyCarts = new List<MyCart>();
-                    }
+                    user.MyCarts = new List<MyCart>();
                     MyCart myCart = new MyCart();
                     myCart.UserID = user.Id;
                     myCart.MyCartItems = new List<MyCartItem>();
                     myCart.TotalAmount = 0;
+                    myCart.IsClose = false;
                     user.MyCarts.Add(myCart);
 
                     user.Type = UserType.Client;
