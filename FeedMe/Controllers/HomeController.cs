@@ -1,6 +1,9 @@
-﻿using FeedMe.Models;
+﻿using FeedMe.Data;
+using FeedMe.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,11 +14,18 @@ namespace FeedMe.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly FeedMeContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        //private readonly ILogger<HomeController> _logger;
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        public HomeController(FeedMeContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -25,6 +35,40 @@ namespace FeedMe.Controllers
 
         public IActionResult Graph()
         {
+            var orderDish = _context.MyCartItem.Include(a => a.Dish);
+            Dictionary<String, int> map = new Dictionary<String, int>();
+
+            foreach(var item in orderDish)
+            {
+                if(map.ContainsKey(item.Dish.Name))
+                {
+                    map[item.Dish.Name]++;
+                }
+                else
+                {
+                    map.Add(item.Dish.Name, 1);
+                }
+            }
+            map.OrderBy(a => a.Value);
+            var list = map.Keys.ToList();
+            list.Sort();
+
+  
+
+            var query = from key in list select new { label = key, y = map[key] };
+            ViewData["Graph"] = JsonConvert.SerializeObject(query);
+
+            List<int> listY = new List<int>();
+            listY.Add(map.Keys.Count);
+            listY.Add(_context.Dish.Count() - map.Keys.Count);
+
+            List<String> listX = new List<String>();
+            listX.Add("Ordered dishes");
+            listX.Add("Not ordered dishes");
+
+            ViewData["GraphX"] = JsonConvert.SerializeObject(listX);
+            ViewData["GraphY"] = JsonConvert.SerializeObject(listY);
+
             return View();
         }
 
