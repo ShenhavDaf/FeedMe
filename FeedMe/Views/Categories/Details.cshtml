@@ -4,14 +4,14 @@
     ViewData["Title"] = "Details of a category";
 }
 
-<h1>Restaurants</h1>
+<h1>Details</h1>
 <div class="container">
     <div class="row">
 
         @foreach (var res in Model.Restaurants)
         {
             <button id="categoryBtn">
-                <div class="card text-center">
+                <div class="card bg-transparent text-center">
                     <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@res.ID">
                         <img src="@res.RestaurantImage" class="itemCard categoryImage">
                         @if (res.RestaurantImage == null)
@@ -26,7 +26,7 @@
                                 <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@res.ID">Details</a> |
                                 @if (Context.User.Claims.ToList()[1].Value == "Admin")
                                 {
-                                    <a asp-controller="Restaurants" asp-action="Edit" asp-route-id="@res.ID">Edit</a>
+                                    <a asp-controller="Restaurants" asp-action="Edit" asp-route-id="@res.ID">Edit</a> <text>|</text>
                                     <a asp-controller="Restaurants" asp-action="Delete" asp-route-id="@res.ID">Delete</a>
                                 }
                             </td>
