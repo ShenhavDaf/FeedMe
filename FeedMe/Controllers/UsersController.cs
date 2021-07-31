@@ -21,6 +21,7 @@ namespace FeedMe.Controllers
 
         public UsersController(FeedMeContext context)
         {
+            //var feedMeContext = _context.User.Include(u => u.Restaurant);
             _context = context;
         }
 
@@ -78,13 +79,13 @@ namespace FeedMe.Controllers
                     {
                         if (cart.UserID == user.Id)
                         {
-                            if(cart.IsClose == true)
+                            if (cart.IsClose == true)
                                 user.MyCarts.Add(cart);
                             else
                             {
                                 _context.Remove(cart);
                             }
-                        }    
+                        }
                     }
 
                     MyCart myCart = new MyCart();
@@ -154,6 +155,7 @@ namespace FeedMe.Controllers
         // GET: Users/Register
         public IActionResult Register()
         {
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "ID", "Address");
             return View();
         }
 
@@ -162,7 +164,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate")] User user)
+        public async Task<IActionResult> Register([Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate,RestaurantId")] User user)
         {
             //user.MyCart = new MyCart();
             //user.MyCart.MyCartItems = new List<MyCartItem>();
@@ -197,6 +199,7 @@ namespace FeedMe.Controllers
                     ViewData["Error"] = "Unable to comply; cannot register this user.";
                 }
             }
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "ID", "Address", user.RestaurantId);
             return View(user);
         }
 
@@ -212,17 +215,16 @@ namespace FeedMe.Controllers
         public async Task<IActionResult> Search(string query)
         {
             var user = from m in _context.User
-                              select m;
+                       select m;
 
             user = user.Where(s => (s.Name.Contains(query) || query == null) ||
-            s.PhoneNumber.Contains(query)||s.Address.Contains(query));
+            s.PhoneNumber.Contains(query) || s.Address.Contains(query));
 
             return View("Index", await user.ToListAsync());
         }
 
 
         // GET: Users/Details/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -231,6 +233,7 @@ namespace FeedMe.Controllers
             }
 
             var user = await _context.User
+                .Include(u => u.Restaurant)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -243,7 +246,6 @@ namespace FeedMe.Controllers
 
 
         // GET: Users/Edit/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.UserType = new SelectList(Enum.GetNames(typeof(UserType)));
@@ -257,6 +259,7 @@ namespace FeedMe.Controllers
             {
                 return NotFound();
             }
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "ID", "Address", user.RestaurantId);
             return View(user);
         }
 
@@ -266,7 +269,7 @@ namespace FeedMe.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate,Type")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate,Type,RestaurantId")] User user)
         {
             if (id != user.Id)
             {
@@ -293,6 +296,7 @@ namespace FeedMe.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "ID", "Address", user.RestaurantId);
             return View(user);
         }
 
@@ -306,6 +310,7 @@ namespace FeedMe.Controllers
             }
 
             var user = await _context.User
+                .Include(u => u.Restaurant)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {

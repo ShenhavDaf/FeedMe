@@ -24,7 +24,7 @@ namespace FeedMe.Controllers
         {
 
             var dish = from m in _context.Dish
-                              select m;
+                       select m;
 
             dish = dish.Where(s => (s.Name.Contains(searchString) || searchString == null) ||
            s.Description.Contains(searchString));

@@ -93,7 +93,7 @@ namespace FeedMe.Controllers
             }
 
             c.Dish = null; // So that the dishes won't created again in the dish database.
-            if(flag == 0)
+            if (flag == 0)
             {
 
                 _context.Add(myCart);

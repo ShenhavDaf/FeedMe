@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeedMe.Migrations
 {
     [DbContext(typeof(FeedMeContext))]
-    [Migration("20210730135139_init")]
+    [Migration("20210731174100_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,10 +270,17 @@ namespace FeedMe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RestaurantId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId")
+                        .IsUnique()
+                        .HasFilter("[RestaurantId] IS NOT NULL");
 
                     b.ToTable("User");
                 });
@@ -360,6 +367,15 @@ namespace FeedMe.Migrations
                     b.Navigation("MyCart");
                 });
 
+            modelBuilder.Entity("FeedMe.Models.User", b =>
+                {
+                    b.HasOne("FeedMe.Models.Restaurant", "Restaurant")
+                        .WithOne("User")
+                        .HasForeignKey("FeedMe.Models.User", "RestaurantId");
+
+                    b.Navigation("Restaurant");
+                });
+
             modelBuilder.Entity("FeedMe.Models.MyCart", b =>
                 {
                     b.Navigation("MyCartItems");
@@ -368,6 +384,8 @@ namespace FeedMe.Migrations
             modelBuilder.Entity("FeedMe.Models.Restaurant", b =>
                 {
                     b.Navigation("Dishes");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FeedMe.Models.User", b =>

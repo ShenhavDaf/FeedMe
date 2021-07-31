@@ -38,9 +38,9 @@ namespace FeedMe.Controllers
             var orderDish = _context.MyCartItem.Include(a => a.Dish);
             Dictionary<String, int> map = new Dictionary<String, int>();
 
-            foreach(var item in orderDish)
+            foreach (var item in orderDish)
             {
-                if(map.ContainsKey(item.Dish.Name))
+                if (map.ContainsKey(item.Dish.Name))
                 {
                     map[item.Dish.Name]++;
                 }
@@ -55,10 +55,10 @@ namespace FeedMe.Controllers
             var list = map.Keys.ToList();
             list.Sort((pair1, pair2) => map[pair1].CompareTo(map[pair2]));
 
-       
+
 
             var query = from key in list select new { label = key, y = map[key] };
-           // query.OrderBy(a => a.label);
+            // query.OrderBy(a => a.label);
             ViewData["Graph"] = JsonConvert.SerializeObject(query);
 
             List<int> listY = new List<int>();

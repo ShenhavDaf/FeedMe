@@ -21,6 +21,7 @@
 <div id="restaurantBody">
     <div class="container">
         <div class="row">
+            <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details"> My Cart</a> </button>
 
             @foreach (var group in Model.Dishes.GroupBy(x => x.FoodType))
             {
@@ -58,9 +59,9 @@
                 }
             }
 
-                @*<button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details" asp-route-id="@Model.ID"> My Cart</a> </button>*@
+            @*<button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details" asp-route-id="@Model.ID"> My Cart</a> </button>*@
 
-            <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details"> My Cart</a> </button>
+
         </div>
     </div>
 </div>
