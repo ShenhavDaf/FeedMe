@@ -208,6 +208,18 @@ namespace FeedMe.Controllers
             return View(await _context.User.ToListAsync());
         }
 
+        //Sherch by name, address and phone number
+        public async Task<IActionResult> Search(string query)
+        {
+            var user = from m in _context.User
+                              select m;
+
+            user = user.Where(s => (s.Name.Contains(query) || query == null) ||
+            s.PhoneNumber.Contains(query)||s.Address.Contains(query));
+
+            return View("Index", await user.ToListAsync());
+        }
+
 
         // GET: Users/Details/5
         [Authorize(Roles = "Admin")]

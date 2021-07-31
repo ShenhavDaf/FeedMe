@@ -21,28 +21,13 @@ namespace FeedMe.Controllers
             _context = context;
         }
 
-        // GET: Restaurants
-        /*  public async Task<IActionResult> Index()
-          {
-              //return View(await _context.Restaurant.Include(c => c.Categories).Include(d => d.DeliveryCities).ToListAsync());
-              return View(await _context.Restaurant.ToListAsync());
-          }*/
-
-
-
-        public async Task<IActionResult> Index(string searchString, string searchCity, string searchCategories)
+        public async Task<IActionResult> Index(string searchString)
         {
-
             var restaurants = from m in _context.Restaurant
                               select m;
 
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null));
-
-            //}
-            restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) && (s.DeliveryCities.Equals(searchCity) || searchCity == null) && (s.Categories.Equals(searchCategories) || searchCategories == null));
-
+            restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) ||
+           s.PhoneNumber.Contains(searchString) || s.Description.Contains(searchString));
 
             return View(await restaurants.ToListAsync());
         }
