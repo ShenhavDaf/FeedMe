@@ -31,20 +31,28 @@ namespace FeedMe.Controllers
             MyCart myCart = new MyCart();
             myCart.MyCartItems = new List<MyCartItem>();
             myCart.TotalAmount = 0;
+            myCart.IsClose = false;
 
             // If there is a request for cart details from the restaurant page we will use cookies.
             if (id == null)
             {
                 var userEmail = User.Claims.ToList()[0].Value;
-                foreach (var item in _context.User) //Get the currect user that is log in.
+                foreach (var user in _context.User) //Get the currect user that is log in.
                 {
-                    if (item.Email == userEmail)
+                    if (user.Email == userEmail)
                     {// לעבור על הרשימה של הקארטים של היוזר
                         foreach (var cart in _context.MyCart) // Get user cart values.
                         {
-                            if (item.Id == cart.UserID)
+                            if (user.Id == cart.UserID)
                             {
-                                myCart.ID = cart.ID; // Here The cart doesn't receive the data on the cartItems.
+                                //if (cart.IsClose == true)
+                                //    user.MyCarts.Add(cart);
+                                //else
+                                if(cart.IsClose == false)
+                                {
+                                    myCart.ID = cart.ID; // Here The cart doesn't receive the data on the cartItems.
+                                    break;
+                                }
                             }
                         }
                     }
@@ -101,8 +109,18 @@ namespace FeedMe.Controllers
             //return View();
         }
 
-        public IActionResult Pay()
+        public async Task<IActionResult> Pay(int? id)
         {
+            foreach (var cart in _context.MyCart)
+                if (cart.ID == id)
+                {
+                    cart.IsClose = true;
+                    _context.Update(cart);
+                    break;
+                }
+
+            await _context.SaveChangesAsync();
+
             return View();
         }
 

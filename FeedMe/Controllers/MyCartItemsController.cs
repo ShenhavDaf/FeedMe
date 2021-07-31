@@ -32,10 +32,12 @@ namespace FeedMe.Controllers
         {
             MyCartItem c = new MyCartItem();
             MyCart myCart = new MyCart();
+            myCart.IsClose = false;
             c.Dish = new Dish();
             c.DishID = id;
             c.Quantity = 1;
             c.SaveQ = false;
+            int flag = 0;
 
             foreach (var item in _context.Dish) // get dish values.
             {
@@ -63,8 +65,10 @@ namespace FeedMe.Controllers
                         if (user.Id == cart.UserID && cart.IsClose == false)
                         {
                             myCart = cart;
+                            flag = 1;
                         }
                     }
+
                     if (myCart.MyCartItems == null)//check if this the first cart item.
                     {
                         myCart.MyCartItems = new List<MyCartItem>();
@@ -73,6 +77,12 @@ namespace FeedMe.Controllers
                     c.MyCartID = myCart.ID;
                     c.MyCart = myCart;
                     myCart.MyCartItems.Add(c);
+
+                    if (flag == 0)
+                    {
+                        myCart.UserID = user.Id;
+                        user.MyCarts.Add(myCart);
+                    }
 
                     //user.MyCarts.TotalAmount += c.Price; //update all new cartItem data.
                     //c.MyCartID = user.MyCarts.ID;
@@ -83,6 +93,11 @@ namespace FeedMe.Controllers
             }
 
             c.Dish = null; // So that the dishes won't created again in the dish database.
+            if(flag == 0)
+            {
+
+                _context.Add(myCart);
+            }
             _context.Add(c);
             await _context.SaveChangesAsync();
 
