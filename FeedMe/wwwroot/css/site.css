@@ -1,5 +1,9 @@
 ﻿﻿ /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+
+
+
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -355,7 +359,12 @@ footer {
     margin-left: 10px;
     margin-top: 20px;
     padding-bottom: 10px;
+    transition: transform 250ms;
 }
+#dishesBtn:hover {
+    transform: translateY(-10px);
+}
+
 
 #dishBody {
     /*background-color: lightpink;*/
@@ -484,6 +493,13 @@ input:disabled {
     /*background-size: cover;*/
 }
 
+
+
+
+@font-face {
+    font-family: 'Lobster', cursive;
+    src: url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+}
 .homeTitle {
     color: white;
     font-size: 100px;
@@ -526,3 +542,13 @@ li {
     height: 500px;
     margin-top: 50px;
 }
+#myChart{
+
+}
+.aboutUs {
+    color: black;
+    font-size: 20px;
+    text-shadow: 1px 1px #0b63bc;
+    column-count: 3;
+}
+

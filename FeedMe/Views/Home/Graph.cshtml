@@ -4,6 +4,7 @@
 @*<h1>@ViewData["Title"]</h1>*@
 
 <head>
+    <link rel="stylesheet" href="~/css/aboutUs.css" />
     <script type="text/javascript">
         const map = @Html.Raw(ViewData["Graph"]);
         window.onload = function () {
@@ -80,9 +81,21 @@
             });
         </script>
 
+        <div class="aboutUs">
+            Hi, we are Liel, Shenhav, Daniel, Kely and Bar - computer science students at the Rishon Lezion College of Management.
+            We were asked to do a project as part of our studies in the "Application Development" course with lecturer Menachem Leibowitz. We chose to develop a website for food lovers just like us.
+            FeedMe is a kosher site that reaches a large number of cities in the center and works with restaurants with a wide variety of dishes.
+            enjoy your meal
+        </div>
+
+
+
         <div id="myMap"></div>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AgKM2ujhhQsxdOGDplWe_PcRt59_Y8KhlxcQsY4bWurgt-M8nkXVXWERyEd0z6pf&callback=GetMap' async defer></script>
     </body>
+
+   
+
 </head>
 
 
