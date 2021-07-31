@@ -53,16 +53,9 @@ namespace FeedMe.Controllers
 
             map.OrderBy(a => a.Value);
             var list = map.Keys.ToList();
-            list.Sort();
+            list.Sort((pair1, pair2) => map[pair1].CompareTo(map[pair2]));
 
-            List<int> list2 = new List<int>();
-            foreach(var number in map.Values)
-            {
-                list2.Add(number);
-            }
-            list2.Sort();
-
-  
+       
 
             var query = from key in list select new { label = key, y = map[key] };
            // query.OrderBy(a => a.label);
