@@ -49,13 +49,23 @@ namespace FeedMe.Controllers
                     map.Add(item.Dish.Name, 1);
                 }
             }
+
+
             map.OrderBy(a => a.Value);
             var list = map.Keys.ToList();
             list.Sort();
 
+            List<int> list2 = new List<int>();
+            foreach(var number in map.Values)
+            {
+                list2.Add(number);
+            }
+            list2.Sort();
+
   
 
             var query = from key in list select new { label = key, y = map[key] };
+           // query.OrderBy(a => a.label);
             ViewData["Graph"] = JsonConvert.SerializeObject(query);
 
             List<int> listY = new List<int>();
