@@ -1,0 +1,33 @@
+
+@font-face {
+    font-family: 'Lobster', cursive;
+    src: url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+}
+
+.myAside {
+    font-family: 'Indie Flower', cursive;
+    text-align: center;
+    font: bold;
+    font-size: larger;
+}
+
+/* Map style*/
+#myMap {
+    position: relative;
+    /*width: 600px;*/
+    height: 500px;
+    margin-top: 50px;
+}
+
+#myChart {
+    height: 370px;
+    width: 100%;
+    padding-top: 80px;
+}
+
+.aboutUs {
+    color: black;
+    font-size: 20px;
+    text-shadow: 1px 1px #0b63bc;
+    column-count: 3;
+}

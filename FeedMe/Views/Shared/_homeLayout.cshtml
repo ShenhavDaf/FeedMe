@@ -136,7 +136,8 @@
                             </li>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><span class="dropdown-item-text">Status: @Context.User.Claims.ToList()[1].Value</span></li>
-                                <li><a class="dropdown-item" href="#">My Cart</a></li>
+                                <li><a class="dropdown-item" asp-controller="Users" asp-action="Index">Account Settings</a></li>
+                                <li><a class="dropdown-item" asp-controller="MyCarts" asp-action="Details">My Cart</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Logout</a></li>
                             </ul>
@@ -148,7 +149,7 @@
                             Hello, Guest!
                         </li>
                     }
-                    <a tabindex="0" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Cart" data-bs-content="Here will be implementation of the Cart.cshtml">
+                    <a tabindex="0" role="button" title="Cart" data-bs-content="Here will be implementation of the Cart.cshtml" asp-controller="MyCarts" asp-action="Details">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
                             <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
                         </svg>

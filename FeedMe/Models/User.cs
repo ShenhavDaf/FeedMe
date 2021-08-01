@@ -53,5 +53,8 @@ namespace FeedMe.Models
         public List<MyCart> MyCarts { get; set; }
 
         // MIGRATION
+
+        public int? RestaurantId { get; set; } = null;
+        public Restaurant Restaurant{ get; set; }
     }
 }

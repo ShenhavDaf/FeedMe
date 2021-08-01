@@ -66,6 +66,6 @@ namespace FeedMe.Models
         public List<Category> Categories{ get; set; }
 
         /*------------------------------------------------------*/
-     
+        public User User { get; set; }
     }
 }

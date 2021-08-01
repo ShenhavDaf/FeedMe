@@ -24,7 +24,7 @@ namespace FeedMe.Controllers
         {
 
             var dish = from m in _context.Dish
-                              select m;
+                       select m;
 
             dish = dish.Where(s => (s.Name.Contains(searchString) || searchString == null) ||
            s.Description.Contains(searchString));
@@ -56,7 +56,9 @@ namespace FeedMe.Controllers
         // GET: Dishes/Create
         public IActionResult Create()
         {
-            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", "Address");
+            ViewBag.FoodType = new SelectList(Enum.GetNames(typeof(FoodType)));
+
+            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", nameof(Restaurant.Name));
             return View();
         }
 
@@ -73,13 +75,14 @@ namespace FeedMe.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", "Address", dish.RestaurantID);
+            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", nameof(Restaurant.Name), dish.RestaurantID);
             return View(dish);
         }
 
         // GET: Dishes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.FoodType = new SelectList(Enum.GetNames(typeof(FoodType)));
             if (id == null)
             {
                 return NotFound();
@@ -90,7 +93,7 @@ namespace FeedMe.Controllers
             {
                 return NotFound();
             }
-            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", "Address", dish.RestaurantID);
+            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", nameof(Restaurant.Name), dish.RestaurantID);
             return View(dish);
         }
 
@@ -126,7 +129,7 @@ namespace FeedMe.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", "Address", dish.RestaurantID);
+            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", nameof(Restaurant.Name), dish.RestaurantID);
             return View(dish);
         }
 

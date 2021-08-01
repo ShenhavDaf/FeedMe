@@ -48,7 +48,7 @@ namespace FeedMe.Controllers
                                 //if (cart.IsClose == true)
                                 //    user.MyCarts.Add(cart);
                                 //else
-                                if(cart.IsClose == false)
+                                if (cart.IsClose == false)
                                 {
                                     myCart.ID = cart.ID; // Here The cart doesn't receive the data on the cartItems.
                                     break;
@@ -90,7 +90,7 @@ namespace FeedMe.Controllers
                 }
             }
 
-           // _context.Update(myCart); //לבדוק אם צריךךךך
+            // _context.Update(myCart); //לבדוק אם צריךךךך
             await _context.SaveChangesAsync();
 
             if (myCart == null)
