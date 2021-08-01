@@ -24,7 +24,7 @@
 
                             <h4 class="text-center">@myCartItem.Dish.Name</h4>
                             <p class="text-center"> @myCartItem.Dish.Description</p>
-                            <p class="text-center"> @myCartItem.Quantity</p>
+                            <p class="text-center">Amount:  @myCartItem.Quantity</p>
                             <p class="text-center"> @myCartItem.Dish.Price₪</p>
                         </div>
                         <div class="col ">
@@ -39,10 +39,14 @@
                     </div>
                 </div>
             }
-            <p class="text-center"> @Model.TotalAmount₪</p>
-            <p>
-                <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-action="Pay" asp-route-id="@Model.ID"> Pay</a> </button>
-            </p>
+            <br />
+        <p class="text-center">_________________________________________________________________________________________________</p>
+        <p class="text-center">Total payment:  @Model.TotalAmount₪</p>
+        <p class="text-center" id="payBtn">
+            <button type="button" class="btn btn-outline-info">
+                <a asp-action="Pay" asp-route-id="@Model.ID">&nbsp;Pay&nbsp;</a>
+            </button>
+        </p>
         </div>
     </div>
 </div>
@@ -54,20 +58,3 @@
         <button onclick="goBack()">Go Back</button>
     </div>
 </div>
-
-@*<div>
-        <h4>MyCart</h4>
-        <hr />
-        <dl class="row">
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.TotalAmount)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.TotalAmount)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>*@

@@ -22,7 +22,9 @@ namespace FeedMe.Controllers
         // GET: MyCarts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.MyCart.ToListAsync());
+            var feedMeContext = _context.MyCart.Include(m => m.User);
+            return View(await feedMeContext.ToListAsync());
+            //return View(await _context.MyCart.ToListAsync());
         }
 
         // GET: MyCarts/Details/5
@@ -167,7 +169,8 @@ namespace FeedMe.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserID"] = new SelectList(_context.User, "Id", "Address", myCart.UserID);
+            ViewData["ID"] = new SelectList(_context.MyCart, "ID", "ID", myCart.ID);
+            ViewData["UserID"] = new SelectList(_context.User, "Id", "Name", myCart.UserID);
             return View(myCart);
         }
 
