@@ -40,11 +40,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-                            </li>*@
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+            </li>*@
                         @if ((User.Identity.IsAuthenticated) || (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0))
                         {
                             <li class="nav-item">
@@ -149,11 +149,26 @@
                             Hello, Guest!
                         </li>
                     }
-                    <a tabindex="0" role="button" title="Cart" data-bs-content="Here will be implementation of the Cart.cshtml" asp-controller="MyCarts" asp-action="Details">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
-                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                        </svg>
-                    </a>
+
+                    @* MyCart Menu *@
+                    @if ((User.Identity.IsAuthenticated) || (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0))
+                    {
+                        <a tabindex="0" role="button" title="Cart" data-bs-content="Here will be implementation of the Cart.cshtml" asp-controller="MyCarts" asp-action="Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                            </svg>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                            </svg>
+                        </a>
+
+                    }
+
                 </div>
             </div>
             <div class="custom-control custom-switch">
@@ -194,10 +209,10 @@
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8">
                                             <ul>
-                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="1"> Restaurant 1</a> </li>
-                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="2"> Restaurant 2</a> </li>
-                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="9"> Restaurant 3</a> </li>
-                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="10"> Restaurant 4</a> </li>
+                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="2"> Pizza Prego </a> </li>
+                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="12"> McDonalds  </a> </li>
+                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="27"> Deli Cream </a> </li>
+                                                <li> <a asp-controller="Restaurants" asp-action="Details" asp-route-id="15"> Burgers Bar </a> </li>
                                             </ul>
                                         </div>
                                         <div class="col-md-2"></div>
