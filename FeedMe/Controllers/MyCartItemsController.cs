@@ -30,26 +30,26 @@ namespace FeedMe.Controllers
         // GET: MyCartItems/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            MyCartItem c = new MyCartItem();
+            MyCartItem cartItem = new MyCartItem();
             MyCart myCart = new MyCart();
             myCart.IsClose = false;
-            c.Dish = new Dish();
-            c.DishID = id;
-            c.Quantity = 1;
-            c.SaveQ = false;
+            cartItem.Dish = new Dish();
+            cartItem.DishID = id;
+            cartItem.Quantity = 1;
+            cartItem.SaveQ = false;
             int flag = 0;
 
             foreach (var item in _context.Dish) // get dish values.
             {
                 if (item.ID == id)
                 {
-                    c.Dish.Name = item.Name;
-                    c.Dish.RestaurantID = item.RestaurantID;
-                    c.Dish.DishImage = item.DishImage;
-                    c.Dish.Description = item.Description;
-                    c.Dish.FoodType = item.FoodType;
-                    c.Dish.Price = item.Price;
-                    c.Price = item.Price;
+                    cartItem.Dish.Name = item.Name;
+                    cartItem.Dish.RestaurantID = item.RestaurantID;
+                    cartItem.Dish.DishImage = item.DishImage;
+                    cartItem.Dish.Description = item.Description;
+                    cartItem.Dish.FoodType = item.FoodType;
+                    cartItem.Dish.Price = item.Price;
+                    cartItem.Price = item.Price;
                     break;
                 }
             }
@@ -73,10 +73,10 @@ namespace FeedMe.Controllers
                     {
                         myCart.MyCartItems = new List<MyCartItem>();
                     }
-                    myCart.TotalAmount += c.Price; //update all new cartItem data.
-                    c.MyCartID = myCart.ID;
-                    c.MyCart = myCart;
-                    myCart.MyCartItems.Add(c);
+                    myCart.TotalAmount += cartItem.Price; //update all new cartItem data.
+                    cartItem.MyCartID = myCart.ID;
+                    cartItem.MyCart = myCart;
+                    myCart.MyCartItems.Add(cartItem);
 
                     if (flag == 0)
                     {
@@ -94,20 +94,20 @@ namespace FeedMe.Controllers
 
             }
 
-            c.Dish = null; // So that the dishes won't created again in the dish database.
+            cartItem.Dish = null; // So that the dishes won't created again in the dish database.
             if (flag == 0)
             {
                 _context.Add(myCart);
             }
-            _context.Add(c);
+            _context.Add(cartItem);
             await _context.SaveChangesAsync();
 
-            if (c == null)
+            if (cartItem == null)
             {
                 return NotFound();
             }
 
-            return View(c);
+            return View(cartItem);
 
             //var myCartItem = await _context.MyCartItem.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
 
