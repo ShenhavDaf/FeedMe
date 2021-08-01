@@ -2,18 +2,20 @@
     ViewData["Title"] = "Pay";
 }
 
+    
 <h1>Pay</h1>
-
 <head>
-    <link rel='stylesheet' href='~/css/Pay.css'>
+    <link rel='stylesheet' href='~/css/Pay.css' type='text/css'>
     <!-- <script src='main.js'></script> -->
+@*    <script type="text/javascript" src="~/js/Pay.js"></script>
+*@
 </head>
 <body>
 
     <div class="row">
         <div class="col-40">
             <div class="container-1">
-                <form class="text" action="Delivery">
+                <form name="payForm" class="text">
                     <div class="row">
                         <div class="col-25">
                             <h3>Billing Address</h3>
@@ -30,7 +32,7 @@
                         <div class="col-25">
                             <h3>Payment</h3>
                             <label for="cname">Name on Card</label>
-                            <input type="text" id="cname" name="cardname" placeholder="Name">
+                            <input type="text" id="cname" placeholder="Name">
                             <label for="ccnum">Credit card number</label>
                             <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
                             <label for="expmonth">Exp Month</label>
@@ -49,11 +51,18 @@
                         </div>
 
                     </div>
-                    <button type="button" class="btn"> <a asp-action="Delivery"> Continue to checkout</a> </button>
+                    <button type="button" class="btn" onclick="cardnumber1(document.payForm.cardnumber)">
+                       
+                        <a asp-action="Delivery"> Continue to checkout</a>
+                    </button>
                 </form>
             </div>
         </div>
+    </div>
+    <script type="text/javascript" src="~/js/Pay.js"></script>
 
 </body>
+
+
 
 
