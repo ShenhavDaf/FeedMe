@@ -45,10 +45,11 @@ namespace FeedMe.Models
 
         [Required(ErrorMessage = "Please insert price")]
         [DataType(DataType.Currency)]
+        [RegularExpression(@"^[1-9]+[0-9]")]
         public int Price { get; set; }
 
         /*------------------------------------------------------*/
-
+        [Display(Name = "In the menu of the restaurant:")]
         public int RestaurantID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
 
         //MAMY dishes TO ONE restaurant 

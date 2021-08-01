@@ -1,3 +1,16 @@
+
+@font-face {
+    font-family: 'Lobster', cursive;
+    src: url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+}
+
+.myAside {
+    font-family: 'Indie Flower', cursive;
+    text-align: center;
+    font: bold;
+    font-size: larger;
+}
+
 /* Map style*/
 #myMap {
     position: relative;
