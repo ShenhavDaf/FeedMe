@@ -80,6 +80,8 @@ namespace FeedMe.Controllers
 
                     if (flag == 0)
                     {
+                        if (user.MyCarts == null)
+                            user.MyCarts = new List<MyCart>();
                         myCart.UserID = user.Id;
                         user.MyCarts.Add(myCart);
                     }
@@ -95,7 +97,6 @@ namespace FeedMe.Controllers
             c.Dish = null; // So that the dishes won't created again in the dish database.
             if (flag == 0)
             {
-
                 _context.Add(myCart);
             }
             _context.Add(c);
@@ -124,8 +125,8 @@ namespace FeedMe.Controllers
         public IActionResult Create()
         {
             //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Description");
-            ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name");
-            ViewData["MyCartID"] = new SelectList(_context.Set<MyCart>(), "ID", "ID");
+            //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name");
+            //ViewData["MyCartID"] = new SelectList(_context.Set<MyCart>(), "ID", "ID");
             return View();
         }
 
@@ -201,6 +202,8 @@ namespace FeedMe.Controllers
                     myCartItem.MyCart = cart;
                 }
             }
+            if (myCartItem.MyCart == null)
+                myCartItem.MyCart = new MyCart();
 
             if (quantity >= 1) //if the quantity is 1 no need make changes.
             {
@@ -299,10 +302,20 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var myCart = new MyCart();
+            myCart.MyCartItems = new List<MyCartItem>();
             var myCartItem = await _context.MyCartItem.FindAsync(id);
+            myCart.ID = myCartItem.MyCartID;
+            foreach(var tempCartItem in _context.MyCartItem)
+            {
+                if (tempCartItem.MyCartID == myCart.ID)
+                    myCart.MyCartItems.Add(tempCartItem);
+            }
             _context.MyCartItem.Remove(myCartItem);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("Details", "MyCarts", new { id = myCart.ID });
+            //return RedirectToAction(nameof(Index));
         }
 
         private bool MyCartItemExists(int id)

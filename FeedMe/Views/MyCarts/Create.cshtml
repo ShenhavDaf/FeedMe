@@ -8,30 +8,19 @@
 
 <h4>MyCart</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <!--<div class="form-group">
-                <label asp-for="MyCartItems" class="control-label"></label>-->@*מציג ברשימה את כל הקטגוריות האפשריות*@
-                <!--<select asp-for="MyCartItems" class="form-control" asp-items="@ViewBag.MyCartItems"></select>
-                <span asp-validation-for="MyCartItems" class="text-danger"></span>
-            </div>-->
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" />
-                <span asp-validation-for="TotalAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <div class="cartCreate">
+        <p>
+            Choose the way you want to start your purchase in FeedMe:
+        </p>
+    </div>
+    <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="Restaurants" asp-action="Index"> Restaurants</a> </button>
+    <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="Categories" asp-action="Index"> Categories</a> </button>
+    <div>
+        <br />
+        <button onclick="goBack()">Go Back</button>
+    </div>
 </div>
 
 @section Scripts {

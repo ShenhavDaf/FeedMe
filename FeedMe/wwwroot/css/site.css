@@ -553,3 +553,10 @@ li {
     text-shadow: 1px 1px #0b63bc;
     column-count: 3;
 }*/
+
+ /*MyCare create page*/
+.cartCreate {
+    color: black;
+    font-style: italic;
+    font-size: 28px;
+}
