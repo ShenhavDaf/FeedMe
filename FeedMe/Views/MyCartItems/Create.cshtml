@@ -8,36 +8,18 @@
 
 <h4>MyCartItem</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Dish" class="control-label"></label>
-                <select asp-for="DishID" class="form-control" asp-items="ViewBag.DishID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <label asp-for="Dish.Price" class="control-label"></label>
-            <input asp-for="Price" class="form-control" />
-            <span asp-validation-for="Price" class="text-danger"></span>
-            <div class="form-group">
-            <label asp-for="MyCartID" class="control-label"></label>
-            <select asp-for="MyCartID" class="form-control" asp-items="ViewBag.MyCartID"></select>
-             </div>
-            <div class="form-group">
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
 <div>
-    <button onclick="goBack()">Go Back</button>
+    <div class="cartCreate">
+        <p>
+            Choose the way you want to start your purchase in FeedMe:
+        </p>
+    </div>
+    <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="Restaurants" asp-action="Index"> Restaurants</a> </button>
+    <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="Categories" asp-action="Index"> Categories</a> </button>
+    <div>
+        <br />
+        <button onclick="goBack()">Go Back</button>
+    </div>
 </div>
 
 @section Scripts {
