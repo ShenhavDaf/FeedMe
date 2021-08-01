@@ -43,9 +43,6 @@ namespace FeedMe.Models
         [Display(Name = "Birthday Date")]
         public DateTime BirthdayDate { get; set; }
 
-        //ONE TO ONE
-        public CreditCard CreditCard { get; set; }
-
         public UserType Type { get; set; } = UserType.Client;
 
 

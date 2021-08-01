@@ -21,7 +21,68 @@ namespace FeedMe.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index()
+        {
+            var allRestaurants = await _context.Restaurant.ToListAsync();
+            //var allDishes = await _context.Dish.ToListAsync();
+
+            var resList = new List<Restaurant>
+            {
+                
+            };
+
+            var userEmail = User.Claims.ToList()[0].Value;
+            foreach (var user in _context.User) //Get the currect user that is log in.
+            {
+                if (user.Email == userEmail)
+                {
+                    if (user.RestaurantId != null)
+                    {
+                        var allUsers = await _context.User.Where(u => u.Email == userEmail).ToListAsync();
+                        var uRestaurant = from r in allRestaurants
+                                          join u in allUsers
+                                          on r.ID equals u.RestaurantId 
+                                          select r;
+
+                        resList.Add(uRestaurant.First());
+                        foreach(var res in allRestaurants)
+                        {
+                            if(res != resList[0])
+                                resList.Add(res);
+                        }
+
+                        return View(resList.ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            //var query1 = from user in allUsers
+            //             join res in allRestaurants
+            //                 on user.RestaurantId equals res.ID
+            //             select new { user, res };
+
+            //var query2 = from dish in allUsers
+            //             join res in allRestaurants
+            //                 on dish.RestaurantId equals res.ID into result
+            //             select result;
+
+            //var query3 = from dish in allUsers
+            //             join res in allRestaurants
+            //                 on dish.RestaurantId equals res.ID
+            //             select dish;
+
+            var restaurant = from m in _context.Restaurant
+                             select m;
+
+            return View(restaurant);
+        }
+
+        //Sherch by name, address and phone number
+        public async Task<IActionResult> Search(string searchString)
         {
             var restaurants = from m in _context.Restaurant
                               select m;
@@ -31,6 +92,7 @@ namespace FeedMe.Controllers
 
             return View(await restaurants.ToListAsync());
         }
+
 
 
         // GET: Restaurants/Details/5
@@ -84,7 +146,20 @@ namespace FeedMe.Controllers
                 restaurant.DeliveryCities = new List<City>();
                 restaurant.DeliveryCities.AddRange(_context.City.Where(x => deliveryCities.Contains(x.ID)));
 
+
                 _context.Add(restaurant);
+                await _context.SaveChangesAsync();
+                ///
+                var userEmail = User.Claims.ToList()[0].Value;
+                foreach (var user in _context.User) //Get the currect user that is log in.
+                {
+                    if (user.Email == userEmail)
+                    {
+                        user.RestaurantId = restaurant.ID;
+                        _context.Update(user);
+                    }
+                }
+                ///
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

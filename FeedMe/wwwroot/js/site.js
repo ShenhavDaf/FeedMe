@@ -70,39 +70,24 @@ function getLatLon(query, bing_key) {
 
 // POST TO FACEBOOK AFTER NEW DISH CREATED
 $(function () {
-    $('#postToFbButton').click(function () {
-        alert("JS Clicked");
+    $('#postToFbButton').click(function (e) {
         e.preventDefault();
-        var page_id = '105380358425572';
-        var msg = "Test1";
-        var page_access_token = 'EAAMUCFVTWL0BAHyugkuovWBw5uXzDkVkWrtxSLSdYXZAb8VhDE0MCzy3Av9JYUwlJJSQ64Cv6C8Qb9cZAjFEqXWDeW7UZATt7t9hWcb3fnim0zokzLxGKB6nvN5mU6bDrZAUFOXDzHhTfqi9fcc8jkyuZAlKOReOYEsoZCoQWN3Hy1Rp0WZCHHIqEc986s591S7AKgD3B6hnHgH960jnA7v';
-
+        var page_id = 'XXX';
+        var msg = "TEXT TEXT TEXT";
+        var page_access_token = 'XXX';
 
         postToFacebook(page_id, msg, page_access_token);
-        //$.ajax({
-        //    method: 'GET',
-        //    url: 'https://graph.facebook.com/' + page_id + '?message=' + msg + '&access_token=' + page_access_token
-        //}).done(function () {
-        //    alert('Succeed Posting a post');
-        //}).fail(function () {
-        //    alert('Error, Something went wrong');
-        //}).always(function () {
-        //    alert('AJAX Clicked');
-        //});
     });
 });
 
 function postToFacebook(page_id, msg, page_access_token) {
-    alert('AJAX Clicked');
     $.ajax({
         method: 'POST',
-        url: 'https://graph.facebook.com/105380358425572/feed?message=HelloFans1111!&access_token=EAAMUCFVTWL0BAMhxIJkFQRBOZCmyOffnTkAlonCOj8U8ILB2O943aBqpOOMIou6MEduKppMUM9TcO67yPcQaqEchD2pTvC4FPsJwkQ6SIZAzgbhFhIgrFN50w5QofVWQayq4sIf5AVqWg7fCxtxPEHDDZCtyLmBFczn1kqmMIyWZBQQHOTrf'
+        url: "XXX",
     }).done(function () {
-        alert('Succeed Posting a post');
+        alert('Done');
     }).fail(function () {
-        alert('Error, Something went wrong');
-    }).always(function () {
-        alert('AJAX Clicked');
+        alert('Error');
     });
 }
 

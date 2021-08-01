@@ -73,6 +73,7 @@ namespace FeedMe.Controllers
             {
                 _context.Add(dish);
                 await _context.SaveChangesAsync();
+                //PostMessageToFacebook().Wait();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", nameof(Restaurant.Name), dish.RestaurantID);
@@ -166,6 +167,91 @@ namespace FeedMe.Controllers
         private bool DishExists(int id)
         {
             return _context.Dish.Any(e => e.ID == id);
+        }
+
+        //public static async Task<string> PostMessageToFacebook()
+        //{
+        //    // Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+        //    // for details on configuring this project to bundle and minify static web assets.
+
+        //    // Post to Facebook after new dish is validated and created in the database
+        //    string pageId = "105380358425572";
+        //    string accessToken = "EAAMUCFVTWL0BAMhxIJkFQRBOZCmyOffnTkAlonCOj8U8ILB2O943aBqpOOMIou6MEduKppMUM9TcO67yPcQaqEchD2pTvC4FPsJwkQ6SIZAzgbhFhIgrFN50w5QofVWQayq4sIf5AVqWg7fCxtxPEHDDZCtyLmBFczn1kqmMIyWZBQQHOTrf";
+
+        //    string message = "Test 01082021_1";
+
+        //    FacebookApi api = new FacebookApi(pageId, accessToken);
+        //    string result = await api.PostMessage(message);
+
+        //    Console.WriteLine(result);
+
+        //    return result;
+        //}
+
+
+        public async Task<IActionResult> JoinDishRestaurant(int? id)
+        {
+            ViewJoin viewJoin = new ViewJoin();
+
+            //viewJoin.Restaurants = null;
+            viewJoin.Dishes = null;
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //var review = from r in _context.Review.Include(r => r.App).Include(r => r.Name).Include(r => r.UserName)
+            //           join usr in _context.User on r.UserNameId equals usr.Id
+            //           where id == r.UserNameId
+            //           select r;
+
+
+
+
+            var allRestaurants = await _context.Restaurant.ToListAsync();
+            //var allDishes = await _context.Dish.ToListAsync();
+            var allDishes = await _context.Dish.Where(d => d.ID == id).ToListAsync();
+
+            //var joinResult =
+            //        from r in allRestaurants // This is the column that connects the 2 tables.
+            //        join d in allDishes
+            //        on r.ID equals d.RestaurantID into result
+            //        select result;
+
+            var query1 = from d in allDishes
+                         join r in allRestaurants
+                             on d.RestaurantID equals r.ID
+                         select new { d, r };
+
+            var query2 = from d in allDishes
+                         join r in allRestaurants
+                             on d.RestaurantID equals r.ID into result
+                         select result;
+
+            var query3 = from d in allDishes
+                         join r in allRestaurants
+                             on d.RestaurantID equals r.ID
+                         select d;
+
+            var query4 = from d in allDishes
+                         join r in allRestaurants
+                             on d.RestaurantID equals r.ID
+                         where id == d.RestaurantID
+                         select d;
+            // קח את כל שמות המסעדות, מזג אותן עם כל המנות, היכן שהאיידי של מסעדה במסדר נתונים של מנות זהה לאיידי של רשימת המסעדות
+            //  transaction/photo = dish table. user/person = restaurant table
+
+            //if (query1 == null)
+            //{
+            //    return NotFound();
+            //}
+
+            viewJoin.Restaurants = query2.Distinct().SelectMany(x => x).ToList();
+            viewJoin.Dishes = query3.ToList();
+            //viewJoin.Restaurants = rest.Distinct().Select(x => x).ToList();
+
+            return View(viewJoin);
         }
     }
 }
