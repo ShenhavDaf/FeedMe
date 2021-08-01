@@ -200,6 +200,12 @@ function starmark(item) {
 
 }
 
+//go back buttom
+function goBack() {
+    window.history.back();
+}
+
+
 function result() {
     //Rating : Count
     alert("Rating : " + count);

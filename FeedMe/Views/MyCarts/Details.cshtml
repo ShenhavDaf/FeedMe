@@ -31,9 +31,8 @@
 
                             <tr>
                                 <td>
-                                    <a asp-controller="cartItem1" asp-action="Edit" asp-route-id="@myCartItem.ID">Edit</a> |
-                                    <a asp-controller="cartItem1" asp-action="Details" asp-route-id="@myCartItem.ID">Details</a> |
-                                    <a asp-controller="cartItem1" asp-action="Delete" asp-route-id="@myCartItem.ID">Delete</a>
+                                    <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@myCartItem.DishID">Change quantity</a> |
+                                    <a asp-controller="MyCartItems" asp-action="Delete" asp-route-id="@myCartItem.ID">Delete</a>
                                 </td>
                             </tr>
                         </div>
@@ -47,7 +46,14 @@
         </div>
     </div>
 </div>
-
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |  
+    <a asp-action="Delete" asp-route-id="@Model.ID">Delete</a>
+    <div>
+        <br />
+        <button onclick="goBack()">Go Back</button>
+    </div>
+</div>
 
 @*<div>
         <h4>MyCart</h4>

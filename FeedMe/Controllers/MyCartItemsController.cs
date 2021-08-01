@@ -123,7 +123,8 @@ namespace FeedMe.Controllers
         // GET: MyCartItems/Create
         public IActionResult Create()
         {
-            ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Description");
+            //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Description");
+            ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name");
             ViewData["MyCartID"] = new SelectList(_context.Set<MyCart>(), "ID", "ID");
             return View();
         }
@@ -141,7 +142,8 @@ namespace FeedMe.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Description", myCartItem.DishID);
+            //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Description", myCartItem.DishID);
+            ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name", myCartItem.DishID);
             ViewData["MyCartID"] = new SelectList(_context.Set<MyCart>(), "ID", "ID", myCartItem.MyCartID);
             return View(myCartItem);
         }
