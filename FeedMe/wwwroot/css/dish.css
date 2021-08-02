@@ -23,8 +23,8 @@
     width: 80%;
     height: 80%;
     border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
+  /*  margin-left: auto;
+    margin-right: auto;*/
 }
 
 .dishCardBtn img {
