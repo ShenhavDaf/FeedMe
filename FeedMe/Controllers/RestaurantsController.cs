@@ -90,7 +90,7 @@ namespace FeedMe.Controllers
             restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) ||
            s.PhoneNumber.Contains(searchString) || s.Description.Contains(searchString));
 
-            return View(await restaurants.ToListAsync());
+            return View("Index",await restaurants.ToListAsync());
         }
 
 

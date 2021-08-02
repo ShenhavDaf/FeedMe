@@ -23,8 +23,19 @@ namespace FeedMe.Controllers
         // GET: MyCartItems
         public async Task<IActionResult> Index()
         {
-            var feedMeContext = _context.MyCartItem.Include(m => m.Dish).Include(m => m.MyCart);
+            var feedMeContext = _context.MyCartItem.Include(m => m.Dish).Include(m => m.MyCart).OrderBy(x=>x.Dish.Name);
             return View(await feedMeContext.ToListAsync());
+        }
+
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            var carts = from m in _context.MyCartItem.Include(m => m.Dish).Include(m => m.MyCart)
+                        select m;
+
+            carts = carts.Where(s => (s.Dish.Name.Contains(searchString) || searchString == null));
+
+            return View("Index", await carts.ToListAsync());
         }
 
         // GET: MyCartItems/Details/5
@@ -306,7 +317,7 @@ namespace FeedMe.Controllers
             myCart.MyCartItems = new List<MyCartItem>();
             var myCartItem = await _context.MyCartItem.FindAsync(id);
             myCart.ID = myCartItem.MyCartID;
-            foreach(var tempCartItem in _context.MyCartItem)
+            foreach (var tempCartItem in _context.MyCartItem)
             {
                 if (tempCartItem.MyCartID == myCart.ID)
                     myCart.MyCartItems.Add(tempCartItem);

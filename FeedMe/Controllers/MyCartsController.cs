@@ -22,9 +22,19 @@ namespace FeedMe.Controllers
         // GET: MyCarts
         public async Task<IActionResult> Index()
         {
-            var feedMeContext = _context.MyCart.Include(m => m.User);
+            var feedMeContext = _context.MyCart.Include(m => m.User).OrderBy(x => x.TotalAmount);
             return View(await feedMeContext.ToListAsync());
             //return View(await _context.MyCart.ToListAsync());
+        }
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            var carts = from m in _context.MyCart.Include(m => m.User).OrderBy(x => x.TotalAmount)
+                        select m;
+
+            carts = carts.Where(s => (s.User.Name.Contains(searchString) || searchString == null));
+
+            return View("Index", await carts.ToListAsync());
         }
 
         // GET: MyCarts/Details/5
