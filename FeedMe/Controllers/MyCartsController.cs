@@ -101,7 +101,6 @@ namespace FeedMe.Controllers
                     myCart.MyCartItems.Add(myCartItem);
                 }
             }
-
             // _context.Update(myCart); //לבדוק אם צריךךךך
             await _context.SaveChangesAsync();
 
@@ -131,6 +130,10 @@ namespace FeedMe.Controllers
             //        _context.Update(cart);
             //        break;
             //    }
+            if (myCart == null || myCart.TotalAmount == 0)
+            {
+                return View("Create");
+            }
 
             await _context.SaveChangesAsync();
 
