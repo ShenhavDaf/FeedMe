@@ -8,6 +8,7 @@
 
 
 <div id="restaurantBody">
+    <link rel="stylesheet" href="~/css/myCart.css" />
     @*do a css for cart*@
     <div class="container">
         <div class="row">
@@ -40,13 +41,13 @@
                 </div>
             }
             <br />
-        <p class="text-center">_________________________________________________________________________________________________</p>
-        <p class="text-center">Total payment:  @Model.TotalAmount₪</p>
-        <p class="text-center" id="payBtn">
-            <button type="button" class="btn btn-outline-info">
-                <a asp-action="Pay" asp-route-id="@Model.ID">&nbsp;Pay&nbsp;</a>
-            </button>
-        </p>
+            <p class="text-center">_________________________________________________________________________________________________</p>
+            <p class="text-center">Total payment:  @Model.TotalAmount₪</p>
+            <p class="text-center" id="payBtn">
+                <button type="button" class="btn btn-outline-info">
+                    <a asp-action="Pay" asp-route-id="@Model.ID">&nbsp;Pay&nbsp;</a>
+                </button>
+            </p>
         </div>
     </div>
 </div>

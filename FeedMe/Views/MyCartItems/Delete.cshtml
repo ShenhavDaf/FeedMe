@@ -10,6 +10,7 @@
 <div>
     @*<h4>MyCartItem</h4>*@
     <hr />
+    <link rel="stylesheet" href="~/css/myCartItem.css" />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Dish)
@@ -33,7 +34,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <input type="submit" value="Delete" class="btn btn-danger" />
         <div>
             <br />
             <button onclick="goBack()">Go Back</button>
