@@ -14,14 +14,14 @@
     <div class="searchBar">
         <p>
             Category Name: <input type="text" placeholder="Category" name="SearchString" />
-            <input type="submit" value="Ok" />
+            <input type="submit" value="Search" />
         </p>
     </div>
 </form>
 
 <div class="container">
     <div class="row">
-
+        <link rel="stylesheet" href="~/css/category.css" />
         @foreach (var category in Model)
         {
             <button id="categoryBtn">

@@ -224,18 +224,18 @@ footer {
     color: #aaa;
 }
 
-#categoryBtn {
+/*#categoryBtn {
     margin: auto;
     background-color: rgba(128, 128, 128, 0);
-    border: gray;
+    border: gray;*/
     /*border-style: double;*/
-    align-items: center;
+    /*align-items: center;*/
     /*border-radius: 25px;*/
-    width: 18rem;
+    /*width: 18rem;
     height: 18rem
-}
+}*/
 
-.resCardBtn {
+/*.resCardBtn {*/
     /*margin: auto;
     background-color: rgba(128, 128, 128, 0);
     border: gray;
@@ -244,7 +244,7 @@ footer {
     border-radius: 25px;
     width: 20rem;
     height: 30rem;*/
-}
+/*}
     .resCardBtn img {
         height: 200px;
         border-bottom: 1px solid #ddd;
@@ -254,15 +254,15 @@ footer {
         max-width: 75ch;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
+    }*/
 
     /*restaurant and category*/
-.card {
+/*.card {*/
     /*background-color: #efefef;*/
     /*background-color: rgba(128, 128, 128, 0);
     border: hidden;*/
-    border: 0px solid rgba(0,0,0,.125);
-}
+    /*border: 0px solid rgba(0,0,0,.125);
+}*/
 
 
 
@@ -355,7 +355,7 @@ footer {
 }
 
 /*Dishes style*/
-#dishesBtn {
+/*#dishesBtn {
     margin-left: 10px;
     margin-top: 20px;
     padding-bottom: 10px;
@@ -366,9 +366,9 @@ footer {
 }
 
 
-#dishBody {
+#dishBody {*/
     /*background-color: lightpink;*/
-}
+/*}
 
     #dishBody p {
         margin-top: auto;
@@ -394,7 +394,7 @@ footer {
 }
 .dishCardBtn #bodyBorder {
     border-right: 1px solid #d8d8d8;
-}
+}*/
 
 /* -- quantity box in dish-- */
 /*.qty {
@@ -472,7 +472,7 @@ input:disabled {
 }
 
 
-/*Categories style*/
+/*Categories style
 .categoryImage {
     height: 175px;
     width: 100%;
@@ -484,13 +484,13 @@ input:disabled {
     height: 80%;
     margin-left: auto;
     margin-right: auto;
-}
+}*/
 
 
-/*Home style*/
+/*Home style
 #homeLayoutStyle {
     background-image: url(../Photos/Background.png);
-    /*background-size: cover;*/
+    background-size: cover;
 }
 
 
@@ -509,10 +509,10 @@ input:disabled {
 .navbar-brand {
     font-family: 'Lobster';
     font-size: 35px;
-}
+}*/
 
 /*Restaurants style*/
-#restaurantBody img {
+/*#restaurantBody img {
     width: 80%;
     height: 80%;
     border-radius: 10px;
@@ -522,18 +522,18 @@ input:disabled {
 
 #restaurantBody p {
     margin-top: auto;
-}
+}*/
 
 /*for rate stars in resutrant*/
-.checked {
+/*.checked {
     color: orange;
-}
+}*/
 
 
-li {
+/*li {
     float: left;
     margin: 5px;
-}
+}*/
 
 /* Map style*/
 /*#myMap {
@@ -555,8 +555,8 @@ li {
 }*/
 
  /*MyCare create page*/
-.cartCreate {
+/*.cartCreate {
     color: black;
     font-style: italic;
     font-size: 28px;
-}
+}*/

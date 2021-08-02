@@ -12,12 +12,12 @@
 <form asp-controller="Dishes" asp-action="Index" method="get">
     <div class="searchBar">
         <p>
-            <b>Dish Name:</b>  <input type="text" name="SearchString" />
-            <input type="submit" value="Ok" />
+            <b>Dish Name:</b>  <input type="text" placeholder="Dish" name="SearchString" />
+            <input type="submit" value="Search" />
         </p>
     </div>
 </form>
-
+<link rel="stylesheet" href="~/css/dish.css" />
 <div id="dishBody">
     <div class="container">
         <div class="row">

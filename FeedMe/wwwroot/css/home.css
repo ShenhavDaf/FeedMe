@@ -1,0 +1,24 @@
+
+
+/*Home style*/
+#homeLayoutStyle {
+    background-image: url(../Photos/Background.png);
+    background-size: cover;
+}
+
+
+@font-face {
+    font-family: 'Lobster', cursive;
+    src: url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+}
+
+.homeTitle {
+    color: white;
+    font-size: 100px;
+    font-family: 'Lobster', cursive;
+}
+
+.navbar-brand {
+    font-family: 'Lobster';
+    font-size: 35px;
+}

@@ -5,13 +5,14 @@
 }
 
 <div class="text-center">
-    <h1>Wellcom to &nbsp;&nbsp; @Html.DisplayFor(model => model.Name)</h1><br />
+    <h1>Welcom to &nbsp;&nbsp;@Html.DisplayFor(model => model.Name)</h1><br />
     <img src="@Html.DisplayFor(model => model.RestaurantImage)" class="img-fluid rounded-start">
 </div>
 
 <h1>Menu</h1>
 
 <div class="myRate">
+    <link rel="stylesheet" href="~/css/restaurant.css" />
     <span onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;" class="fa fa-star checked"></span>
     <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one" style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
     <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one" style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>

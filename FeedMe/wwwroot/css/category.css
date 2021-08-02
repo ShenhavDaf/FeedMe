@@ -1,0 +1,33 @@
+
+#categoryBtn {
+    margin: auto;
+    background-color: rgba(128, 128, 128, 0);
+    border: gray;
+    /*border-style: double;*/
+    align-items: center;
+    /*border-radius: 25px;*/
+    width: 18rem;
+    height: 18rem
+}
+/*restaurant and category*/
+.card {
+    /*background-color: #efefef;*/
+    /*background-color: rgba(128, 128, 128, 0);
+    border: hidden;*/
+    border: 0px solid rgba(0,0,0,.125);
+}
+
+/*Categories style*/
+.categoryImage {
+    height: 175px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.categoryImageNotFound {
+    width: 80%;
+    height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
