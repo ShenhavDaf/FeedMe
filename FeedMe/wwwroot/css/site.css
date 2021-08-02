@@ -354,6 +354,7 @@ footer {
     margin-top: 75px;
 }
 
+
 /*Dishes style*/
 /*#dishesBtn {
     margin-left: 10px;
@@ -560,3 +561,13 @@ input:disabled {
     font-style: italic;
     font-size: 28px;
 }*/
+#dishesBtn {
+    margin-left: 10px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    transition: transform 250ms;
+}
+
+    #dishesBtn:hover {
+        transform: translateY(-10px);
+    }
