@@ -152,6 +152,13 @@ namespace FeedMe.Controllers
             return View();
         }
 
+        // GET: Users/Birthday
+        public IActionResult Birthday()
+        {
+            return View();
+        }
+
+
         // GET: Users/Register
         public IActionResult Register()
         {

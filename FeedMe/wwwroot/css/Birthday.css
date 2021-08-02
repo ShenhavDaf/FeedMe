@@ -1,0 +1,140 @@
+﻿﻿ /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+#banner {
+    position: center; /*absolute;*/
+    top: 50px;
+    left: 25px;
+    right: 0;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transform: rotate(-10deg);
+    width: 80%;
+}
+
+    #banner div {
+        font-size: 24pt;
+        background-color: #e0a2fb;
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+    }
+
+body {
+    background-color: #00B0FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: monospace;
+}
+
+button {
+    font-family: monospace;
+    width: 100px;
+    font-size: 14pt;
+    margin: 5px;
+    visibility: hidden;
+    background-color: #707dfa;
+    color: white;
+    border: 0;
+}
+
+.card {
+    background-color: white;
+    border-radius: 30px;
+    padding: 15px;
+    width: 700px;
+    height: 500px;
+    position: relative;
+}
+
+
+
+#popper-container {
+    position: absolute;
+    left: 70px;
+    bottom: 50px;
+}
+
+#popper {
+    position: relative;
+    z-index: 10;
+}
+
+#popper-container.unclicked:hover #popper {
+    transform: rotate(25deg);
+}
+
+.windup {
+    animation-duration: 1.5s;
+    animation-name: windup;
+}
+
+@keyframes windup {
+    0% {
+        transform: rotate(25deg);
+        left: 0;
+        bottom: 0;
+    }
+
+    50%, 100% {
+        transform: rotate(15deg);
+        left: -25px;
+        bottom: -35px;
+    }
+}
+
+.popped {
+    transform: rotate(10deg);
+    left: 0px;
+    bottom: -10px;
+}
+
+#click {
+    position: absolute;
+    top: 45%;
+    left: 20%;
+    transform: rotate(-40deg);
+    font-size: 18pt;
+}
+
+#popper-container.unclicked:hover #click {
+    display: block;
+    top: 25%;
+    left: 0;
+}
+
+#click {
+    display: none;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    position: absolute;
+    top: calc(15px * 4);
+    left: calc(15px * 8);
+    opacity: 0.8;
+}
+
+#message {
+    opacity: 0;
+    position: absolute;
+    right: 10%;
+    top: 35%;
+    width: 35%;
+    font-size: 14pt;
+    text-align: justify;
+    transition: 1s;
+}
+
+#ui-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,0 +1,32 @@
+﻿@model FeedMe.Models.User
+
+@{
+    ViewData["Title"] = "Details of a user";
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/Birthday.css"/>
+</head>
+<body>    
+    <div id="ui-container">
+        <div class="card">
+            <div id="banner"></div>
+
+            <div id="popper-container" class="unclicked">
+                <!--<img src="https://image.ibb.co/k4a2yR/popper.png" id="popper" />-->
+                <img src="~/Photos/gift-box.png" id="popper" />
+                <span id="click">click!</span>
+            </div>
+            <section id="message">
+                Happy Birthday Message 
+                Happy Birthday Message
+                Happy Birthday Message
+            </section>
+            
+        </div>
+        <button id="reset-button">Reset</button>
+    </div>
+    <script type="text/javascript" src="~/js/Birthday.js"></script>
+</body>
+</html>

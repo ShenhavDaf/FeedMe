@@ -39,11 +39,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-            </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+                            </li>*@
                         @if ((User.Identity.IsAuthenticated) || (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0))
                         {
                             <li class="nav-item">
@@ -124,6 +124,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        @*Birthday Modal*@
+                        @*<div class="modal fade" id="SignupModal" aria-hidden="true" aria-labelledby="SignupModalLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="SignupModalLabel">Happy Birthday</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @Html.Partial("~/Views/Users/Birthday.cshtml", new User())
+                                    </div>
+                                    <div class="modal-footer">
+                                        <p class="me-auto">Already registered? <a class="text-right text-primary text-decoration-underline" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Click here</a> to login</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
                     </ul>
 
                     @* User Menu *@
