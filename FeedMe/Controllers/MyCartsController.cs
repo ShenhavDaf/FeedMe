@@ -123,6 +123,23 @@ namespace FeedMe.Controllers
 
         public async Task<IActionResult> Pay(int? id)
         {
+            var myCart = await _context.MyCart.FindAsync(id);
+            //foreach (var cart in _context.MyCart)
+            //    if (cart.ID == id)
+            //    {
+            //        cart.IsClose = true;
+            //        _context.Update(cart);
+            //        break;
+            //    }
+
+            await _context.SaveChangesAsync();
+
+            return View(myCart);
+        }
+
+        public async Task<IActionResult> Delivery(int?id)
+        {
+            var myCart = await _context.MyCart.FindAsync(id);
             foreach (var cart in _context.MyCart)
                 if (cart.ID == id)
                 {
@@ -133,12 +150,7 @@ namespace FeedMe.Controllers
 
             await _context.SaveChangesAsync();
 
-            return View();
-        }
-
-        public IActionResult Delivery()
-        {
-            return View();
+            return View(myCart);
         }
 
         // POST: MyCarts/Create
