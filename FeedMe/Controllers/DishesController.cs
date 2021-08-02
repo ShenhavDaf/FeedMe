@@ -21,6 +21,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes
+        //Serch by name and description
         public async Task<IActionResult> Index(string searchString)
         {
 
