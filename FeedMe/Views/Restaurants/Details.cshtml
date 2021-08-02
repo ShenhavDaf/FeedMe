@@ -3,14 +3,28 @@
 @{
     ViewData["Title"] = "Details of a restaurant";
 }
+<head>
+    <link rel="stylesheet" href="~/css/restaurant.css" />
 
-<div class="text-center">
-    <h1>Welcom to &nbsp;&nbsp;@Html.DisplayFor(model => model.Name)</h1><br />
-    <img src="@Html.DisplayFor(model => model.RestaurantImage)" class="img-fluid rounded-start">
+</head>
+
+<div class="text-center container">
+    <div class="row justify-content-start">
+        <div class="col-6 align-self-md-center">
+            <h1 id="nameOfResDesign">Welcom to&nbsp;@Html.DisplayFor(model => model.Name)</h1><br />
+        </div>
+        <div class="col-6 align-self-md-center" id="imgRes">
+            <img src="@Html.DisplayFor(model => model.RestaurantImage)">
+            <br /><br />
+
+        </div>
+    </div>
 </div>
+<br />
+<br />
 
 <h1>Menu</h1>
-
+<br />
 <div class="myRate">
     <link rel="stylesheet" href="~/css/restaurant.css" />
     <span onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;" class="fa fa-star checked"></span>
@@ -22,6 +36,7 @@
     <button onclick="result()" type="button" class="btn btn-dark">Submit</button>
     <br>
 </div>
+<br />
 
 <div id="restaurantBody">
     <div class="container">
@@ -57,10 +72,13 @@
                                             <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>
                                         }
                                     </td>
+
                                 </tr>
+
                             </div>
                         </div>
                     </div>
+
                 }
             }
 
@@ -69,6 +87,8 @@
 
         </div>
     </div>
+    <button type="button" class="btn btn-secondary float-right" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
 </div>
 
 @*<div>

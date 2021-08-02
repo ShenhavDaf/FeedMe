@@ -2,9 +2,14 @@
 
 @{
     ViewData["Title"] = "Dish Homepage";
+
 }
 
 <h1>@ViewData["Title"]</h1>
+<head>
+    <link rel="stylesheet" href="~/css/dish.css" />
+
+</head>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -17,8 +22,8 @@
         </p>
     </div>
 </form>
-<link rel="stylesheet" href="~/css/dish.css" />
 <div id="dishBody">
+
     <div class="container">
         <div class="row">
             <div class="col-1"></div>

@@ -81,6 +81,8 @@ namespace FeedMe.Controllers
                 {
                     if (myCartItem.SaveQ == false)//Checks if the buyer didn't approved the cart item than it won't add to the cart.
                     {
+                        myCart.TotalAmount -= myCartItem.Price;
+                      //  _context.Update(myCart); //לבדוק אם צריךךךך
                         _context.Remove(myCartItem);
                         continue;
                     }
@@ -101,7 +103,7 @@ namespace FeedMe.Controllers
                     myCart.MyCartItems.Add(myCartItem);
                 }
             }
-            // _context.Update(myCart); //לבדוק אם צריךךךך
+           
             await _context.SaveChangesAsync();
 
             if (myCart == null)
@@ -123,11 +125,12 @@ namespace FeedMe.Controllers
         public async Task<IActionResult> Pay(int? id)
         {
             var myCart = await _context.MyCart.FindAsync(id);
+            //var myCart = new MyCart();
+            //myCart.ID = (int)id;
             //foreach (var cart in _context.MyCart)
             //    if (cart.ID == id)
             //    {
-            //        cart.IsClose = true;
-            //        _context.Update(cart);
+            //        myCart = cart;
             //        break;
             //    }
             if (myCart == null || myCart.TotalAmount == 0)
@@ -135,7 +138,7 @@ namespace FeedMe.Controllers
                 return View("Create");
             }
 
-            await _context.SaveChangesAsync();
+           await _context.SaveChangesAsync();
 
             return View(myCart);
         }

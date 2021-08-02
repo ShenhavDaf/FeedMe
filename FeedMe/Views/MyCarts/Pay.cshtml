@@ -55,14 +55,15 @@
 
                     </div>
 
-                    <p class="text-center">Total payment: @Html.DisplayFor(model=>Model.TotalAmount)</p>
-  
+                    <p class="text-center">Total payment: @Html.DisplayFor(model => Model.TotalAmount)</p>
+
                     <input type="submit" class="btn" asp-action="Delivery" asp-route-id="@Model.ID" value="Continue to checkout">
-                  
+                    <input type="submit" class="btn" onclick="goBack()" value="Go Back">
                 </form>
             </div>
         </div>
     </div>
+    
     @* <script type="text/javascript" src="~/js/Pay.js"></script>*@
 
 </body>
