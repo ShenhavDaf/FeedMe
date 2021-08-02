@@ -1,0 +1,54 @@
+.resCardBtn {
+    /*margin: auto;
+    background-color: rgba(128, 128, 128, 0);
+    border: gray;
+    border-style: double;
+    align-items: center;
+    border-radius: 25px;
+    width: 20rem;
+    height: 30rem;*/
+}
+
+    .resCardBtn img {
+        height: 200px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .resCardBtn p {
+        overflow: hidden;
+        max-width: 75ch;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+/*restaurant and category*/
+.card {
+    /*background-color: #efefef;*/
+    /*background-color: rgba(128, 128, 128, 0);
+    border: hidden;*/
+    border: 0px solid rgba(0,0,0,.125);
+}
+
+/*Restaurants style*/
+#restaurantBody img {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#restaurantBody p {
+    margin-top: auto;
+}
+
+/*for rate stars in resutrant*/
+.checked {
+    color: orange;
+}
+
+
+li {
+    float: left;
+    margin: 5px;
+}
