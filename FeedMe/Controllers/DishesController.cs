@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using FeedMe.Data;
 using FeedMe.Models;
 
@@ -35,6 +36,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes/Details/5
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -67,7 +69,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,DishImage,Description,FoodType,Price,RestaurantID")] Dish dish)
+        public async Task<IActionResult> Create([Bind("ID,Name,DishImage,Description,FoodType,Price,RestaurantID")] Dish dish, int restaurant)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +83,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.FoodType = new SelectList(Enum.GetNames(typeof(FoodType)));
@@ -103,6 +106,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,DishImage,Description,FoodType,Price,RestaurantID")] Dish dish)
         {
             if (id != dish.ID)
