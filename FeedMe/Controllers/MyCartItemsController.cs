@@ -23,7 +23,7 @@ namespace FeedMe.Controllers
         // GET: MyCartItems
         public async Task<IActionResult> Index()
         {
-            var feedMeContext = _context.MyCartItem.Include(m => m.Dish).Include(m => m.MyCart).OrderBy(x=>x.Dish.Name);
+            var feedMeContext = _context.MyCartItem.Include(m => m.Dish).Include(m => m.MyCart).OrderBy(x => x.Dish.Name);
             return View(await feedMeContext.ToListAsync());
         }
 
@@ -50,17 +50,12 @@ namespace FeedMe.Controllers
             cartItem.SaveQ = false;
             int flag = 0;
 
-            foreach (var item in _context.Dish) // get dish values.
+            foreach (var dish in _context.Dish) // get dish values.
             {
-                if (item.ID == id)
+                if (dish.ID == id)
                 {
-                    cartItem.Dish.Name = item.Name;
-                    cartItem.Dish.RestaurantID = item.RestaurantID;
-                    cartItem.Dish.DishImage = item.DishImage;
-                    cartItem.Dish.Description = item.Description;
-                    cartItem.Dish.FoodType = item.FoodType;
-                    cartItem.Dish.Price = item.Price;
-                    cartItem.Price = item.Price;
+                    cartItem.Dish = dish;
+                    cartItem.Price = dish.Price;
                     break;
                 }
             }
@@ -72,14 +67,29 @@ namespace FeedMe.Controllers
                 if (user.Email == userEmail)
                 {
                     foreach (var cart in _context.MyCart) // get user cart values.
-                    {//לבדוק אם אחרי שאשנה לרשימה של יוזרים אם אפשר לייעל ולעבור על הרשימה של היוזר
+                    {
                         if (user.Id == cart.UserID && cart.IsClose == false)
                         {
                             myCart = cart;
+                            myCart.MyCartItems = new List<MyCartItem>();
                             flag = 1;
+                            break;
                         }
                     }
-
+                    foreach (var myCartItem in _context.MyCartItem) // Get cartItems data.
+                    {
+                        myCart.MyCartItems.Add(myCartItem);
+                    }
+                    foreach (var myCartItem in myCart.MyCartItems)
+                    {
+                        if (myCartItem.DishID == id)
+                        {
+                            cartItem.Quantity = myCartItem.Quantity;
+                            _context.Remove(myCartItem);
+                            myCart.MyCartItems = null; // לבדוקקקקקקקקקקקקקקקקק
+                            break;
+                        }
+                    }
                     if (myCart.MyCartItems == null)//check if this the first cart item.
                     {
                         myCart.MyCartItems = new List<MyCartItem>();
@@ -120,16 +130,6 @@ namespace FeedMe.Controllers
 
             return View(cartItem);
 
-            //var myCartItem = await _context.MyCartItem.Include(r => r.Dish).FirstOrDefaultAsync(m => m.ID == c.ID);
-
-
-
-            //if (myCartItem == null)
-            //{
-            //    return NotFound();
-
-            //}
-            //return View(myCartItem);
         }
 
         // GET: MyCartItems/Create
@@ -195,7 +195,15 @@ namespace FeedMe.Controllers
                 {
                     if (save != 0)
                     {
-                        _context.Remove(myCartItem);
+                        //foreach(var cart in _context.MyCart) //Remove the price of not saved cartItem from total amount.
+                        //{
+                        //    if (myCartItem.MyCartID == cart.ID)
+                        //    {
+                        //        cart.TotalAmount -= myCartItem.Price;
+                        //        break;
+                        //    }
+                        //}
+                        _context.Remove(cartItem);
                         //  await _context.SaveChangesAsync();
                         myCartItem = new MyCartItem();
                         save = 0; // לבדוקקקקקקקקקקקקקקקקקקקקקקקקקקקקקקק
@@ -211,15 +219,29 @@ namespace FeedMe.Controllers
                 if (myCartItem.MyCartID == cart.ID)
                 {
                     myCartItem.MyCart = cart;
+                    break;
                 }
             }
             if (myCartItem.MyCart == null)
                 myCartItem.MyCart = new MyCart();
 
-            if (quantity >= 1) //if the quantity is 1 no need make changes.
+            myCartItem.MyCart.MyCartItems = new List<MyCartItem>();
+            foreach (var cartItem in _context.MyCartItem) // Get other cartItems in the cart data.
+            {
+                myCartItem.MyCart.MyCartItems.Add(cartItem);
+            }
+            foreach (var cartItem in myCartItem.MyCart.MyCartItems) //for showing only once the cartItem if the user change the quantity.
+                if (cartItem.ID == myCartItem.ID)
+                {
+                    myCartItem.MyCart.TotalAmount -= (cartItem.Price * (cartItem.Quantity - 1));
+                    _context.Remove(cartItem);
+                    break;
+                }
+
+            if (quantity >= 1) //make sure quantity will be above 1; 
             {
                 myCartItem.Quantity = quantity;
-                myCartItem.MyCart.TotalAmount += ((myCartItem.Price) * (quantity - 1));
+                myCartItem.MyCart.TotalAmount += (myCartItem.Price * (quantity - 1));
                 myCartItem.SaveQ = true;// so we wont change the quantity again.
             }
             else
@@ -258,35 +280,6 @@ namespace FeedMe.Controllers
             return RedirectToAction("Details", "Restaurants", new { id = myCartItem.Dish.RestaurantID });
 
         }
-
-        //if (id != myCartItem.ID)
-        //{
-        //    return NotFound();
-        //}
-
-        //if (ModelState.IsValid)
-        //{
-        //    try
-        //    {
-        //        _context.Update(myCartItem);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!MyCartItemExists(myCartItem.ID))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //    return RedirectToAction(nameof(Index));
-        //}
-        //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Description", myCartItem.DishID);
-        //ViewData["MyCartID"] = new SelectList(_context.Set<MyCart>(), "ID", "ID", myCartItem.MyCartID);
-        //return View(myCartItem);
 
         // GET: MyCartItems/Delete/5
         public async Task<IActionResult> Delete(int? id)
