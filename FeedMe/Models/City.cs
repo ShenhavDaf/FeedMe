@@ -10,12 +10,14 @@ namespace FeedMe.Models
     {
         public int ID{ get; set; }
 
+        /*------------------------------------------------------*/
 
         [Required(ErrorMessage = "Please insert name")]
         [Display(Name = "City Name")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z '-]*$")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z '-]*$", ErrorMessage = "City name must begin with a capital letter")]
         public string Name{ get; set; }
 
+        /*------------------------------------------------------*/
 
         //MANY cities TO MANY restaurants 
         public List<Restaurant> Restaurants{ get; set; }
