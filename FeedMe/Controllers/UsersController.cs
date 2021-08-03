@@ -232,6 +232,7 @@ namespace FeedMe.Controllers
 
 
         // GET: Users/Details/5
+        [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -247,12 +248,44 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
+            var userEmail = User.Claims.ToList()[0].Value;
+            if (User.IsInRole("rManager") || User.IsInRole("Client"))
+            {
+                foreach (var u in _context.User) //Get the currect user that is log in.
+                {
+                    if (u.Email == userEmail)
+                    {
+                        if (u.Id != id)
+                        {
+                            return NotFound();
+                        }
+                    }
+                }
+            }
             return View(user);
+        }
+
+        public async Task<IActionResult> GetUserID()
+        {
+            var userEmail = User.Claims.ToList()[0].Value;
+            if (User.IsInRole("Admin") || User.IsInRole("rManager") || User.IsInRole("Client"))
+            {
+                foreach (var u in _context.User) //Get the currect user that is log in.
+                {
+                    if (u.Email == userEmail)
+                    {
+                        return RedirectToAction("Details", "Users", new { id = u.Id });
+                        break;
+                    }
+                }
+            }
+            return View("Details");
         }
 
 
 
         // GET: Users/Edit/5
+        [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.UserType = new SelectList(Enum.GetNames(typeof(UserType)));
@@ -267,6 +300,22 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
             ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "ID", "Address", user.RestaurantId);
+
+            var userEmail = User.Claims.ToList()[0].Value;
+            if (User.IsInRole("rManager") || User.IsInRole("Client"))
+            {
+                foreach (var u in _context.User) //Get the currect user that is log in.
+                {
+                    if (u.Email == userEmail)
+                    {
+                        if (u.Id != id)
+                        {
+                            return NotFound();
+                        }
+                    }
+                }
+            }
+
             return View(user);
         }
 

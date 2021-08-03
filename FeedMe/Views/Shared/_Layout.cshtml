@@ -52,38 +52,41 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
                             </li>
+                            @if (Context.User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                                </li>
+                            }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Graph">About Us</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Categories</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Restaurants</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
                             </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Dishes</a>
+                                </li>*@
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Users</a>
+                                </li>*@
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Cities</a>
+                                </li>*@
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Dishes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Cities</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">About Us</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                             </li>
                         }
 
@@ -127,21 +130,21 @@
 
                         @*Birthday Modal*@
                         @*<div class="modal fade" id="SignupModal" aria-hidden="true" aria-labelledby="SignupModalLabel" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="SignupModalLabel">Happy Birthday</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        @Html.Partial("~/Views/Users/Birthday.cshtml", new User())
-                                    </div>
-                                    <div class="modal-footer">
-                                        <p class="me-auto">Already registered? <a class="text-right text-primary text-decoration-underline" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Click here</a> to login</p>
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="SignupModalLabel">Happy Birthday</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @Html.Partial("~/Views/Users/Birthday.cshtml", new User())
+                                        </div>
+                                        <div class="modal-footer">
+                                            <p class="me-auto">Already registered? <a class="text-right text-primary text-decoration-underline" data-bs-target="#LoginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Click here</a> to login</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
 
                     </ul>
 
@@ -154,7 +157,7 @@
                             </li>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><span class="dropdown-item-text">Status: @Context.User.Claims.ToList()[1].Value</span></li>
-                                <li><a class="dropdown-item" asp-controller="Users" asp-action="Index">Account Settings</a></li>
+                                <li><a class="dropdown-item" asp-controller="Users" asp-action="GetUserID">Account Settings</a></li>
                                 <li><a class="dropdown-item" asp-controller="MyCarts" asp-action="Details">My Cart</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Logout</a></li>

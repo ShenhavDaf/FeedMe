@@ -51,7 +51,7 @@
                                 <tr>
                                     <td>
                                         <a asp-controller="Dishes" asp-action="Details" asp-route-id="@dish.ID">Details</a>
-                                        @if (Context.User.Claims.ToList()[1].Value == "Admin")
+                                        @if (Context.User.IsInRole("Admin"))
                                         {
                                             <a asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.ID">Edit</a>
                                             <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.ID">Delete</a>

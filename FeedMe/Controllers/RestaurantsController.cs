@@ -28,53 +28,40 @@ namespace FeedMe.Controllers
 
             var resList = new List<Restaurant>
             {
-                
+
             };
 
-            var userEmail = User.Claims.ToList()[0].Value;
-            foreach (var user in _context.User) //Get the currect user that is log in.
+            if (User.IsInRole("Admin") || User.IsInRole("rManager"))
             {
-                if (user.Email == userEmail)
+                var userEmail = User.Claims.ToList()[0].Value;
+                foreach (var user in _context.User) //Get the currect user that is log in.
                 {
-                    if (user.RestaurantId != null)
+                    if (user.Email == userEmail)
                     {
-                        var allUsers = await _context.User.Where(u => u.Email == userEmail).ToListAsync();
-                        var uRestaurant = from r in allRestaurants
-                                          join u in allUsers
-                                          on r.ID equals u.RestaurantId 
-                                          select r;
-
-                        resList.Add(uRestaurant.First());
-                        foreach(var res in allRestaurants)
+                        if (user.RestaurantId != null)
                         {
-                            if(res != resList[0])
-                                resList.Add(res);
-                        }
+                            var allUsers = await _context.User.Where(u => u.Email == userEmail).ToListAsync();
+                            var uRestaurant = from r in allRestaurants
+                                              join u in allUsers
+                                              on r.ID equals u.RestaurantId
+                                              select r;
 
-                        return View(resList.ToList());
-                    }
-                    else
-                    {
-                        break;
+                            resList.Add(uRestaurant.First());
+                            foreach (var res in allRestaurants)
+                            {
+                                if (res != resList[0])
+                                    resList.Add(res);
+                            }
+
+                            return View(resList.ToList());
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
             }
-
-            //var query1 = from user in allUsers
-            //             join res in allRestaurants
-            //                 on user.RestaurantId equals res.ID
-            //             select new { user, res };
-
-            //var query2 = from dish in allUsers
-            //             join res in allRestaurants
-            //                 on dish.RestaurantId equals res.ID into result
-            //             select result;
-
-            //var query3 = from dish in allUsers
-            //             join res in allRestaurants
-            //                 on dish.RestaurantId equals res.ID
-            //             select dish;
-
             var restaurant = from m in _context.Restaurant
                              select m;
 
@@ -90,7 +77,7 @@ namespace FeedMe.Controllers
             restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) ||
            s.PhoneNumber.Contains(searchString) || s.Description.Contains(searchString));
 
-            return View("Index",await restaurants.ToListAsync());
+            return View("Index", await restaurants.ToListAsync());
         }
 
 
@@ -117,9 +104,27 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,rManager")]
         public IActionResult Create()
         {
+            var userEmail = User.Claims.ToList()[0].Value;
+            foreach (var user in _context.User) //Get the currect user that is log in.
+            {
+                if (user.Email == userEmail)
+                {
+                    if (user.RestaurantId != null)
+                    {
+                        // Return to new .cshtml page says you need to delete current restaurant in order to have a new one.
+                        //return RedirectToAction(nameof(AlreadyOwnsRes));
+                        return View("AlreadyOwnsRes");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
             ViewBag.Categories = new SelectList(_context.Category.OrderBy(x => x.Name).ToList(), nameof(Category.ID), nameof(Category.Name));
             ViewBag.Cities = new SelectList(_context.City.OrderBy(x => x.Name).ToList(), nameof(City.ID), nameof(City.Name));
             //var newList = _context.City.OrderBy(x => x.Name).ToList(); // ToList optional
@@ -131,7 +136,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Create([Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,DeliveryCities, Categories")] Restaurant restaurant, int[] categories, int[] deliveryCities)
         {
             //if(HttpContext.Session.GetString("email") == null)
@@ -167,7 +172,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.Cities = new SelectList(_context.City.OrderBy(x => x.Name).ToList(), nameof(City.ID), nameof(City.Name));
@@ -179,12 +184,28 @@ namespace FeedMe.Controllers
 
             var restaurant = await _context.Restaurant.FindAsync(id);
             //restaurant.Categories = _context.Category.Where()
-
-
             if (restaurant == null)
             {
                 return NotFound();
             }
+
+            //
+            var userEmail = User.Claims.ToList()[0].Value;
+            if (User.IsInRole("rManager"))
+            {
+                foreach (var user in _context.User) //Get the currect user that is log in.
+                {
+                    if (user.Email == userEmail)
+                    {
+                        if (user.RestaurantId != id)
+                        {
+                            return NotFound();
+                        }
+                    }
+                }
+            }
+            //
+
             return View(restaurant);
         }
 
@@ -264,9 +285,31 @@ namespace FeedMe.Controllers
         }
 
         // GET: Restaurants/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Delete(int? id)
         {
+            if (User.IsInRole("rManager"))
+            {
+                var resObj = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+                var userEmail = User.Claims.ToList()[0].Value;
+                foreach (var user in _context.User) //Get the currect user that is log in.
+                {
+                    if (user.Email == userEmail)
+                    {
+                        if (resObj != null && user.RestaurantId != resObj.ID)
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
             if (id == null)
             {
                 return NotFound();

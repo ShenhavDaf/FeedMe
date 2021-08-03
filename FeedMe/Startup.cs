@@ -88,6 +88,10 @@ namespace FeedMe
 
             app.UseAuthorization();
 
+            app.UseStatusCodePages();
+            app.UseStatusCodePagesWithRedirects("/Home/Error?code=NotFound");
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

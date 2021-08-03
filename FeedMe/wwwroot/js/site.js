@@ -8,7 +8,7 @@ function GetMap() {
         credentials: 'AgKM2ujhhQsxdOGDplWe_PcRt59_Y8KhlxcQsY4bWurgt-M8nkXVXWERyEd0z6pf',
         /* No need to set credentials if already passed in URL */
         center: new Microsoft.Maps.Location(31.9700919, 34.77205380048267),
-        mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+        mapTypeId: Microsoft.Maps.MapTypeId.road,
         zoom: 8
     });
 

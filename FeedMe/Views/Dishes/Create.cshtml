@@ -38,6 +38,12 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+            <!--<div class="form-group">
+                <label asp-for="RestaurantID" class="control-label"></label>-->@*ה@ שלמטה מוסיף את כל המסעדות שהמנה מוגשת בהן*@
+                @*<input asp-for="RestaurantID" class="form-control" asp-items="@ViewBag.RestaurantID" readonly>
+            <input asp-for="RestaurantID" class="form-control" asp-items="@ViewData["RestaurantName"]" readonly>*@
+                <!--<input asp-for="RestaurantID" class="form-control" value="@ViewData["RestaurantID"]" readonly>
+            </div>-->
             <div class="form-group">
                 <label asp-for="RestaurantID" class="control-label"></label>@*ה@ שלמטה מוסיף את כל המסעדות שהמנה מוגשת בהן*@
                 <select asp-for="RestaurantID" class="form-control" asp-items="@ViewBag.RestaurantID"></select>
