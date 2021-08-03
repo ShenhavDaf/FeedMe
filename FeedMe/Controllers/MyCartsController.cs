@@ -101,6 +101,7 @@ namespace FeedMe.Controllers
                     // myCartItem.MyCartID = myCart.ID;
                     myCart.TotalAmount += ((myCartItem.Price) * (myCartItem.Quantity));
                     myCart.MyCartItems.Add(myCartItem);
+                    //_context.Update(myCart); //לבדוק אם צריךךךך
                 }
             }
            
