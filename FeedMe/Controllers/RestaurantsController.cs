@@ -68,19 +68,16 @@ namespace FeedMe.Controllers
             return View(restaurant);
         }
 
-        //Sherch by name, address and phone number
+        //Shearch by name, category, address and Description
         public async Task<IActionResult> Search(string searchString)
         {
             var restaurants = from m in _context.Restaurant
                               select m;
 
-            restaurants = restaurants.Where(s => (s.Name.Contains(searchString) || searchString == null) ||
-           s.PhoneNumber.Contains(searchString) || s.Description.Contains(searchString));
+            restaurants = restaurants.Where(r => (r.Categories.Any(c => (c.Name.Contains(searchString))))|| r.Name.Contains(searchString)|| searchString==null || r.Description.Contains(searchString));
 
             return View("Index", await restaurants.ToListAsync());
         }
-
-
 
         // GET: Restaurants/Details/5
         public async Task<IActionResult> Details(int? id)

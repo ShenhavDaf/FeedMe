@@ -14,7 +14,7 @@ namespace FeedMe.Models
         
         [Required(ErrorMessage = "Please input category name")]
         [Display(Name ="Category Name")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z -']*$")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z -']*$", ErrorMessage = "Category name must begin with a capital letter")] 
         public string Name{ get; set; }
         
         /*---------------------------------------------------------------------*/
