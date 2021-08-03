@@ -13,7 +13,7 @@ namespace FeedMe.Models
 
         [Required(ErrorMessage = "Please insert name")]
         [Display(Name = "Restaurant Name")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z -'|]*$")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z -'|]*$", ErrorMessage = "Restaurant name must begin with a capital letter")]
         public string Name { get; set; }
 
         /*------------------------------------------------------*/
@@ -33,22 +33,14 @@ namespace FeedMe.Models
 
         [Required(ErrorMessage = "Please insert restaurant phone")]
         [Display(Name = "Phone Number")]
-        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\+?(972\-?)?0?(([23489]{1}\-?\d{7})|[5]{1}\d{1}\-?\d{7})$", ErrorMessage = "Phone number is from the template: 03-1234567 / 052-1234567 / + 97252-1234567")]
         public string PhoneNumber{ get; set; }
-        /*------------------------------------------------------*/
-
-        //[Required(ErrorMessage = "Please insert restaurant hours")]
-        //[Display(Name = "Opening Hours")]
-
-        //public RestaurantHours[] OpeningHours = new RestaurantHours[6];
-
 
         /*------------------------------------------------------*/
 
         //MANY restaurants TO MANY cities
         [Display(Name = "Where do you make deliveries?")]
         public List<City> DeliveryCities { get; set; }
-
 
         /*------------------------------------------------------*/
 
@@ -62,7 +54,6 @@ namespace FeedMe.Models
         /*------------------------------------------------------*/
 
         //  MANY restaurants TO MAMY Categories
-
         public List<Category> Categories{ get; set; }
 
         /*------------------------------------------------------*/
