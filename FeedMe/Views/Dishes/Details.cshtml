@@ -61,13 +61,14 @@
     </dl>
 </div>
 <div>
+    <p>
+        <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@Model.ID"> Add to order</a> </button>
+    </p>
     @if (Context.User.IsInRole("Admin"))
     {
         <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
     }
-    <p>
-        <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@Model.ID"> Add to order</a> </button>
-    </p>
+
     <p>
         <a asp-action="Index">Back to List</a>
     </p>
