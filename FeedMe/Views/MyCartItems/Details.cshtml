@@ -27,32 +27,16 @@
 
                         <tr>
                             <td>
-                                @*<div class="def-number-input number-input safari_only mb-0 w-100">
-            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                    class="minus">
-                -
-            </button>
-            <input class="quantity" min="0" name="Quantity" value="Value1" type="text">
-            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                    class="plus">
-                +
-            </button>
-        </div>
-
-
-        <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a href="javascript:history.back()">Go Back To Order</a> </button>*@
+                                <b>
+                                    Is this the quantity you want?
+                                </b>
 
                                 @using (Html.BeginForm("Edit", "MyCartItems", FormMethod.Post))
                                 {@Html.TextBoxFor(Model => Model.Quantity, new {@type="number", @min="0"})  <input type="submit" name="Quantity" value="Add"/>}
 
-                                @*<button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details" asp-route-id="@Model.MyCartID">Check</a>
-        </button>}*@
-                                @*<a href="https://localhost:44376/MyCarts/Details?id=@Model.ID&Quantity=" + Quantity> Check</a>*@
-
-                                @*<button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details" asp-route-id="@Model.MyCartID">Check</a> </button>*@
                                 <br />
                                 <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
-                                <br /><br /> <br /> <br /> 
+                                <br /> <br /> <br /> 
 
                                 <button type="button" class="btn btn-light" onclick="goBack()">Go Back</button>
 
