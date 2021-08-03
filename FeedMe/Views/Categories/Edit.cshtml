@@ -3,14 +3,16 @@
 @{
     ViewData["Title"] = "Edit a category";
 }
+<head>
+    <link rel="stylesheet" href="~/css/category.css" />
+    <h1>Edit</h1>
 
-<h1>Edit</h1>
+    <h4>Category</h4>
+</head>
 
-<h4>Category</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <link rel="stylesheet" href="~/css/category.css" />
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />

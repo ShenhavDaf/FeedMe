@@ -5,14 +5,13 @@
 }
 <head>
     <link rel="stylesheet" href="~/css/dish.css" />
-
+    <h1>Details</h1>
 </head>
-<h1>Details</h1>
+
 
 <div>
     <h4>Dish</h4>
     <hr />
-    <link rel="stylesheet" href="~/css/dish.css" />
     <dl class="row">
         <div class="mb-3">
             <div class="row g-0">
@@ -53,16 +52,24 @@
                                 @Html.DisplayFor(model => model.Restaurant.Name)
                             </dd>
                         </dl>
+
                     </div>
+                    
                 </div>
             </div>
         </div>
     </dl>
 </div>
 <div>
+    <p>
+        <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@Model.ID"> Add to order</a> </button>
+    </p>
     @if (Context.User.IsInRole("Admin"))
     {
         <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
     }
-    <a asp-action="Index">Back to List</a>
+
+    <p>
+        <a asp-action="Index">Back to List</a>
+    </p>
 </div>

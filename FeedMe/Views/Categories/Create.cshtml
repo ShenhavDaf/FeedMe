@@ -3,13 +3,15 @@
 @{
     ViewData["Title"] = "Create a new category";
 }
+<head>
+    <link rel="stylesheet" href="~/css/category.css" />
+    <h1>Create</h1>
 
-<h1>Create</h1>
+    <h4>Category</h4>
+</head>
 
-<h4>Category</h4>
 <hr />
 <div class="row">
-    <link rel="stylesheet" href="~/css/category.css" />
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
