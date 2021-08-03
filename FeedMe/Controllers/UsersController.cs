@@ -324,7 +324,7 @@ namespace FeedMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Name,Address,PhoneNumber,BirthdayDate,Type,RestaurantId")] User user)
         {
             if (id != user.Id)
@@ -334,6 +334,15 @@ namespace FeedMe.Controllers
 
             if (ModelState.IsValid)
             {
+                if (User.IsInRole("rManager"))
+                {
+                    user.Type = UserType.rManager;
+                }
+                if (User.IsInRole("Client"))
+                {
+                    user.Type = UserType.Client;
+                }
+
                 try
                 {
                     _context.Update(user);
@@ -350,9 +359,14 @@ namespace FeedMe.Controllers
                         throw;
                     }
                 }
+                if (!User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Details", "Users", new { id = user.Id });
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "ID", "Address", user.RestaurantId);
+
             return View(user);
         }
 

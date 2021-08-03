@@ -50,7 +50,7 @@ namespace FeedMe.Models
         public List<MyCart> MyCarts { get; set; }
 
         // MIGRATION
-
+        [Display(Name = "Your Restaurant ID")]
         public int? RestaurantId { get; set; } = null;
         public Restaurant Restaurant{ get; set; }
     }
