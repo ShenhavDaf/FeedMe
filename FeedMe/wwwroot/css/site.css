@@ -488,7 +488,7 @@ input:disabled {
 }*/
 
 
-/*Home style
+Home style
 #homeLayoutStyle {
     background-image: url(../Photos/Background.png);
     background-size: cover;
@@ -510,7 +510,7 @@ input:disabled {
 .navbar-brand {
     font-family: 'Lobster';
     font-size: 35px;
-}*/
+}
 
 /*Restaurants style*/
 /*#restaurantBody img {
@@ -570,4 +570,5 @@ input:disabled {
 
     #dishesBtn:hover {
         transform: translateY(-10px);
+
     }
