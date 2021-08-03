@@ -16,10 +16,11 @@
     </p>
 }
 
+ @*search by Restaurants (name, city and Description) and category name*@
 <form asp-controller="Categories" asp-action="Index" method="get">
     <div class="searchBar">
         <p>
-            Category Name: <input type="text" placeholder="Category" name="SearchString" />
+            Category Name: <input type="text" placeholder="Category/Restaurants name" name="SearchString" />
             <input type="submit" value="Search" />
         </p>
     </div>
