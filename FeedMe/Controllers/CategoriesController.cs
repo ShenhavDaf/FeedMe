@@ -21,16 +21,14 @@ namespace FeedMe.Controllers
         }
 
         // GET: Categories
+        //search by Restaurants (name, city and Description) and category name
         public async Task<IActionResult> Index(string searchString)
         {
             var categories = from m in _context.Category
                              select m;
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                categories = categories.Where(s => s.Name.Contains(searchString));
-            }
-            //return View(await _context.Category.ToListAsync());
+            categories = categories.Where(r => (r.Restaurants.Any(c => (c.Name.Contains(searchString))|| (c.Description.Contains(searchString))) || (r.Name.Contains(searchString)) || searchString == null));
+
             return View(await categories.ToListAsync());
         }
 

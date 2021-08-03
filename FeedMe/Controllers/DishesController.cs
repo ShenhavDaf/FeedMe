@@ -21,16 +21,16 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes
-        //Serch by name and description
+        //Serch by name, description and restaurant name
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(string searchString)
         {
 
-            var dish = from m in _context.Dish
+            var dish = from m in _context.Dish.Include(x=>x.Restaurant)
                        select m;
 
             dish = dish.Where(s => (s.Name.Contains(searchString) || searchString == null) ||
-           s.Description.Contains(searchString));
+           s.Description.Contains(searchString)|| s.Restaurant.Name.Contains(searchString));
 
             //var feedMeContext = _context.Dish.Include(d => d.Restaurant);
             // return View(await feedMeContext.ToListAsync());
