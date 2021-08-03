@@ -78,28 +78,31 @@ namespace FeedMe.Controllers
                             break;
                         }
                     }
-                    foreach (var myCartItem in _context.MyCartItem) // Get cartItems data.
+                    if (flag == 1)
                     {
-                        myCart.MyCartItems.Add(myCartItem);
-                    }
-                    foreach (var myCartItem in myCart.MyCartItems)
-                    {
-                        if (myCartItem.DishID == id)//To show the buyer last quantity if he changed or added the same dish.
+                        foreach (var myCartItem in _context.MyCartItem) // Get cartItems data.
                         {
-                            cartItem.Quantity = myCartItem.Quantity; 
-                            break;
+                            if (myCartItem.MyCartID == myCart.ID)
+                                myCart.MyCartItems.Add(myCartItem);
                         }
+                        foreach (var myCartItem in myCart.MyCartItems)
+                        {
+                            if (myCartItem.DishID == id)//To show the buyer last quantity if he changed or added the same dish.
+                            {
+                                cartItem.Quantity = myCartItem.Quantity;
+                                break;
+                            }
+                        }
+                        //if (myCart.MyCartItems == null)//check if this the first cart item.
+                        //{
+                        //    myCart.MyCartItems = new List<MyCartItem>();
+                        //}
+                        // myCart.TotalAmount += cartItem.Price; //update all new cartItem data.
+                        cartItem.MyCartID = myCart.ID;
+                        cartItem.MyCart = myCart;
+                        myCart.MyCartItems.Add(cartItem);
                     }
-                    if (myCart.MyCartItems == null)//check if this the first cart item.
-                    {
-                        myCart.MyCartItems = new List<MyCartItem>();
-                    }
-                    // myCart.TotalAmount += cartItem.Price; //update all new cartItem data.
-                    cartItem.MyCartID = myCart.ID;
-                    cartItem.MyCart = myCart;
-                    myCart.MyCartItems.Add(cartItem);
-
-                    if (flag == 0)
+                    else
                     {
                         if (user.MyCarts == null)
                             user.MyCarts = new List<MyCart>();
@@ -203,17 +206,20 @@ namespace FeedMe.Controllers
                     }
                 }
             }
-            if (myCart == null)
+            if (myCart != null)
+            {
+                foreach (var cartItem in _context.MyCartItem)// Get other cartItems in the cart data.
+                {
+                    if (cartItem.MyCartID == myCart.ID)
+                        myCart.MyCartItems.Add(cartItem);
+                }
+            }
+            else
             {
                 myCart = new MyCart();
                 myCart.MyCartItems = new List<MyCartItem>();
             }
-               
-            foreach (var cartItem in _context.MyCartItem)// Get other cartItems in the cart data.
-            {
-                if (cartItem.MyCartID == myCart.ID)
-                    myCart.MyCartItems.Add(cartItem);
-            }
+
             foreach (var cartItem in myCart.MyCartItems)
                 if (cartItem.SaveQ == false) //If the buyer before didn't approve a dish then it will be deleted from his cart.
                 {
@@ -221,7 +227,7 @@ namespace FeedMe.Controllers
                     {
                         _context.Remove(myCartItem);
                         myCartItem = new MyCartItem();
-                       //save = 0; // לבדוקקקקקקקקקקקקקקקקקקקקקקקקקקקקקקק
+                        //save = 0; // לבדוקקקקקקקקקקקקקקקקקקקקקקקקקקקקקקק
                     }
                     myCartItem = cartItem; // Get currect cartItem.
                     save++;
@@ -240,13 +246,13 @@ namespace FeedMe.Controllers
                 myCartItem.Quantity = quantity;
                 myCart.TotalAmount += (myCartItem.Price * (quantity));
                 myCartItem.SaveQ = true;// so we wont change the quantity again.
+                _context.Update(myCart); //update new total amount.
             }
             else
             {
                 myCartItem.SaveQ = false;// so that cart item will be deleted.
             }
             myCartItem.MyCart = myCart;
-            _context.Update(myCart); //update new total amount.
             _context.Update(myCartItem); //update new quantity.
             await _context.SaveChangesAsync();
 
@@ -290,9 +296,9 @@ namespace FeedMe.Controllers
                 .Include(m => m.Dish)
                 .Include(m => m.MyCart)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            foreach(var cart in _context.MyCart)
+            foreach (var cart in _context.MyCart)
             {
-                if(cart.ID == myCartItem.MyCartID)
+                if (cart.ID == myCartItem.MyCartID)
                 {
                     cart.TotalAmount -= (myCartItem.Price * myCartItem.Quantity);
                     _context.Update(cart); //update new total amount.

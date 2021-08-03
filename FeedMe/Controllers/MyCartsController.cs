@@ -62,6 +62,7 @@ namespace FeedMe.Controllers
                                 //else
                                 if (cart.IsClose == false)
                                 {
+                                    myCart.UserID = cart.UserID;
                                     myCart.ID = cart.ID; // Here The cart doesn't receive the data on the cartItems.
                                     break;
                                 }
@@ -81,19 +82,19 @@ namespace FeedMe.Controllers
                 {
                     if (myCartItem.SaveQ == false)//Checks if the buyer didn't approved the cart item than it won't add to the cart.
                     {
-                        myCart.TotalAmount -= myCartItem.Price;
+                        //myCart.TotalAmount -= myCartItem.Price;
                       //  _context.Update(myCart); //לבדוק אם צריךךךך
                         _context.Remove(myCartItem);
+                        //_context.Update(myCart);
                         continue;
                     }
 
-                    foreach (var dish in _context.Dish) //Get dish data.
+                    foreach (var dish in _context.Dish) //Get dish data so we can see dish photo in the cart.
                     {
                         if (dish.ID == myCartItem.DishID)
                         {
                             myCartItem.Dish = dish;
-                            myCartItem.DishID = dish.ID;
-                            myCartItem.Price = dish.Price;
+                            //myCartItem.Price = dish.Price;
                             break;
                         }
                     }
@@ -126,14 +127,6 @@ namespace FeedMe.Controllers
         public async Task<IActionResult> Pay(int? id)
         {
             var myCart = await _context.MyCart.FindAsync(id);
-            //var myCart = new MyCart();
-            //myCart.ID = (int)id;
-            //foreach (var cart in _context.MyCart)
-            //    if (cart.ID == id)
-            //    {
-            //        myCart = cart;
-            //        break;
-            //    }
             if (myCart == null || myCart.TotalAmount == 0)
             {
                 return View("Create");
