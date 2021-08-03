@@ -22,3 +22,9 @@
     font-family: 'Lobster';
     font-size: 35px;
 }
+
+li {
+    float: left;
+    margin: 5px;
+}
+

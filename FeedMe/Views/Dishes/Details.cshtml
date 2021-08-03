@@ -60,7 +60,7 @@
     </dl>
 </div>
 <div>
-    @if (Context.User.Claims.ToList()[1].Value == "Admin")
+    @if (Context.User.IsInRole("Admin"))
     {
         <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
     }

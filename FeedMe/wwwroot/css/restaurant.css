@@ -69,3 +69,13 @@ li {
     width: 100%;
     border-radius: 10px;
 }
+
+#nameOfResDesign {
+    color: black;
+    font-size: 60px;
+ 
+}
+#imgRes {
+    width: 50%;
+    height: auto;
+}

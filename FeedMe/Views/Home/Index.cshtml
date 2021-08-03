@@ -3,6 +3,7 @@
     Layout = "_homeLayout";
 }
 
+<link rel="stylesheet" href="~/css/home.css" />
 <div class="container">
     <div class="row">
         <marquee behavior="slide" direction="left" BGCOLOR=#e0e0eb scrollamount="10">
@@ -23,9 +24,9 @@
             <div class="homeTitle">
                 Welcome to FeedMe!
             </div>
-            <form asp-controller="Restaurants" asp-action="Search" method="get">
+            <form asp-controller="Categories" asp-action="Index" method="get">
                 <div class="form-group has-search searchbarStyle">
-                    <span class="fa fa-search form-control-feedback"><ion-icon name="search-outline"></ion-icon></span>
+                    <span class="fa fa-search form-control-feedback"></span>
                     <input type="text" class="form-control" placeholder="What would you like to eat today?" name="SearchString" />
                 </div>
             </form>

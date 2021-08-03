@@ -8,7 +8,7 @@ function GetMap() {
         credentials: 'AgKM2ujhhQsxdOGDplWe_PcRt59_Y8KhlxcQsY4bWurgt-M8nkXVXWERyEd0z6pf',
         /* No need to set credentials if already passed in URL */
         center: new Microsoft.Maps.Location(31.9700919, 34.77205380048267),
-        mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+        mapTypeId: Microsoft.Maps.MapTypeId.road,
         zoom: 8
     });
 
@@ -189,6 +189,15 @@ function starmark(item) {
 function goBack() {
     window.history.back();
 }
+
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+
 
 
 function result() {

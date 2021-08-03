@@ -3,7 +3,7 @@
     ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
+<h1 class="text-danger">Error. The page you're trying to access isn't belong to you OR doesn't exist!</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
 @if (Model.ShowRequestId)
@@ -23,3 +23,14 @@
     For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
     and restarting the app.
 </p>
+
+<div class="row">
+    <div class="col-md-12">
+        <b>
+            <p>Access Denied.</p><p>You'll be redirect to Homepage in 7 seconds...</p>
+            <a asp-controller="Home" asp-action="Index">Click here if page isn't directed</a>
+        </b>
+    </div>
+</div>
+
+<script src="~/js/accessdenied.js"></script>

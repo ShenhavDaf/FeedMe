@@ -6,9 +6,12 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New Category</a>
-</p>
+@if (Context.User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New Category</a>
+    </p>
+}
 
 <form asp-controller="Categories" asp-action="Index" method="get">
     <div class="searchBar">
@@ -38,7 +41,7 @@
                         <tr>
                             <td>
                                 @*<a asp-action="Details" asp-route-id="@category.ID">Details</a>*@
-                                @if (Context.User.Claims.ToList()[1].Value == "Admin")
+                                @if (Context.User.IsInRole("Admin"))
                                 {
                                     <a asp-action="Edit" asp-route-id="@category.ID">Edit</a> <text>|</text>
                                     <a asp-action="Delete" asp-route-id="@category.ID">Delete</a>

@@ -7,7 +7,7 @@
 @*<div class="topBg"></div>*@
 
 <h1>@ViewData["Title"]</h1>
-@if (Context.User.Claims.ToList()[1].Value == "Admin")
+@if (Context.User.IsInRole("Admin") || Context.User.IsInRole("rManager"))
 {
     <p>
         <a asp-action="Create">Create New Resaurant</a>
@@ -73,6 +73,14 @@
                                                     </svg> @res.Rate
                                                 </small>
                                             </div>
+                                            <div class="bg-transparent text-center">
+                                                <tr>
+                                                    <td>
+                                                        <a asp-action="Edit" asp-route-id="@res.ID">Edit</a> <text>|</text>
+                                                        <a asp-action="Delete" asp-route-id="@res.ID">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -119,6 +127,18 @@
                                                 </svg> @restaurant.Rate
                                             </small>
                                         </div>
+                                        <div class="bg-transparent text-center">
+                                            <tr>
+                                                <td>
+                                                    @*<a asp-action="Details" asp-route-id="@category.ID">Details</a>*@
+                                                    @if (Context.User.IsInRole("Admin"))
+                                                    {
+                                                        <a asp-action="Edit" asp-route-id="@restaurant.ID">Edit</a> <text>|</text>
+                                                        <a asp-action="Delete" asp-route-id="@restaurant.ID">Delete</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -132,4 +152,6 @@
             }
         </div>
     </div>
+    <button type="button" class="btn btn-secondary float-right" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
 </div>
