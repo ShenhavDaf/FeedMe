@@ -20,6 +20,12 @@
         </div>
     </div>
 </div>
+@if (Context.User.IsInRole("Admin") || Context.User.IsInRole("rManager"))
+{
+    <p>
+        <a asp-controller="Dishes" asp-action="Create">Create New Dish</a>
+    </p>
+}
 <br />
 <br />
 

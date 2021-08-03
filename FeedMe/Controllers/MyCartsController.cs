@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using FeedMe.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FeedMe.Controllers
 {
@@ -20,10 +21,30 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCarts
+        [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Index()
         {
             var feedMeContext = _context.MyCart.Include(m => m.User).OrderBy(x => x.TotalAmount);
-            return View(await feedMeContext.ToListAsync());
+
+            var userEmail = User.Claims.ToList()[0].Value;
+            if (User.IsInRole("rManager") || User.IsInRole("Client"))
+            {
+                foreach (var u in _context.User) //Get the currect user that is log in.
+                {
+                    if (u.Email == userEmail)
+                    {
+                        foreach (var cart in _context.MyCart)
+                        {
+                            if (u.Id != cart.UserID)
+                            {
+                                return NotFound();
+                            }
+                        }
+                    }
+                }
+            }
+
+           return View(await feedMeContext.ToListAsync());
             //return View(await _context.MyCart.ToListAsync());
         }
 
