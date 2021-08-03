@@ -6,7 +6,12 @@
 
 @*<div class="topBg"></div>*@
 
-<h1>@ViewData["Title"]</h1>
+<head>
+    <link rel="stylesheet" href="~/css/restaurant.css" />
+    <h1>@ViewData["Title"]</h1>
+</head>
+
+
 @if (Context.User.IsInRole("Admin") || Context.User.IsInRole("rManager"))
 {
     <p>
@@ -24,7 +29,6 @@
 </form>
 
 <div>
-    <link rel="stylesheet" href="~/css/restaurant.css" />
     <div class="container">
         <div class="row">
             <iframe width="460" height="415" src="https://www.youtube-nocookie.com/embed/tEL0pQnRwRk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

@@ -3,8 +3,11 @@
 @{
     ViewData["Title"] = "Category Homepage";
 }
+<head>
+    <link rel="stylesheet" href="~/css/category.css" />
+    <h1>@ViewData["Title"]</h1>
+</head>
 
-<h1>@ViewData["Title"]</h1>
 
 @if (Context.User.IsInRole("Admin"))
 {
@@ -24,7 +27,6 @@
 
 <div class="container">
     <div class="row">
-        <link rel="stylesheet" href="~/css/category.css" />
         @foreach (var category in Model)
         {
             <button id="categoryBtn">
