@@ -43,16 +43,40 @@
                 <input asp-for="BirthdayDate" class="form-control" />
                 <span asp-validation-for="BirthdayDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="@Model.Type" asp-items="ViewBag.UserType" class="form-control"></select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RestaurantId" class="control-label"></label>
-                <input asp-for="RestaurantId" class="form-control" />
-                <span asp-validation-for="RestaurantId" class="text-danger"></span>
-            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="form-group">
+                    <label asp-for="Type" class="control-label"></label>
+                    <select asp-for="@Model.Type" asp-items="ViewBag.UserType" class="form-control"></select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RestaurantId" class="control-label"></label>
+                    <input asp-for="RestaurantId" class="form-control" />
+                    <span asp-validation-for="RestaurantId" class="text-danger"></span>
+                </div>
+            }
+            else if (User.IsInRole("rManager"))
+            {
+                <div class="form-group">
+                    <label asp-for="Type" class="control-label"></label>
+                    <select asp-for="@Model.Type" asp-items="ViewBag.UserType" class="form-control" disabled></select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RestaurantId" class="control-label"></label>
+                    <input asp-for="RestaurantId" class="form-control" readonly/>
+                    <span asp-validation-for="RestaurantId" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="Type" class="control-label"></label>
+                    <select asp-for="@Model.Type" asp-items="ViewBag.UserType" class="form-control" disabled></select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
