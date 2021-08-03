@@ -43,7 +43,7 @@
         <button type="button" id="dishesBtn" class="btn btn-outline-info"> <a href="javascript:history.back()">Go Back To Order</a> </button>*@
 
                                 @using (Html.BeginForm("Edit", "MyCartItems", FormMethod.Post))
-                                {@Html.TextBoxFor(Model => Model.Quantity, new {@type="number", @min="0"})  <input type="submit" name="Quantity" value="Add"/>}
+                                {@Html.TextBoxFor(Model => Model.Quantity, new { @type = "number", @min = "0" , @max = "50" })  <input type="submit" name="Quantity" value="Add"/>}
 
                                 @*<button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details" asp-route-id="@Model.MyCartID">Check</a>
         </button>}*@
