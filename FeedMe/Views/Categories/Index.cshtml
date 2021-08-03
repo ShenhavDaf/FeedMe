@@ -32,12 +32,18 @@
         {
             <button id="categoryBtn">
                 <div class="card bg-transparent text-center">
-                    <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.ID">
-                        <img src="@category.CategoryImage" class="itemCard categoryImage">
-                        @if (category.CategoryImage == null)
-                        {
-                            <img src="~/Photos/notFind.png" class="itemCard categoryImageNotFound">
+                    <a asp-controller="Categories" asp-action="Detai ls" asp-route-id="@category.ID">
+                        @{
+                            if (category.CategoryImage == null)
+                            {
+                                <img src="~/Photos/notFind.png" class="itemCard categoryImageNotFound">
+                            }
+                            else
+                            {
+                                <img src="@category.CategoryImage" class="itemCard categoryImage">
+                            }
                         }
+
                     </a>
                     <div class="card-body">
                         <h5 class="text-center">@category.Name</h5>
@@ -56,4 +62,8 @@
             </button>
         }
     </div>
+</div>
+<div>
+    <button type="button" class="btn btn-secondary float-right" onclick="topFunction()" id="myBtn" title="Go to top">Top</
+
 </div>

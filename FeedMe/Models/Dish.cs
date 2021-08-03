@@ -20,8 +20,8 @@ namespace FeedMe.Models
 
         [Required(ErrorMessage = "Please insert name")]
         [Display(Name = "Dish Name")]
-        [RegularExpression(@"^[a-zA-Z0-9_ '.-]*$")]
-       // [A-Z]+[a-zA-Z '-]
+        a-zA-Z0-9 -'|.!&
+        [RegularExpression(@"^[A-Z]+[a-zA-Z0-9 -'+.!&]*$", ErrorMessage = "Dish name must begin with a capital letter")]
         public string Name { get; set; }
 
         /*------------------------------------------------------*/
@@ -36,8 +36,6 @@ namespace FeedMe.Models
 
         /*------------------------------------------------------*/
 
-
-        //טבעוני, חלבי, בשרי
         [Required(ErrorMessage = "Please insert food type")]
         public FoodType FoodType { get; set; }
 
@@ -45,14 +43,15 @@ namespace FeedMe.Models
 
         [Required(ErrorMessage = "Please insert price")]
         [DataType(DataType.Currency)]
-        [RegularExpression(@"^[1-9]+[0-9]")]
+        [RegularExpression(@"^[1-9]{1}(?:[0-9])?$", ErrorMessage = "Price must be greater than 0")]
         public int Price { get; set; }
 
-        /*------------------------------------------------------*/
-        [Display(Name = "In the menu of the restaurant:")]
-        public int RestaurantID { get; set; }//נועד לקשר של יחיד לרבים, שלא יהיו בעיות בדאטהבייס
 
+        /*------------------------------------------------------*/
         //MAMY dishes TO ONE restaurant 
+
+        [Display(Name = "In the menu of the restaurant:")]
+        public int RestaurantID { get; set; }
 
         public Restaurant Restaurant { get; set; }
 
