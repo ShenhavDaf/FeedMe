@@ -33,7 +33,7 @@ namespace FeedMe.Controllers
             return View();
         }
 
-        public IActionResult Graph()
+        public IActionResult AboutUs()
         {
             var orderDish = _context.MyCartItem.Include(a => a.Dish);
             Dictionary<String, int> map = new Dictionary<String, int>();

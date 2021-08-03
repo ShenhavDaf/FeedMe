@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -41,11 +42,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
-            </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+                            </li>*@
                         @if ((User.Identity.IsAuthenticated) || (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0))
                         {
                             <li class="nav-item">
@@ -54,38 +55,41 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
                             </li>
+                            @if (Context.User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                                </li>
+                            }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Graph">About Us</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Categories</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Restaurants</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
                             </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Dishes</a>
+                                </li>*@
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Users</a>
+                                </li>*@
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Cities</a>
+                                </li>*@
                             <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Dishes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">Cities</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" type="button" data-bs-toggle="modal" data-bs-target="#LoginModal">About Us</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                             </li>
                         }
 
@@ -137,7 +141,7 @@
                             </li>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><span class="dropdown-item-text">Status: @Context.User.Claims.ToList()[1].Value</span></li>
-                                <li><a class="dropdown-item" asp-controller="Users" asp-action="Index">Account Settings</a></li>
+                                <li><a class="dropdown-item" asp-controller="Users" asp-action="GetUserID">Account Settings</a></li>
                                 <li><a class="dropdown-item" asp-controller="MyCarts" asp-action="Details">My Cart</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Logout</a></li>

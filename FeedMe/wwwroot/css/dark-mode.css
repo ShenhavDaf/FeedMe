@@ -7,6 +7,15 @@
         background-color: #eee !important;
     }
 
+    /*[data-theme="dark"] a:hover {
+        background-color: red !important;
+        color: red !important;
+    }
+    [data-theme="dark"] .text-dark:hover {
+        background-color: red !important;
+        color: red !important;
+    }*/
+
     /* Login & Register Modal */
     [data-theme="dark"] .modal-content {
         background-color: #292c2f !important;
@@ -64,6 +73,7 @@
         background-color: #2a2e31 !important;
         color: #eee !important;
     }
+
     [data-theme="dark"] .table {
         color: #eee !important;
     }

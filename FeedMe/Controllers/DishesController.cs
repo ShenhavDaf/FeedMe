@@ -22,6 +22,7 @@ namespace FeedMe.Controllers
 
         // GET: Dishes
         //Serch by name and description
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(string searchString)
         {
 
@@ -37,7 +38,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes/Details/5
-        [Authorize(Roles = "Admin,rManager")]
+        [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -56,12 +57,32 @@ namespace FeedMe.Controllers
             return View(dish);
         }
 
+        [Authorize(Roles = "Admin,rManager")]
         // GET: Dishes/Create
         public IActionResult Create()
         {
             ViewBag.FoodType = new SelectList(Enum.GetNames(typeof(FoodType)));
 
-            ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", nameof(Restaurant.Name));
+            var userEmail = User.Claims.ToList()[0].Value;
+            ViewData["RestaurantID"] = new SelectList(_context.Restaurant.Where(u => u.User.Email == userEmail), "ID", nameof(Restaurant.Name));
+
+            //var userEmail = User.Claims.ToList()[0].Value;
+            //var userRes = _context.Restaurant.Where(u => u.User.Email == userEmail).FirstOrDefault().ID;
+            //ViewData["RestaurantID"] = userRes;
+
+
+            //
+            //var userEmail = User.Claims.ToList()[0].Value;
+
+            //var allUsers = _context.User.Where(u => u.Email == userEmail);
+
+            //var restaurants = from m in _context.Restaurant select m;
+
+            //restaurants = restaurants.Where(s => (s.Name.Contains("")));
+
+            //_context.City.Where(x => deliveryCities.Contains(x.ID));
+            //
+
             return View();
         }
 
@@ -84,9 +105,32 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Edit(int? id)
         {
+            if (User.IsInRole("rManager"))
+            {
+                var dishObj = await _context.Dish
+                .Include(d => d.Restaurant)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+                var userEmail = User.Claims.ToList()[0].Value;
+                foreach (var user in _context.User) //Get the currect user that is log in.
+                {
+                    if (user.Email == userEmail)
+                    {
+                        if (dishObj != null && user.RestaurantId != dishObj.RestaurantID)
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
             ViewBag.FoodType = new SelectList(Enum.GetNames(typeof(FoodType)));
             if (id == null)
             {
@@ -140,8 +184,32 @@ namespace FeedMe.Controllers
         }
 
         // GET: Dishes/Delete/5
+        [Authorize(Roles = "Admin,rManager")]
         public async Task<IActionResult> Delete(int? id)
         {
+            if (User.IsInRole("rManager"))
+            {
+                var dishObj = await _context.Dish
+                .Include(d => d.Restaurant)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+                var userEmail = User.Claims.ToList()[0].Value;
+                foreach (var user in _context.User) //Get the currect user that is log in.
+                {
+                    if (user.Email == userEmail)
+                    {
+                        if (dishObj != null && user.RestaurantId != dishObj.RestaurantID)
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
             if (id == null)
             {
                 return NotFound();
