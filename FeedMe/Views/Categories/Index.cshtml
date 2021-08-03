@@ -32,11 +32,11 @@
         {
             <button id="categoryBtn">
                 <div class="card bg-transparent text-center">
-                    <a asp-controller="Categories" asp-action="Detai ls" asp-route-id="@category.ID">
+                    <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.ID">
                         @{
                             if (category.CategoryImage == null)
                             {
-                                <img src="~/Photos/notFind.png" class="itemCard categoryImageNotFound">
+                                <img width="150px" src="~/Photos/notFind2.jpg" class="itemCard categoryImageNotFound">
                             }
                             else
                             {
