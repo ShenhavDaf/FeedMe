@@ -41,6 +41,7 @@ namespace FeedMe.Models
         public String PhoneNumber { get; set; }
 
         [Display(Name = "Birthday Date")]
+        //[Range(typeof(DateTime), "01/01/1966", "01/01/2022")]
         public DateTime BirthdayDate { get; set; }
 
         public UserType Type { get; set; } = UserType.Client;
