@@ -213,6 +213,9 @@ namespace FeedMe.Controllers
                 myCart.MyCartItems = new List<MyCartItem>();
             }
 
+            if(myCart.MyCartItems == null)
+                myCart.MyCartItems = new List<MyCartItem>();
+
             foreach (var cartItem in myCart.MyCartItems)
                 if (cartItem.SaveQ == false) //If the buyer before didn't approve a dish then it will be deleted from his cart.
                 {
