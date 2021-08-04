@@ -1,14 +1,16 @@
 ﻿@model IEnumerable<FeedMe.Models.Category>
 
-@{
-    ViewData["Title"] = "Category Homepage";
-}
+
 <head>
+    @{
+        ViewData["Title"] = "Category Homepage";
+    }
     <link rel="stylesheet" href="~/css/category.css" />
-    <h1>@ViewData["Title"]</h1>
+
 </head>
 
 
+<h1>@ViewData["Title"]</h1>
 @if (Context.User.IsInRole("Admin"))
 {
     <p>
@@ -67,3 +69,4 @@
     <button type="button" class="btn btn-secondary float-right" onclick="topFunction()" id="myBtn" title="Go to top">Top</
 
 </div>
+

@@ -1,17 +1,18 @@
 ﻿@model IEnumerable<FeedMe.Models.Restaurant>
 
-@{
-    ViewData["Title"] = "Restaurants Homepage";
-}
 
 @*<div class="topBg"></div>*@
 
 <head>
+    @{
+        ViewData["Title"] = "Restaurants Homepage";
+    }
     <link rel="stylesheet" href="~/css/restaurant.css" />
-    <h1>@ViewData["Title"]</h1>
+
 </head>
 
 
+<h1>@ViewData["Title"]</h1>
 @if (Context.User.IsInRole("Admin") || Context.User.IsInRole("rManager"))
 {
     <p>
@@ -22,7 +23,7 @@
 <form asp-controller="Restaurants" asp-action="Search" method="get">
     <div class="searchBar">
         <p>
-            <b>Restaurant Name:</b>  <input type="text" placeholder="Select a restaurant/city" name="SearchString" />
+            <b>Restaurant Name:</b>  <input type="text" placeholder="Select a restaurant/city/category/description" name="SearchString" />
             <input type="submit" value="Search" />
         </p>
     </div>
@@ -33,7 +34,7 @@
         <div class="row">
             <iframe width="460" height="415" src="https://www.youtube-nocookie.com/embed/tEL0pQnRwRk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
-      
+
         <div class="row">
             @{
                 var flag = 0;
@@ -163,3 +164,4 @@
     <button type="button" class="btn btn-secondary float-right" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
 </div>
+

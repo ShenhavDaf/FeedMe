@@ -1,16 +1,17 @@
 ﻿@model FeedMe.Models.MyCart
 
-@{
-    ViewData["Title"] = "Edit";
-}
-<head>
-    <link rel="stylesheet" href="~/css/myCart.css" />
-    <h1>Edit</h1>
 
-    <h4>MyCart</h4>
+<head>
+    @{
+        ViewData["Title"] = "Edit";
+    }
+    <link rel="stylesheet" href="~/css/myCart.css" />
+
 </head>
 
-<hr />
+<h1>Edit</h1>
+
+<h4>MyCart</h4>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -24,7 +25,7 @@
 
             <div class="form-group">
                 <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" />
+                <input asp-for="TotalAmount" class="form-control" min="1" />
                 <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -37,6 +38,7 @@
 <div>
     <button type="button" class="btn btn-light" onclick="goBack()">Go Back</button>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

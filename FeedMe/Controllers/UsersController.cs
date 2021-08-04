@@ -56,7 +56,7 @@ namespace FeedMe.Controllers
             if (ModelState.IsValid)
             {   // Search inside User's DB the user with the same Email & Password
                 var q = from u in _context.User
-                        where u.Email == user.Email && u.Password == user.Password
+                        where u.Email == user.Email.ToLower() && u.Password == user.Password
                         select u;
                 //var q = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                 int count = await q.CountAsync(); // Check if the user that we searched for is exist in the DB
@@ -67,7 +67,7 @@ namespace FeedMe.Controllers
                 if (count > 0)
                 {
                     foreach (var u in _context.User)//Find the current user id.
-                        if (u.Email == user.Email)
+                        if (u.Email == user.Email.ToLower())
                             user.Id = u.Id;
 
                     if (user.MyCarts == null) //If the buyer didn't finish his buy on register day or the times after.
@@ -96,6 +96,8 @@ namespace FeedMe.Controllers
                     user.MyCarts.Add(myCart);
 
                     _context.Update(myCart);
+
+
                     await _context.SaveChangesAsync();
 
                     //HttpContext.Session.SetString("email", q.First().Email);
@@ -222,7 +224,7 @@ namespace FeedMe.Controllers
         //Sherch by name, address and phone number
         public async Task<IActionResult> Search(string query)
         {
-            var user = from m in _context.User
+            var user = from m in _context.User.Include(u=>u.Restaurant)
                        select m;
 
             user = user.Where(s => (s.Name.Contains(query) || query == null) ||
@@ -266,7 +268,7 @@ namespace FeedMe.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> GetUserID()
+        public IActionResult GetUserID()
         {
             var userEmail = User.Claims.ToList()[0].Value;
             if (User.IsInRole("Admin") || User.IsInRole("rManager") || User.IsInRole("Client"))
@@ -276,7 +278,6 @@ namespace FeedMe.Controllers
                     if (u.Email == userEmail)
                     {
                         return RedirectToAction("Details", "Users", new { id = u.Id });
-                        break;
                     }
                 }
             }

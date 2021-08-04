@@ -1,16 +1,18 @@
 ﻿@model FeedMe.Models.Restaurant
 
-@{
-    ViewData["Title"] = "Edit a restaurant";
-}
+
 <head>
+    @{
+        ViewData["Title"] = "Edit a restaurant";
+    }
     <link rel="stylesheet" href="~/css/restaurant.css" />
 </head>
+
+
 
 <h1>Edit</h1>
 
 <h4>Restaurant</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -47,16 +49,25 @@
                 <select asp-for="DeliveryCities" class="form-control" asp-items="@ViewBag.Cities"></select>
                 <span asp-validation-for="DeliveryCities" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Categories" class="control-label"></label>
+                <select asp-for="Categories" class="form-control" asp-items="@ViewBag.Categories"></select>
+                <span asp-validation-for="Categories" class="text-danger"></span>
+            </div>
 
             @*<input type="hidden" value="a" name="DeliveryCities" />*@
 
             @*<input type="hidden" value="a" name="Rate" />*@
             @*We don't want the Restaurant Manager the ability to add the rate*@
-            @*<div class="form-group">
+            @if (User.IsInRole("Admin"))
+            {
+
+                <div class="form-group">
                     <label asp-for="Rate" class="control-label"></label>
-                    <input asp-for="Rate" class="form-control" />
+                    <input asp-for="Rate" class="form-control" type="number" min="1" max="5"/>
                     <span asp-validation-for="Rate" class="text-danger"></span>
-                </div>*@
+                </div>
+            }
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -64,10 +75,10 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

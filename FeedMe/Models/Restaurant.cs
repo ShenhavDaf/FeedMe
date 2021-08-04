@@ -13,7 +13,7 @@ namespace FeedMe.Models
 
         [Required(ErrorMessage = "Please insert name")]
         [Display(Name = "Restaurant Name")]
-        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9 -'|.!&]*$", ErrorMessage = "Restaurant name must begin with a capital letter")]
+        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9 -'|.!&]*$", ErrorMessage = "Restaurant name must begin with a capital letter.\n Can contains: -, ', |, ., !, &")]
         public string Name { get; set; }
 
         /*------------------------------------------------------*/

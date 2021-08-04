@@ -20,7 +20,7 @@ namespace FeedMe.Models
 
         [Required(ErrorMessage = "Please insert name")]
         [Display(Name = "Dish Name")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z0-9 -'+.!&]*$", ErrorMessage = "Dish name must begin with a capital letter")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z0-9 -'+.!&]*$", ErrorMessage = "Dish name must begin with a capital letter.\n Can contains: -, ', +, ., !, &")]
         public string Name { get; set; }
 
         /*------------------------------------------------------*/
@@ -42,7 +42,7 @@ namespace FeedMe.Models
 
         [Required(ErrorMessage = "Please insert price")]
         [DataType(DataType.Currency)]
-        [RegularExpression(@"^[1-9]{1}(?:[0-9])?$", ErrorMessage = "Price must be greater than 0")]
+        [RegularExpression(@"^[1-9]{1}(?:[0-9])*?$", ErrorMessage = "Price must be greater than 0")]
         public int Price { get; set; }
 
 

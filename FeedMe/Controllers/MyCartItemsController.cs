@@ -147,9 +147,6 @@ namespace FeedMe.Controllers
         // GET: MyCartItems/Create
         public IActionResult Create()
         {
-            //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Description");
-            //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name");
-            //ViewData["MyCartID"] = new SelectList(_context.Set<MyCart>(), "ID", "ID");
             return View();
         }
 
@@ -166,7 +163,6 @@ namespace FeedMe.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Description", myCartItem.DishID);
             ViewData["DishID"] = new SelectList(_context.Dish, "ID", "Name", myCartItem.DishID);
             ViewData["MyCartID"] = new SelectList(_context.Set<MyCart>(), "ID", "ID", myCartItem.MyCartID);
             return View(myCartItem);
@@ -220,6 +216,7 @@ namespace FeedMe.Controllers
                     }
                 }
             }
+
             if (myCart != null)
             {
                 foreach (var cartItem in _context.MyCartItem)// Get other cartItems in the cart data.
@@ -234,6 +231,9 @@ namespace FeedMe.Controllers
                 myCart.MyCartItems = new List<MyCartItem>();
             }
 
+            if(myCart.MyCartItems == null)
+                myCart.MyCartItems = new List<MyCartItem>();
+
             foreach (var cartItem in myCart.MyCartItems)
                 if (cartItem.SaveQ == false) //If the buyer before didn't approve a dish then it will be deleted from his cart.
                 {
@@ -241,7 +241,6 @@ namespace FeedMe.Controllers
                     {
                         _context.Remove(myCartItem);
                         myCartItem = new MyCartItem();
-                        //save = 0; // לבדוקקקקקקקקקקקקקקקקקקקקקקקקקקקקקקק
                     }
                     myCartItem = cartItem; // Get currect cartItem.
                     save++;
@@ -266,6 +265,7 @@ namespace FeedMe.Controllers
             {
                 myCartItem.SaveQ = false;// so that cart item will be deleted.
             }
+
             myCartItem.MyCart = myCart;
             _context.Update(myCartItem); //update new quantity.
             await _context.SaveChangesAsync();

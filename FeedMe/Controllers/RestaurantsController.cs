@@ -68,7 +68,7 @@ namespace FeedMe.Controllers
             return View(restaurant);
         }
 
-        //Shearch by name, category, address and Description
+        //Search by name, category, city and Description
         public async Task<IActionResult> Search(string searchString)
         {
             var restaurants = from m in _context.Restaurant
@@ -175,6 +175,8 @@ namespace FeedMe.Controllers
         {
             ViewBag.Cities = new SelectList(_context.City.OrderBy(x => x.Name).ToList(), nameof(City.ID), nameof(City.Name));
 
+            ViewBag.Categories = new SelectList(_context.Category.OrderBy(x => x.Name).ToList(), nameof(Category.ID), nameof(Category.Name));
+
             if (id == null)
             {
                 return NotFound();
@@ -213,7 +215,7 @@ namespace FeedMe.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate, Categories")] Restaurant restaurant, int[] deliveryCities)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,RestaurantImage,Description,Address,PhoneNumber,Rate, Categories")] Restaurant restaurant, int[] deliveryCities, int[] categories)
         {
             if (id != restaurant.ID)
             {
@@ -226,6 +228,8 @@ namespace FeedMe.Controllers
             {
                 restaurant.DeliveryCities = new List<City>();
                 restaurant.DeliveryCities.AddRange(_context.City.Where(x => deliveryCities.Contains(x.ID)));
+                restaurant.Categories = new List<Category>();
+                restaurant.Categories.AddRange(_context.Category.Where(x => categories.Contains(x.ID)));
 
                 try
                 {
@@ -331,6 +335,16 @@ namespace FeedMe.Controllers
         {
             var restaurant = await _context.Restaurant.FindAsync(id);
             _context.Restaurant.Remove(restaurant);
+            foreach(var user in _context.User)
+            {
+                if (user.RestaurantId == restaurant.ID)
+                {
+                    user.RestaurantId = null;
+                    user.Restaurant = null;
+                    _context.Update(user);
+                    break;
+                }
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
