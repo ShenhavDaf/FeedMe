@@ -1,18 +1,18 @@
 ﻿@model FeedMe.Models.MyCart
 
-@{
-    ViewData["Title"] = "Create";
-}
+
 
 <head>
+    @{
+        ViewData["Title"] = "Create";
+    }
     <link rel="stylesheet" href="~/css/myCart.css" />
-    <h1>Create</h1>
 
-    <h4>MyCart</h4>
 </head>
 
-<hr />
 
+<h1>Create</h1>
+<h4>MyCart</h4>
 <div>
     <div class="cartCreate">
         <p>
@@ -26,6 +26,9 @@
         <button type="button" class="btn btn-light" onclick="goBack()">Go Back</button>
     </div>
 </div>
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

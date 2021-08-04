@@ -1,18 +1,18 @@
 ﻿@model FeedMe.Models.MyCartItem
 
-@{
-    ViewData["Title"] = "Delete";
-}
 
 @*<h1>Delete</h1>*@
 <head>
+    @{
+        ViewData["Title"] = "Delete";
+    }
     <link rel="stylesheet" href="~/css/myCartItem.css" />
-    <h3>Are you sure you want to delete this item?</h3>
+
 </head>
 
+
+<h3>Are you sure you want to delete this item?</h3>
 <div>
-    @*<h4>MyCartItem</h4>*@
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Dish)
@@ -43,3 +43,5 @@
         </div>
     </form>
 </div>
+
+

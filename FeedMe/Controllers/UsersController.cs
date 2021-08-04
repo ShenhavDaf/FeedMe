@@ -266,7 +266,7 @@ namespace FeedMe.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> GetUserID()
+        public IActionResult GetUserID()
         {
             var userEmail = User.Claims.ToList()[0].Value;
             if (User.IsInRole("Admin") || User.IsInRole("rManager") || User.IsInRole("Client"))
@@ -276,7 +276,6 @@ namespace FeedMe.Controllers
                     if (u.Email == userEmail)
                     {
                         return RedirectToAction("Details", "Users", new { id = u.Id });
-                        break;
                     }
                 }
             }

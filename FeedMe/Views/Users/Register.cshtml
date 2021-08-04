@@ -1,56 +1,62 @@
 ﻿@model FeedMe.Models.User
 
-@{
-    ViewData["Title"] = "Register";
-}
 
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="Register" asp-controller="Users">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BirthdayDate" class="control-label"></label>
-                <input asp-for="BirthdayDate" class="form-control" />
-                <span asp-validation-for="BirthdayDate" class="text-danger"></span>
-            </div>
-            <div class="form-group text-center">
-                <input class="btn btn-secondary col-md-6" type="submit" value="Register" />
-            </div>
-        </form>
-        @if(ViewBag.Error != null){
-        <div class="text-danger">@ViewBag.Error</div>
-        }
+<head>
+    @{
+        ViewData["Title"] = "Register";
+    }
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Register" asp-controller="Users">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BirthdayDate" class="control-label"></label>
+                    <input asp-for="BirthdayDate" class="form-control" />
+                    <span asp-validation-for="BirthdayDate" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center">
+                    <input class="btn btn-secondary col-md-6" type="submit" value="Register" />
+                </div>
+            </form>
+            @if (ViewBag.Error != null)
+            {
+                <div class="text-danger">@ViewBag.Error</div>
+            }
+        </div>
     </div>
-</div>
 
-@*<div>
-    Already registered? <a asp-action="Login">Click here</a> to login
-</div>*@
+    @*<div>
+            Already registered? <a asp-action="Login">Click here</a> to login
+        </div>*@
+</body>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
