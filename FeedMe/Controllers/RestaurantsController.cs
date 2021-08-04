@@ -335,6 +335,16 @@ namespace FeedMe.Controllers
         {
             var restaurant = await _context.Restaurant.FindAsync(id);
             _context.Restaurant.Remove(restaurant);
+            foreach(var user in _context.User)
+            {
+                if (user.RestaurantId == restaurant.ID)
+                {
+                    user.RestaurantId = null;
+                    user.Restaurant = null;
+                    _context.Update(user);
+                    break;
+                }
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
