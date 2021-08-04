@@ -224,7 +224,7 @@ namespace FeedMe.Controllers
         //Sherch by name, address and phone number
         public async Task<IActionResult> Search(string query)
         {
-            var user = from m in _context.User
+            var user = from m in _context.User.Include(u=>u.Restaurant)
                        select m;
 
             user = user.Where(s => (s.Name.Contains(query) || query == null) ||
