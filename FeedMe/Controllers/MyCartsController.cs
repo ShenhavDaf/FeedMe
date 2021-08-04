@@ -24,27 +24,23 @@ namespace FeedMe.Controllers
         [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Index()
         {
-            var feedMeContext = _context.MyCart.Include(m => m.User).OrderBy(x => x.TotalAmount);
+            var feedMeContext = _context.MyCart.Include(m => m.User).OrderBy(x => x.ID); // All carts
+            if (User.IsInRole("Admin"))
+                feedMeContext = feedMeContext.OrderBy(x => x.UserID); // All carts
 
-            var userEmail = User.Claims.ToList()[0].Value;
             if (User.IsInRole("rManager") || User.IsInRole("Client"))
             {
-                foreach (var u in _context.User) //Get the currect user that is log in.
-                {
-                    if (u.Email == userEmail)
-                    {
-                        foreach (var cart in _context.MyCart)
-                        {
-                            if (u.Id != cart.UserID)
-                            {
-                                return NotFound();
-                            }
-                        }
-                    }
-                }
+                var userEmail = User.Claims.ToList()[0].Value;
+                var curUsers = _context.User.Where(u => u.Email == userEmail);
+                var userCarts = from c in feedMeContext
+                                join u in curUsers
+                                  on c.UserID equals u.Id
+                                select c;
+
+                return View(userCarts);
             }
 
-           return View(await feedMeContext.ToListAsync());
+            return View(await feedMeContext.ToListAsync());
             //return View(await _context.MyCart.ToListAsync());
         }
 
@@ -59,6 +55,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCarts/Details/5
+        [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Details(int? id)
         {
             MyCart myCart = new MyCart();
@@ -95,6 +92,26 @@ namespace FeedMe.Controllers
             else //The details of the cart are sent by its ID number.
             {
                 myCart.ID = (int)id;
+
+                if (User.IsInRole("rManager") || User.IsInRole("Client"))
+                {
+                    var userEmail = User.Claims.ToList()[0].Value;
+                    foreach (var user in _context.User) //Get the currect user that is log in.
+                    {
+                        if (user.Email == userEmail)
+                        {// לעבור על הרשימה של הקארטים של היוזר
+                            foreach (var cart in _context.MyCart) // Get user cart values.
+                            {
+                                if (user.Id == cart.UserID)
+                                {
+                                    var c = user.MyCarts.Where(x => x.ID == id);
+                                    if (c.Count() <= 0)
+                                        return NotFound();
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             foreach (var myCartItem in _context.MyCartItem) //Get cartItems data.
@@ -104,7 +121,7 @@ namespace FeedMe.Controllers
                     if (myCartItem.SaveQ == false)//Checks if the buyer didn't approved the cart item than it won't add to the cart.
                     {
                         //myCart.TotalAmount -= myCartItem.Price;
-                      //  _context.Update(myCart); //לבדוק אם צריךךךך
+                        //  _context.Update(myCart); //לבדוק אם צריךךךך
                         _context.Remove(myCartItem);
                         //_context.Update(myCart);
                         continue;
@@ -126,7 +143,7 @@ namespace FeedMe.Controllers
                     //_context.Update(myCart); //לבדוק אם צריךךךך
                 }
             }
-           
+
             await _context.SaveChangesAsync();
 
             if (myCart == null)
@@ -153,12 +170,12 @@ namespace FeedMe.Controllers
                 return View("Create");
             }
 
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return View(myCart);
         }
 
-        public async Task<IActionResult> Delivery(int?id)
+        public async Task<IActionResult> Delivery(int? id)
         {
             var myCart = await _context.MyCart.FindAsync(id);
             foreach (var cart in _context.MyCart)
@@ -200,11 +217,31 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCarts/Edit/5
+        [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
+            }
+
+            if (!(User.IsInRole("Admin")))
+            {
+                var userEmail = User.Claims.ToList()[0].Value;
+                var user = _context.User.Where(u => u.Email == userEmail).FirstOrDefault();
+                var allCarts = await _context.MyCart.Where(c => c.UserID == user.Id).ToListAsync();
+                if (allCarts == null)
+                    return NotFound();
+                var curCart = allCarts.Where(e => e.ID == id).ToList();
+                if (curCart == null || curCart.Count() <= 0)
+                    return NotFound();
+                if (!MyCartExists((int)id))
+                {
+                    return NotFound();
+                }
+                var isClose = curCart.First().IsClose;
+                if (isClose)
+                    return NotFound();
             }
 
             var myCart = await _context.MyCart.FindAsync(id);
