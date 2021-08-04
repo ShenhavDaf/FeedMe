@@ -169,6 +169,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCartItems/Edit/5
+        [Authorize(Roles ="Admin,rManager,Client")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

@@ -224,7 +224,7 @@ namespace FeedMe.Controllers
         //Sherch by name, address and phone number
         public async Task<IActionResult> Search(string query)
         {
-            var user = from m in _context.User.Include(u=>u.Restaurant)
+            var user = from m in _context.User.Include(u => u.Restaurant)
                        select m;
 
             user = user.Where(s => (s.Name.Contains(query) || query == null) ||
@@ -343,15 +343,6 @@ namespace FeedMe.Controllers
                 if (User.IsInRole("Client"))
                 {
                     user.Type = UserType.Client;
-                }
-
-                var userEmail = User.Claims.ToList()[0].Value;
-                foreach (var u in _context.User) //Get the currect user that is log in.
-                {
-                    if (u.RestaurantId == user.RestaurantId)
-                    {
-                        return NotFound();
-                    }
                 }
 
                 try

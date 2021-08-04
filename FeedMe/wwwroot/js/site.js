@@ -68,28 +68,28 @@ function getLatLon(query, bing_key) {
 
 
 
-// POST TO FACEBOOK AFTER NEW DISH CREATED
-$(function () {
-    $('#postToFbButton').click(function (e) {
-        e.preventDefault();
-        var page_id = 'XXX';
-        var msg = "TEXT TEXT TEXT";
-        var page_access_token = 'XXX';
+//// POST TO FACEBOOK AFTER NEW DISH CREATED
+//$(function () {
+//    $('#postToFbButton').click(function (e) {
+//        e.preventDefault();
+//        var page_id = 'XXX';
+//        var msg = "TEXT TEXT TEXT";
+//        var page_access_token = 'XXX';
 
-        postToFacebook(page_id, msg, page_access_token);
-    });
-});
+//        postToFacebook(page_id, msg, page_access_token);
+//    });
+//});
 
-function postToFacebook(page_id, msg, page_access_token) {
-    $.ajax({
-        method: 'POST',
-        url: "XXX",
-    }).done(function () {
-        alert('Done');
-    }).fail(function () {
-        alert('Error');
-    });
-}
+//function postToFacebook(page_id, msg, page_access_token) {
+//    $.ajax({
+//        method: 'POST',
+//        url: "XXX",
+//    }).done(function () {
+//        alert('Done');
+//    }).fail(function () {
+//        alert('Error');
+//    });
+//}
 
 
 

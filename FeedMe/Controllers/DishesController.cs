@@ -22,10 +22,9 @@ namespace FeedMe.Controllers
 
         // GET: Dishes
         //Serch by name, description and restaurant name
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,rManager,Client")]
         public async Task<IActionResult> Index(string searchString)
         {
-
             var dish = from m in _context.Dish.Include(x=>x.Restaurant)
                        select m;
 
@@ -34,6 +33,11 @@ namespace FeedMe.Controllers
 
             //var feedMeContext = _context.Dish.Include(d => d.Restaurant);
             // return View(await feedMeContext.ToListAsync());
+            if (User.IsInRole("Client") || User.IsInRole("rManager"))
+            {
+                return RedirectToAction("Index", "Restaurants");
+            }
+
             return View(await dish.ToListAsync());
         }
 
