@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="col-25">
                                     <label for="expyear">Exp Year</label>
-                                    <input type="text" id="expyear" name="expyear" placeholder="2024" pattern="^\d{4}$" title="Please enter 4 numbers" required>
+                                    <input type="number" id="expyear" name="expyear" placeholder="2024" pattern="^\d{4}$" min="2022" max="2026" @*title="Please enter 4 numbers"*@ required>
                                 </div>
                                 <div class="col-25">
                                     <label for="cvv">CVV</label>
