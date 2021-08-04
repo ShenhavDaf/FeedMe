@@ -1,16 +1,18 @@
 ﻿@model FeedMe.Models.Restaurant
 
-@{
-    ViewData["Title"] = "Edit a restaurant";
-}
+
 <head>
+    @{
+        ViewData["Title"] = "Edit a restaurant";
+    }
     <link rel="stylesheet" href="~/css/restaurant.css" />
 </head>
+
+
 
 <h1>Edit</h1>
 
 <h4>Restaurant</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -69,10 +71,10 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

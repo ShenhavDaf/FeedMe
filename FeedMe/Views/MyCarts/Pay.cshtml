@@ -1,45 +1,43 @@
 ﻿@model FeedMe.Models.MyCart
 
-@{
-    ViewData["Title"] = "Pay";
-}
 
-
-<h1>Pay</h1>
 <head>
+    @{
+        ViewData["Title"] = "Pay";
+    }
     <link rel='stylesheet' href='~/css/Pay.css' type='text/css'>
     <!-- <script src='main.js'></script> -->
     @*    <script type="text/javascript" src="~/js/Pay.js"></script>
     *@
 </head>
-<body>
 
-    <div class="row">
-        <div class="col-40">
-            <div class="container-1">
-                <form name="payForm" class="text">
-                    <div class="row">
-                        <div class="col-25">
-                            <h3>Billing Address</h3>
-                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                            <input type="text" id="fname" name="firstname" placeholder="Your full name" pattern="^[A-Z][-a-zA-Z ]+$" title="Please start with a capital letter" required>
-                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                            <input type="email" id="email" name="email" placeholder="Yourname@example.com" pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" required>
-                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                            <input type="text" id="adr" name="address" placeholder="Your address" pattern="^[A-Z][-a-zA-Z ]+$" title="Please start with a capital letter" required>
-                            <label for="city"><i class="fa fa-institution"></i> City</label>
-                            <input type="text" id="city" name="city" placeholder="Your city" pattern="^[A-Z][-a-zA-Z ]+$" title="Please start with a capital letter" required>
-                        </div>
+<h1>Pay</h1>
+<div class="row">
+    <div class="col-40">
+        <div class="container-1">
+            <form name="payForm" class="text">
+                <div class="row">
+                    <div class="col-25">
+                        <h3>Billing Address</h3>
+                        <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                        <input type="text" id="fname" name="firstname" placeholder="Your full name" pattern="^[A-Z][-a-zA-Z ]+$" title="Please start with a capital letter" required>
+                        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                        <input type="email" id="email" name="email" placeholder="Yourname@example.com" pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                        <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                        <input type="text" id="adr" name="address" placeholder="Your address" pattern="^[A-Z][-a-zA-Z ]+$" title="Please start with a capital letter" required>
+                        <label for="city"><i class="fa fa-institution"></i> City</label>
+                        <input type="text" id="city" name="city" placeholder="Your city" pattern="^[A-Z][-a-zA-Z ]+$" title="Please start with a capital letter" required>
+                    </div>
 
-                        <div class="col-25">
-                            <h3>Payment</h3>
-                            <label for="cname">Name on Card</label>
-                            <input type="text" id="cname" placeholder="VISA" title="Please start with a capital letter">
-                            <label for="ccnum">Credit card number</label>
-                            <input type="text" id="ccnum" name="cardnumber" pattern="^[1-9]{1}(?:[0-9]{15})?$" placeholder="1111222233334444" title="Please enter 16 numbers" required>
+                    <div class="col-25">
+                        <h3>Payment</h3>
+                        <label for="cname">Name on Card</label>
+                        <input type="text" id="cname" placeholder="VISA" title="Please start with a capital letter">
+                        <label for="ccnum">Credit card number</label>
+                        <input type="text" id="ccnum" name="cardnumber" pattern="^[1-9]{1}(?:[0-9]{15})?$" placeholder="1111222233334444" title="Please enter 16 numbers" required>
 
-                            <label for="expmonth">Exp Month</label>
-                            <input type="text" id="expmonth" name="expmonth" placeholder="12" pattern="^(0?[1-9]|1[012])$" title="Please enter 2 numbers" required>
+                        <label for="expmonth">Exp Month</label>
+                        <input type="text" id="expmonth" name="expmonth" placeholder="12" pattern="^(0?[1-9]|1[012])$" title="Please enter 2 numbers" required>
 
                             <div class="row">
                                 <div class="col-25">
@@ -53,20 +51,19 @@
                             </div>
                         </div>
 
-                    </div>
+                </div>
 
-                    <p class="text-center">Total payment: @Html.DisplayFor(model => Model.TotalAmount)</p>
+                <p class="text-center">Total payment: @Html.DisplayFor(model => Model.TotalAmount)</p>
 
-                    <input type="submit" class="btn" asp-action="Delivery" asp-route-id="@Model.ID" value="Continue to checkout">
-                    <input type="submit" class="btn" onclick="goBack()" value="Go Back">
-                </form>
-            </div>
+                <input type="submit" class="btn" asp-action="Delivery" asp-route-id="@Model.ID" value="Continue to checkout">
+                <input type="submit" class="btn" onclick="goBack()" value="Go Back">
+            </form>
         </div>
     </div>
-    
-    @* <script type="text/javascript" src="~/js/Pay.js"></script>*@
+</div>
 
-</body>
+@* <script type="text/javascript" src="~/js/Pay.js"></script>*@
+
 
 
 

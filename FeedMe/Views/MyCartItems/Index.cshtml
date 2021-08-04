@@ -1,14 +1,16 @@
 ﻿@model IEnumerable<FeedMe.Models.MyCartItem>
 
-@{
-    ViewData["Title"] = "Index";
-}
 <head>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
     <link rel="stylesheet" href="~/css/myCartItem.css" />
-    <h1>Index</h1>
+
 </head>
 
 
+<h1>Index</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -64,3 +66,5 @@
         }
     </tbody>
 </table>
+
+
