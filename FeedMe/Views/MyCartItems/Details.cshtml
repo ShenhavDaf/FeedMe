@@ -14,11 +14,11 @@
             <div class="container">
                 <hr />
                 <div class="row">
+                    
                     <div class="col dishCardBtn">
                         <img src="@Model.Dish.DishImage">
                     </div>
                     <div class="col-6" tabindex="0">
-
                         <h4 class="text-center">@Model.Dish.Name</h4>
                         <p class="text-center"> @Model.Dish.Description</p>
                         <p class="text-center"> @Model.Dish.Price₪</p>
@@ -32,15 +32,15 @@
                                 </b>
 
                                 @using (Html.BeginForm("Edit", "MyCartItems", FormMethod.Post))
-                                {@Html.TextBoxFor(Model => Model.Quantity, new { @type = "number", @min = "1" , @max = "50" })  <input type="submit" name="Quantity" value="Add"/>}
+                                {@Html.TextBoxFor(Model => Model.Quantity, new { @type = "number", @min = "1", @max = "50" }) <input type="submit" name="Quantity" value="Add" />}
 
                                 @*<button type="button" id="dishesBtn" class="btn btn-outline-info"> <a asp-controller="MyCarts" asp-action="Details" asp-route-id="@Model.MyCartID">Check</a>
-        </button>}*@
+                    </button>}*@
                                 @*<a href="https://localhost:44376/MyCarts/Details?id=@Model.ID&Quantity=" + Quantity> Check</a>*@
 
                                 <br />
                                 <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
-                                <br /> <br /> 
+                                <br /> <br />
 
                                 <button type="button" class="btn btn-light" onclick="goBack()">Go Back</button>
 

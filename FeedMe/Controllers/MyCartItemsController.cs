@@ -41,6 +41,8 @@ namespace FeedMe.Controllers
         // GET: MyCartItems/Details/5
         public async Task<IActionResult> Details(int id)
         {
+
+
             MyCartItem cartItem = new MyCartItem();
             MyCart myCart = new MyCart();
             myCart.MyCartItems = new List<MyCartItem>();
@@ -53,7 +55,7 @@ namespace FeedMe.Controllers
             cartItem.SaveQ = false;
             int flag = 0; //Check if the buyer have a cart.
 
-            foreach (var dish in _context.Dish) // get dish values.
+            foreach (var dish in _context.Dish.Include(r=>r.Restaurant)) // get dish values.
             {
                 if (dish.ID == id)
                 {
@@ -81,7 +83,7 @@ namespace FeedMe.Controllers
                     }
                     if (flag == 1)
                     {
-                        foreach (var myCartItem in _context.MyCartItem) // Get cartItems data.
+                        foreach (var myCartItem in _context.MyCartItem.Include(r=>r.Dish)) // Get cartItems data.
                         {
                             if (myCartItem.MyCartID == myCart.ID)
                                 myCart.MyCartItems.Add(myCartItem);

@@ -74,7 +74,7 @@ namespace FeedMe.Controllers
                 {
                     if (user.Email == userEmail)
                     {// לעבור על הרשימה של הקארטים של היוזר
-                        foreach (var cart in _context.MyCart) // Get user cart values.
+                        foreach (var cart in _context.MyCart.Include(i=>i.MyCartItems)) // Get user cart values.
                         {
                             if (user.Id == cart.UserID)
                             {
@@ -97,7 +97,7 @@ namespace FeedMe.Controllers
                 myCart.ID = (int)id;
             }
 
-            foreach (var myCartItem in _context.MyCartItem) //Get cartItems data.
+            foreach (var myCartItem in _context.MyCartItem.Include(d=>d.Dish)) //Get cartItems data.
             {
                 if (myCart.ID == myCartItem.MyCartID)
                 {
@@ -110,7 +110,7 @@ namespace FeedMe.Controllers
                         continue;
                     }
 
-                    foreach (var dish in _context.Dish) //Get dish data so we can see dish photo in the cart.
+                    foreach (var dish in _context.Dish.Include(r=>r.Restaurant)) //Get dish data so we can see dish photo in the cart.
                     {
                         if (dish.ID == myCartItem.DishID)
                         {
