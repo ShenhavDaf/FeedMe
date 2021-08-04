@@ -37,16 +37,15 @@
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
-
         <script type="text/javascript">
         const map = @Html.Raw(ViewData["Graph"]);
         window.onload = function () {
             var dataPoints = [];
 
             var chart = new CanvasJS.Chart("chartContainer", {
-                theme: "light1", // "light2", "dark1", "dark2"
+                theme: "light1", 
                 //move
-                animationEnabled: true, // change to true
+                animationEnabled: true, 
                 title: {
                     text: "The most popular Dishes",
                     fontColor: "black"
@@ -72,10 +71,7 @@
             const yValues = @Html.Raw(ViewData["GraphY"]);
             var barColors = [
                 "#b91d47",
-                "#00aba9",
-                "#2b5797",
-                "#e8c3b9",
-                "#1e7145"
+                "#00aba9"
             ];
 
             new Chart("myChart", {

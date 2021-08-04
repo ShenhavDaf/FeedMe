@@ -292,10 +292,6 @@ namespace FeedMe.Controllers
             //        on r.ID equals d.RestaurantID into result
             //        select result;
 
-            var query1 = from d in allDishes
-                         join r in allRestaurants
-                             on d.RestaurantID equals r.ID
-                         select new { d, r };
 
             var query2 = from d in allDishes
                          join r in allRestaurants
@@ -307,22 +303,11 @@ namespace FeedMe.Controllers
                              on d.RestaurantID equals r.ID
                          select d;
 
-            var query4 = from d in allDishes
-                         join r in allRestaurants
-                             on d.RestaurantID equals r.ID
-                         where id == d.RestaurantID
-                         select d;
             // קח את כל שמות המסעדות, מזג אותן עם כל המנות, היכן שהאיידי של מסעדה במסדר נתונים של מנות זהה לאיידי של רשימת המסעדות
             //  transaction/photo = dish table. user/person = restaurant table
 
-            //if (query1 == null)
-            //{
-            //    return NotFound();
-            //}
-
             viewJoin.Restaurants = query2.Distinct().SelectMany(x => x).ToList();
             viewJoin.Dishes = query3.ToList();
-            //viewJoin.Restaurants = rest.Distinct().Select(x => x).ToList();
 
             return View(viewJoin);
         }

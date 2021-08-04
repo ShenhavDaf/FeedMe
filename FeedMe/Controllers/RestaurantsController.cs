@@ -68,7 +68,7 @@ namespace FeedMe.Controllers
             return View(restaurant);
         }
 
-        //Shearch by name, category, address and Description
+        //Search by name, category, city and Description
         public async Task<IActionResult> Search(string searchString)
         {
             var restaurants = from m in _context.Restaurant
