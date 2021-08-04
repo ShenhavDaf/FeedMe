@@ -1,15 +1,16 @@
 ﻿@model FeedMe.Models.Category
 
-@{
-    ViewData["Title"] = "Delete a category";
-}
 <head>
+    @{
+        ViewData["Title"] = "Delete a category";
+    }
     <link rel="stylesheet" href="~/css/category.css" />
-    <h1>Delete</h1>
-
-    <h3>Are you sure you want to delete this?</h3>
 </head>
 
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Category</h4>
     <hr />
@@ -27,10 +28,12 @@
             @Html.DisplayFor(model => model.CategoryImage)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="ID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+
+

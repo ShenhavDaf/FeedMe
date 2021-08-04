@@ -1,16 +1,18 @@
 ﻿@model FeedMe.Models.Category
 
-@{
-    ViewData["Title"] = "Edit a category";
-}
-<head>
-    <link rel="stylesheet" href="~/css/category.css" />
-    <h1>Edit</h1>
 
-    <h4>Category</h4>
+<head>
+    @{
+        ViewData["Title"] = "Edit a category";
+    }
+    <link rel="stylesheet" href="~/css/category.css" />
+
 </head>
 
-<hr />
+
+<h1>Edit</h1>
+
+<h4>Category</h4>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -36,6 +38,8 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

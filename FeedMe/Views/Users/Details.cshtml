@@ -1,8 +1,11 @@
 ﻿@model FeedMe.Models.User
 
-@{
-    ViewData["Title"] = "Details of a user";
-}
+<head>
+    @{
+        ViewData["Title"] = "Details of a user";
+    }
+
+</head>
 
 <h1>Details</h1>
 
@@ -64,3 +67,4 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+

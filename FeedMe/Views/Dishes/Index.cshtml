@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<FeedMe.Models.Dish>
 
-@{
-    ViewData["Title"] = "Dish Homepage";
-
-}
-
-
 <head>
+    @{
+        ViewData["Title"] = "Dish Homepage";
+
+    }
     <link rel="stylesheet" href="~/css/dish.css" />
-    <h1>@ViewData["Title"]</h1>
+
 </head>
 
+
+<h1>@ViewData["Title"]</h1>
 <p>
     <a asp-action="Create">Create New Dish</a>
 </p>
@@ -77,3 +77,5 @@
     <button type="button" class="btn btn-secondary float-right" onclick="topFunction()" id="myBtn" title="Go to top">Top</
 
 </div>
+
+

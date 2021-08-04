@@ -1,11 +1,13 @@
 ﻿@model FeedMe.Models.User
 
-@{
-    ViewData["Title"] = "Access Denied";
-}
+
 <head>
+    @{
+        ViewData["Title"] = "Access Denied";
+    }
     <link rel="stylesheet" href="~/css/restaurant.css" />
 </head>
+
 
 <div class="row">
     <div class="col-md-12">
@@ -13,6 +15,8 @@
         <a asp-controller="Users" asp-action="Login">Click here to Login</a>
     </div>
 </div>
+
+
 
 
 <script src="~/js/accessdenied.js"></script>

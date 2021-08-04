@@ -1,8 +1,11 @@
 ﻿@model FeedMe.Models.City
 
-@{
-    ViewData["Title"] = "Edit a city";
-}
+<head>
+    @{
+        ViewData["Title"] = "Edit a city";
+    }
+</head>
+
 
 <h1>Edit</h1>
 
@@ -28,6 +31,8 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
