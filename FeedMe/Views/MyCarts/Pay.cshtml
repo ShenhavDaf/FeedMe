@@ -39,17 +39,17 @@
                         <label for="expmonth">Exp Month</label>
                         <input type="text" id="expmonth" name="expmonth" placeholder="12" pattern="^(0?[1-9]|1[012])$" title="Please enter 2 numbers" required>
 
-                        <div class="row">
-                            <div class="col-25">
-                                <label for="expyear">Exp Year</label>
-                                <input type="text" id="expyear" name="expyear" placeholder="2024" pattern="^\d{4}$" title="Please enter 4 numbers" required>
-                            </div>
-                            <div class="col-25">
-                                <label for="cvv">CVV</label>
-                                <input type="text" id="cvv" name="cvv" placeholder="352" pattern="^[0-9]{3}$" title="Please enter 3 numbers" required>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="expyear">Exp Year</label>
+                                    <input type="number" id="expyear" name="expyear" placeholder="2024" pattern="^\d{4}$" min="2022" max="2026" @*title="Please enter 4 numbers"*@ required>
+                                </div>
+                                <div class="col-25">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="352" pattern="^[0-9]{3}$" title="Please enter 3 numbers" required>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                 </div>
 
