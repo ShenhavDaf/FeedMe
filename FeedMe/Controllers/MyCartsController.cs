@@ -75,9 +75,6 @@ namespace FeedMe.Controllers
                         {
                             if (user.Id == cart.UserID)
                             {
-                                //if (cart.IsClose == true)
-                                //    user.MyCarts.Add(cart);
-                                //else
                                 if (cart.IsClose == false)
                                 {
                                     myCart.UserID = cart.UserID;
@@ -120,10 +117,7 @@ namespace FeedMe.Controllers
                 {
                     if (myCartItem.SaveQ == false)//Checks if the buyer didn't approved the cart item than it won't add to the cart.
                     {
-                        //myCart.TotalAmount -= myCartItem.Price;
-                        //  _context.Update(myCart); //לבדוק אם צריךךךך
                         _context.Remove(myCartItem);
-                        //_context.Update(myCart);
                         continue;
                     }
 
@@ -136,11 +130,9 @@ namespace FeedMe.Controllers
                             break;
                         }
                     }
-                    //myCartItem.MyCart = myCart; //Save the data in the cart and the cartItem.
-                    // myCartItem.MyCartID = myCart.ID;
+
                     myCart.TotalAmount += ((myCartItem.Price) * (myCartItem.Quantity));
                     myCart.MyCartItems.Add(myCartItem);
-                    //_context.Update(myCart); //לבדוק אם צריךךךך
                 }
             }
 
@@ -158,8 +150,6 @@ namespace FeedMe.Controllers
         public IActionResult Create()
         {
             return View();
-            //ViewData["UserID"] = new SelectList(_context.User, "Id", "Address");
-            //return View();
         }
 
         public async Task<IActionResult> Pay(int? id)
@@ -206,14 +196,6 @@ namespace FeedMe.Controllers
             }
             ViewData["UserID"] = new SelectList(_context.User, "Id", "Address", myCart.UserID);
             return View(myCart);
-
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(myCart);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(myCart);
         }
 
         // GET: MyCarts/Edit/5
@@ -317,7 +299,7 @@ namespace FeedMe.Controllers
             var myCart = await _context.MyCart.FindAsync(id);
             _context.MyCart.Remove(myCart);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("Create");
         }
 
         private bool MyCartExists(int id)
