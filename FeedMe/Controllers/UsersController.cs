@@ -344,6 +344,15 @@ namespace FeedMe.Controllers
                     user.Type = UserType.Client;
                 }
 
+                var userEmail = User.Claims.ToList()[0].Value;
+                foreach (var u in _context.User) //Get the currect user that is log in.
+                {
+                    if (u.RestaurantId == user.RestaurantId)
+                    {
+                        return NotFound();
+                    }
+                }
+
                 try
                 {
                     _context.Update(user);

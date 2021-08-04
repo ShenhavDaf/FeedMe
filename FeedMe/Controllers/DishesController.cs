@@ -97,8 +97,9 @@ namespace FeedMe.Controllers
             {
                 _context.Add(dish);
                 await _context.SaveChangesAsync();
-                //PostMessageToFacebook().Wait();
-                return RedirectToAction(nameof(Index));
+                PostMessageToFacebook(dish.Name).Wait();
+                return RedirectToAction("Index", "Restaurants");
+                //return RedirectToAction(nameof(Index));
             }
             ViewData["RestaurantID"] = new SelectList(_context.Restaurant, "ID", nameof(Restaurant.Name), dish.RestaurantID);
             return View(dish);
@@ -242,24 +243,21 @@ namespace FeedMe.Controllers
             return _context.Dish.Any(e => e.ID == id);
         }
 
-        //public static async Task<string> PostMessageToFacebook()
-        //{
-        //    // Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-        //    // for details on configuring this project to bundle and minify static web assets.
+        public static async Task<string> PostMessageToFacebook(string dishName)
+        {
+            // Post to Facebook after new dish is validated and created in the database
+            string pageId = "105380358425572";
+            string accessToken = "EAAMUCFVTWL0BAMhxIJkFQRBOZCmyOffnTkAlonCOj8U8ILB2O943aBqpOOMIou6MEduKppMUM9TcO67yPcQaqEchD2pTvC4FPsJwkQ6SIZAzgbhFhIgrFN50w5QofVWQayq4sIf5AVqWg7fCxtxPEHDDZCtyLmBFczn1kqmMIyWZBQQHOTrf";
 
-        //    // Post to Facebook after new dish is validated and created in the database
-        //    string pageId = "105380358425572";
-        //    string accessToken = "EAAMUCFVTWL0BAMhxIJkFQRBOZCmyOffnTkAlonCOj8U8ILB2O943aBqpOOMIou6MEduKppMUM9TcO67yPcQaqEchD2pTvC4FPsJwkQ6SIZAzgbhFhIgrFN50w5QofVWQayq4sIf5AVqWg7fCxtxPEHDDZCtyLmBFczn1kqmMIyWZBQQHOTrf";
+            string message = "New dish: " + dishName + ", has been added!";
 
-        //    string message = "Test 01082021_1";
+            FacebookApi api = new FacebookApi(pageId, accessToken);
+            string result = await api.PostMessage(message);
 
-        //    FacebookApi api = new FacebookApi(pageId, accessToken);
-        //    string result = await api.PostMessage(message);
+            Console.WriteLine(result);
 
-        //    Console.WriteLine(result);
-
-        //    return result;
-        //}
+            return result;
+        }
 
 
         public async Task<IActionResult> JoinDishRestaurant(int? id)

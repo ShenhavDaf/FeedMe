@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FeedMe.Data;
 using FeedMe.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FeedMe.Controllers
 {
@@ -21,6 +22,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCartItems
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var feedMeContext = _context.MyCartItem.Include(m => m.Dish).Include(m => m.MyCart).OrderBy(x => x.Dish.Name);
@@ -39,9 +41,13 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCartItems/Details/5
-        public async Task<IActionResult> Details(int id)
+        [Authorize(Roles = "Admin,rManager,Client")]
+        public async Task<IActionResult> Details(int? id)
         {
-
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             MyCartItem cartItem = new MyCartItem();
             MyCart myCart = new MyCart();
@@ -50,14 +56,14 @@ namespace FeedMe.Controllers
             myCart.TotalAmount = 0;
             myCart.User = new User();
             cartItem.Dish = new Dish();
-            cartItem.DishID = id;
+            cartItem.DishID = (int)id;
             cartItem.Quantity = 1;
             cartItem.SaveQ = false;
             int flag = 0; //Check if the buyer have a cart.
 
-            foreach (var dish in _context.Dish.Include(r=>r.Restaurant)) // get dish values.
+            foreach (var dish in _context.Dish.Include(r => r.Restaurant)) // Get dish values.
             {
-                if (dish.ID == id)
+                if (dish.ID == cartItem.DishID)
                 {
                     cartItem.Dish = dish;
                     cartItem.Price = dish.Price;
@@ -81,9 +87,10 @@ namespace FeedMe.Controllers
                             break;
                         }
                     }
+
                     if (flag == 1)
                     {
-                        foreach (var myCartItem in _context.MyCartItem.Include(r=>r.Dish)) // Get cartItems data.
+                        foreach (var myCartItem in _context.MyCartItem.Include(r => r.Dish)) // Get cartItems data.
                         {
                             if (myCartItem.MyCartID == myCart.ID)
                                 myCart.MyCartItems.Add(myCartItem);
@@ -96,16 +103,8 @@ namespace FeedMe.Controllers
                                 break;
                             }
                         }
-                        //if (myCart.MyCartItems == null)//check if this the first cart item.
-                        //{
-                        //    myCart.MyCartItems = new List<MyCartItem>();
-                        //}
-                        // myCart.TotalAmount += cartItem.Price; //update all new cartItem data.
-                        //cartItem.MyCartID = myCart.ID;
-                        //cartItem.MyCart = myCart;
-                        //myCart.MyCartItems.Add(cartItem);
                     }
-                    else
+                    else //The buyer doesn't have a cart open.
                     {
                         if (user.MyCarts == null)
                             user.MyCarts = new List<MyCart>();
@@ -113,18 +112,18 @@ namespace FeedMe.Controllers
                         myCart.User = user;
                         user.MyCarts.Add(myCart);
                         _context.Add(myCart);
-                        
                     }
                 }
-
             }
+
             cartItem.MyCartID = myCart.ID;
             cartItem.MyCart = myCart;
-            //_context.Add(myCart);
             myCart.MyCartItems.Add(cartItem);
             cartItem.Dish = null; // So that the dishes won't created again in the dish database.
-            if(flag == 1)
+
+            if (flag == 1)
                 _context.Add(cartItem);
+
             await _context.SaveChangesAsync();
 
             if (cartItem == null)
@@ -132,8 +131,17 @@ namespace FeedMe.Controllers
                 return NotFound();
             }
 
-            return View(cartItem);
+            //
+            var curCartItem = await _context.MyCartItem.Where(ci => ci.ID == id).ToListAsync();
+            if ((curCartItem != null || curCartItem.Count() >= 1))
+            {
+                var dishCartItems = await _context.MyCartItem.Where(ci => ci.DishID == id).ToListAsync();
+                if ((dishCartItems == null || dishCartItems.Count() < 1))
+                    return NotFound();
+            }
+            //
 
+            return View(cartItem);
         }
 
         // GET: MyCartItems/Create
@@ -291,6 +299,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCartItems/Delete/5
+        [Authorize(Roles ="Admin,rManager,Client")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -304,6 +313,10 @@ namespace FeedMe.Controllers
                 .FirstOrDefaultAsync(m => m.ID == id);
             foreach (var cart in _context.MyCart)
             {
+                if (myCartItem == null)
+                {
+                    return NotFound();
+                }
                 if (cart.ID == myCartItem.MyCartID)
                 {
                     cart.TotalAmount -= (myCartItem.Price * myCartItem.Quantity);

@@ -102,7 +102,7 @@ namespace FeedMe.Controllers
                         {// לעבור על הרשימה של הקארטים של היוזר
                             foreach (var cart in _context.MyCart) // Get user cart values.
                             {
-                                if (user.Id == cart.UserID)
+                                if (user.Id == cart.UserID && cart.ID == id)
                                 {
                                     var c = user.MyCarts.Where(x => x.ID == id);
                                     if (c.Count() <= 0)
@@ -291,6 +291,7 @@ namespace FeedMe.Controllers
         }
 
         // GET: MyCarts/Delete/5
+        [Authorize (Roles ="Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
