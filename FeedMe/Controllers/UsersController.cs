@@ -215,7 +215,8 @@ namespace FeedMe.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            var res = _context.User.Include(x => x.Restaurant);
+            return View(await res.ToListAsync());
         }
 
         //Sherch by name, address and phone number

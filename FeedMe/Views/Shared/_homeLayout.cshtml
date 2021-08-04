@@ -143,7 +143,7 @@
                                 <li><span class="dropdown-item-text">Status: @Context.User.Claims.ToList()[1].Value</span></li>
                                 <li><a class="dropdown-item" asp-controller="Users" asp-action="GetUserID">Account Settings</a></li>
                                 <li><a class="dropdown-item" asp-controller="MyCarts" asp-action="Details">My Cart</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" asp-controller="MyCarts" asp-action="Index">Order history</a></li>
                                 <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Logout</a></li>
                             </ul>
                         </div>

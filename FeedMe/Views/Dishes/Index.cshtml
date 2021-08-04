@@ -35,7 +35,16 @@
                             <div class="card dishCardBtn">
                                 <div class="row g-0">
                                     <div class="col-md-3">
-                                        <img src="@dish.DishImage" class="img-fluid rounded-start" alt="dishLogo">
+                                        @{
+                                            if (dish.DishImage == null)
+                                            {
+                                                <img width="150px" src="~/Photos/notFind2.jpg" class="itemCard">
+                                            }
+                                            else
+                                            {
+                                                <img src="@dish.DishImage" class="img-fluid rounded-start" alt="dishLogo">
+                                            }
+                                        }
                                     </div>
                                     <div class="col-md-7" id="bodyBorder">
                                         <div class="card-body">

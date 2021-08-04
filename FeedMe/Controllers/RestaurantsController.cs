@@ -96,6 +96,7 @@ namespace FeedMe.Controllers
             {
                 return NotFound();
             }
+            ViewData["Restaurants"] = restaurant;
 
             return View(restaurant);
         }

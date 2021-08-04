@@ -13,32 +13,38 @@
     @*do a css for cart*@
     <div class="container">
         <div class="row">
-            @foreach (var myCartItem in Model.MyCartItems)
+            @foreach (var group in Model.MyCartItems.GroupBy(g => g.Dish.Restaurant))
             {
-                <div class="container">
-                    <hr />
-                    <div class="row">
-                        <div class="col">
-                            <img src="@myCartItem.Dish.DishImage">
-                        </div>
-                        <div class="col-6" tabindex="0">
+                <h4>Restaurant Name : @group.Key.Name</h4>
 
-                            <h4 class="text-center">@myCartItem.Dish.Name</h4>
-                            <p class="text-center"> @myCartItem.Dish.Description</p>
-                            <p class="text-center">Amount:  @myCartItem.Quantity</p>
-                            <p class="text-center"> @myCartItem.Dish.Price₪</p>
-                        </div>
-                        <div class="col ">
+                @foreach (var myCartItem in group)
+                {
+                    <div class="container">
+                        <hr />
+                        <div class="row">
 
-                            <tr>
-                                <td>
-                                    <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@myCartItem.DishID">Change quantity</a> |
-                                    <a asp-controller="MyCartItems" asp-action="Delete" asp-route-id="@myCartItem.ID">Delete</a>
-                                </td>
-                            </tr>
+                            <div class="col">
+                                <img src="@myCartItem.Dish.DishImage">
+                            </div>
+                            <div class="col-6" tabindex="0">
+
+                                <h4 class="text-center">@myCartItem.Dish.Name</h4>
+                                <p class="text-center"> @myCartItem.Dish.Description</p>
+                                <p class="text-center">Amount:  @myCartItem.Quantity</p>
+                                <p class="text-center"> @myCartItem.Dish.Price₪</p>
+                            </div>
+                            <div class="col ">
+
+                                <tr>
+                                    <td>
+                                        <a asp-controller="MyCartItems" asp-action="Details" asp-route-id="@myCartItem.DishID">Change quantity</a> |
+                                        <a asp-controller="MyCartItems" asp-action="Delete" asp-route-id="@myCartItem.ID">Delete</a>
+                                    </td>
+                                </tr>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             }
             <br />
             <p class="text-center">_________________________________________________________________________________________________</p>
@@ -54,8 +60,8 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Delete" asp-route-id="@Model.ID">Delete</a>
-   
+
     <button type="button" class="btn btn-secondary float-right" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-    
+
 
 </div>
