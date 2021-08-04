@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" type="email" pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter only lowercase letters "/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="BirthdayDate" class="control-label"></label>
-                <input asp-for="BirthdayDate" class="form-control" />
+                <input asp-for="BirthdayDate" class="form-control" type="date" min="1900" max="2021" title="Please enter a year value between 1990-2021" />
                 <span asp-validation-for="BirthdayDate" class="text-danger"></span>
             </div>
             <div class="form-group text-center">
